@@ -1,23 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Instagram, Truck } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
 import { useSiteSettings } from "@/hooks/use-site-data";
 
 const ContactSection = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
   const { data: settings } = useSiteSettings();
   const whatsapp = settings?.whatsapp_number || "919920272566";
   const instagram = settings?.instagram_url || "#";
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.2 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <section

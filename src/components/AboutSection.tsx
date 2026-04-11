@@ -1,20 +1,8 @@
-import { useEffect, useRef, useState } from "react";
 import { useSiteSettings } from "@/hooks/use-site-data";
 import aboutCake from "@/assets/about-cake.png";
 
 const AboutSection = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
   const { data: settings } = useSiteSettings();
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.2 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
 
   const features = (settings?.about_features || "Custom Designs,Fresh Ingredients,Made with Love").split(",");
   const featureIcons = ["🎂", "🌿", "💜"];

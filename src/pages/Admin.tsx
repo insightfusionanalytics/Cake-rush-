@@ -126,7 +126,7 @@ function MenuTab() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h3 className="font-heading text-xl font-semibold">Menu Items</h3>
-        <Button onClick={() => setEditItem({ name: "", description: "", icon: "🎂", price: "", image_url: null, category_id: categories?.[0]?.id, sort_order: (items?.length || 0) + 1, is_active: true })} size="sm">
+        <Button onClick={() => setEditItem({ name: "", description: "", icon: "🎂", price: "", price_half_kg: "", price_one_kg: "", is_custom_only: false, image_url: null, category_id: categories?.[0]?.id, sort_order: (items?.length || 0) + 1, is_active: true })} size="sm">
           <Plus className="mr-1 h-4 w-4" /> Add Item
         </Button>
       </div>
@@ -172,11 +172,17 @@ function MenuTab() {
             <label className="text-xs font-medium">Description</label>
             <Input value={editItem.description} onChange={(e) => setEditItem({ ...editItem, description: e.target.value })} />
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-medium">Price</label>
-              <Input value={editItem.price} onChange={(e) => setEditItem({ ...editItem, price: e.target.value })} placeholder="₹499" />
+              <label className="text-xs font-medium">½ Kg Price</label>
+              <Input value={editItem.price_half_kg || ""} onChange={(e) => setEditItem({ ...editItem, price_half_kg: e.target.value })} placeholder="₹499" disabled={editItem.is_custom_only} />
             </div>
+            <div>
+              <label className="text-xs font-medium">1 Kg Price</label>
+              <Input value={editItem.price_one_kg || ""} onChange={(e) => setEditItem({ ...editItem, price_one_kg: e.target.value })} placeholder="₹899" disabled={editItem.is_custom_only} />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="text-xs font-medium">Category</label>
               <select className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" value={editItem.category_id} onChange={(e) => setEditItem({ ...editItem, category_id: e.target.value })}>
@@ -188,9 +194,15 @@ function MenuTab() {
               <Input type="number" value={editItem.sort_order} onChange={(e) => setEditItem({ ...editItem, sort_order: Number(e.target.value) })} />
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Switch checked={editItem.is_active} onCheckedChange={(v) => setEditItem({ ...editItem, is_active: v })} />
-            <span className="text-sm">Active</span>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <Switch checked={editItem.is_active} onCheckedChange={(v) => setEditItem({ ...editItem, is_active: v })} />
+              <span className="text-sm">Active</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Switch checked={editItem.is_custom_only} onCheckedChange={(v) => setEditItem({ ...editItem, is_custom_only: v })} />
+              <span className="text-sm">Custom Quote Only</span>
+            </div>
           </div>
           <div className="flex gap-2">
             <Button onClick={saveItem} size="sm"><Save className="mr-1 h-3 w-3" /> Save</Button>

@@ -9,13 +9,14 @@ const GallerySection = () => {
   const { data: images } = useGalleryImages();
 
   useEffect(() => {
+    if (!ref.current) return;
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setVisible(true); },
       { threshold: 0.1 }
     );
-    if (ref.current) observer.observe(ref.current);
+    observer.observe(ref.current);
     return () => observer.disconnect();
-  }, []);
+  }, [images]);
 
   if (!images || images.length === 0) return null;
 

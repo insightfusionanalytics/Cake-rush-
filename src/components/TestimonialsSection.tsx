@@ -7,13 +7,14 @@ const TestimonialsSection = () => {
   const { data: testimonials } = useTestimonials();
 
   useEffect(() => {
+    if (!ref.current) return;
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setVisible(true); },
       { threshold: 0.1 }
     );
-    if (ref.current) observer.observe(ref.current);
+    observer.observe(ref.current);
     return () => observer.disconnect();
-  }, []);
+  }, [testimonials]);
 
   if (!testimonials || testimonials.length === 0) return null;
 

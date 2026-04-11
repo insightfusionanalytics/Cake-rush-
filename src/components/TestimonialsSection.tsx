@@ -1,20 +1,7 @@
-import { useEffect, useRef, useState } from "react";
 import { useTestimonials } from "@/hooks/use-site-data";
 
 const TestimonialsSection = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
   const { data: testimonials } = useTestimonials();
-
-  useEffect(() => {
-    if (!ref.current) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.05 }
-    );
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [testimonials]);
 
   if (!testimonials || testimonials.length === 0) return null;
 

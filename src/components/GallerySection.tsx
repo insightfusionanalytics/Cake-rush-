@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 const images = [
   { src: "/gallery/cake_strawberry_v2_enhanced.png", alt: "Strawberry cake" },

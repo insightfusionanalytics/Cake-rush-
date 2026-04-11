@@ -77,8 +77,11 @@ export type Database = {
           id: string
           image_url: string | null
           is_active: boolean
+          is_custom_only: boolean
           name: string
           price: string
+          price_half_kg: string
+          price_one_kg: string
           sort_order: number
           updated_at: string
         }
@@ -90,8 +93,11 @@ export type Database = {
           id?: string
           image_url?: string | null
           is_active?: boolean
+          is_custom_only?: boolean
           name: string
           price?: string
+          price_half_kg?: string
+          price_one_kg?: string
           sort_order?: number
           updated_at?: string
         }
@@ -103,8 +109,11 @@ export type Database = {
           id?: string
           image_url?: string | null
           is_active?: boolean
+          is_custom_only?: boolean
           name?: string
           price?: string
+          price_half_kg?: string
+          price_one_kg?: string
           sort_order?: number
           updated_at?: string
         }

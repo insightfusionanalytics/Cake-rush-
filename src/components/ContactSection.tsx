@@ -1,23 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Instagram, Truck } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
 import { useSiteSettings } from "@/hooks/use-site-data";
 
 const ContactSection = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
   const { data: settings } = useSiteSettings();
   const whatsapp = settings?.whatsapp_number || "919920272566";
   const instagram = settings?.instagram_url || "#";
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.2 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <section
@@ -26,9 +14,8 @@ const ContactSection = () => {
       style={{
         background: "linear-gradient(135deg, hsl(var(--lavender)) 0%, hsl(var(--soft-pink)) 50%, hsl(var(--peach)) 100%)",
       }}
-      ref={ref}
     >
-      <div className={`container mx-auto px-4 md:px-8 text-center transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+      <div className="container mx-auto px-4 md:px-8 text-center animate-fade-in">
         <p className="text-primary font-medium tracking-widest uppercase text-sm mb-3">Ready to Order?</p>
         <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">
           {settings?.contact_heading || "Ready to Order Your Dream Cake?"}

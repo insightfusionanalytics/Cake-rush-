@@ -1,28 +1,16 @@
-import { useEffect, useRef, useState } from "react";
 import { useSiteSettings } from "@/hooks/use-site-data";
 import aboutCake from "@/assets/about-cake.png";
 
 const AboutSection = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
   const { data: settings } = useSiteSettings();
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.2 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
 
   const features = (settings?.about_features || "Custom Designs,Fresh Ingredients,Made with Love").split(",");
   const featureIcons = ["🎂", "🌿", "💜"];
 
   return (
-    <section id="about" className="py-24 bg-card" ref={ref}>
+    <section id="about" className="py-24 bg-card">
       <div className="container mx-auto px-4 md:px-8">
-        <div className={`flex flex-col lg:flex-row items-center gap-12 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+        <div className="flex flex-col lg:flex-row items-center gap-12 animate-fade-in">
           <div className="flex-1 flex justify-center">
             <div className="w-72 h-72 md:w-96 md:h-96 rounded-3xl overflow-hidden shadow-xl border-2 border-soft-pink">
               <img

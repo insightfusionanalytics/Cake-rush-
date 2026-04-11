@@ -1,26 +1,25 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useGalleryImages } from "@/hooks/use-site-data";
 
 const GallerySection = () => {
   const [selected, setSelected] = useState<number | null>(null);
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
   const { data: images } = useGalleryImages();
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.1 }
+  if (!images || images.length === 0) {
+    return (
+      <section id="gallery" className="py-24 bg-card">
+        <div className="container mx-auto px-4 md:px-8 text-center">
+          <p className="text-primary font-medium tracking-widest uppercase text-sm mb-3">Our Creations</p>
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">Gallery</h2>
+          <p className="text-muted-foreground text-lg">Loading our creations…</p>
+        </div>
+      </section>
     );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
-  if (!images || images.length === 0) return null;
+  }
 
   return (
-    <section id="gallery" className="py-24 bg-card" ref={ref}>
+    <section id="gallery" className="py-24 bg-card">
       <div className="container mx-auto px-4 md:px-8">
         <div className="text-center mb-12">
           <p className="text-primary font-medium tracking-widest uppercase text-sm mb-3">Our Creations</p>
@@ -35,10 +34,8 @@ const GallerySection = () => {
             <button
               key={img.id}
               onClick={() => setSelected(i)}
-              className={`group relative aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:scale-[1.02] ${
-                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-              style={{ transitionDelay: `${i * 40}ms` }}
+              className="group relative aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:scale-[1.02] animate-fade-in"
+              style={{ animationDelay: `${i * 40}ms` }}
             >
               <img
                 src={img.image_url}

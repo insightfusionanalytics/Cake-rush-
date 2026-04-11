@@ -68,6 +68,41 @@ export type Database = {
         }
         Relationships: []
       }
+      menu_item_prices: {
+        Row: {
+          created_at: string
+          id: string
+          menu_item_id: string
+          price: string
+          sort_order: number
+          weight_label: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          menu_item_id: string
+          price: string
+          sort_order?: number
+          weight_label: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          menu_item_id?: string
+          price?: string
+          sort_order?: number
+          weight_label?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "menu_item_prices_menu_item_id_fkey"
+            columns: ["menu_item_id"]
+            isOneToOne: false
+            referencedRelation: "menu_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       menu_items: {
         Row: {
           category_id: string
@@ -80,8 +115,6 @@ export type Database = {
           is_custom_only: boolean
           name: string
           price: string
-          price_half_kg: string
-          price_one_kg: string
           sort_order: number
           updated_at: string
         }
@@ -96,8 +129,6 @@ export type Database = {
           is_custom_only?: boolean
           name: string
           price?: string
-          price_half_kg?: string
-          price_one_kg?: string
           sort_order?: number
           updated_at?: string
         }
@@ -112,8 +143,6 @@ export type Database = {
           is_custom_only?: boolean
           name?: string
           price?: string
-          price_half_kg?: string
-          price_one_kg?: string
           sort_order?: number
           updated_at?: string
         }

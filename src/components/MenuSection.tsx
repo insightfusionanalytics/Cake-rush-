@@ -1,13 +1,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useMenuCategories, useMenuItems, useSiteSettings } from "@/hooks/use-site-data";
+import { useMenuCategories, useMenuItems, useAllMenuItemPrices, useSiteSettings } from "@/hooks/use-site-data";
 import { Button } from "@/components/ui/button";
 import { MessageCircle } from "lucide-react";
 
-const MenuCard = ({ item, index, whatsapp }: { item: any; index: number; whatsapp: string }) => (
-  <div
-    className="group bg-card/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-border/50 shadow-sm hover:shadow-lg transition-all duration-500 hover:-translate-y-1 animate-fade-in"
-    style={{ animationDelay: `${index * 60}ms` }}
-  >
+const MenuCard = ({ item, prices, whatsapp }: { item: any; prices: any[]; whatsapp: string }) => (
+  <div className="group bg-card/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-border/50 shadow-sm hover:shadow-lg transition-all duration-500 hover:-translate-y-1 animate-fade-in">
     {item.image_url ? (
       <div className="aspect-square overflow-hidden">
         <img src={item.image_url} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
@@ -18,7 +15,7 @@ const MenuCard = ({ item, index, whatsapp }: { item: any; index: number; whatsap
       </div>
     )}
     <div className="p-4">
-      <h3 className="font-heading text-lg font-semibold text-foreground mb-2">{item.name}</h3>
+      <h3 className="font-heading text-lg font-semibold text-foreground mb-1">{item.name}</h3>
       <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2 mb-3">{item.description}</p>
 
       {item.is_custom_only ? (
@@ -30,25 +27,18 @@ const MenuCard = ({ item, index, whatsapp }: { item: any; index: number; whatsap
             Request a Quote
           </Button>
         </a>
-      ) : (
-        <div className="space-y-1.5">
-          {item.price_half_kg && (
-            <div className="flex justify-between items-center text-sm">
-              <span className="text-muted-foreground">½ Kg</span>
-              <span className="font-semibold text-primary">{item.price_half_kg}</span>
+      ) : prices.length > 0 ? (
+        <div className="space-y-1">
+          {prices.map((p) => (
+            <div key={p.id} className="flex justify-between items-center text-sm">
+              <span className="text-muted-foreground">{p.weight_label}</span>
+              <span className="font-semibold text-primary">{p.price}</span>
             </div>
-          )}
-          {item.price_one_kg && (
-            <div className="flex justify-between items-center text-sm">
-              <span className="text-muted-foreground">1 Kg</span>
-              <span className="font-semibold text-primary">{item.price_one_kg}</span>
-            </div>
-          )}
-          {!item.price_half_kg && !item.price_one_kg && item.price && (
-            <p className="text-primary font-semibold text-sm">Starting from {item.price}</p>
-          )}
+          ))}
         </div>
-      )}
+      ) : item.price ? (
+        <p className="text-primary font-semibold text-sm">Starting from {item.price}</p>
+      ) : null}
     </div>
   </div>
 );
@@ -56,9 +46,13 @@ const MenuCard = ({ item, index, whatsapp }: { item: any; index: number; whatsap
 const MenuSection = () => {
   const { data: categories } = useMenuCategories();
   const { data: items } = useMenuItems();
+  const { data: allPrices } = useAllMenuItemPrices();
   const { data: settings } = useSiteSettings();
   const whatsapp = settings?.whatsapp_number || "919920272566";
   const activeItems = items?.filter((i) => i.is_active) || [];
+
+  const getPrices = (itemId: string) =>
+    (allPrices || []).filter((p) => p.menu_item_id === itemId).sort((a, b) => a.sort_order - b.sort_order);
 
   return (
     <section id="menu" className="py-24 bg-background">
@@ -83,8 +77,8 @@ const MenuSection = () => {
             {categories.map((cat) => (
               <TabsContent key={cat.id} value={cat.id}>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {activeItems.filter((item) => item.category_id === cat.id).map((item, i) => (
-                    <MenuCard key={item.id} item={item} index={i} whatsapp={whatsapp} />
+                  {activeItems.filter((item) => item.category_id === cat.id).map((item) => (
+                    <MenuCard key={item.id} item={item} prices={getPrices(item.id)} whatsapp={whatsapp} />
                   ))}
                 </div>
               </TabsContent>

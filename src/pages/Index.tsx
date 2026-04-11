@@ -3,6 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import MenuSection from "@/components/MenuSection";
 import GallerySection from "@/components/GallerySection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
@@ -15,6 +16,7 @@ const Index = () => {
       <AboutSection />
       <MenuSection />
       <GallerySection />
+      <TestimonialsSection />
       <ContactSection />
       <Footer />
       <WhatsAppFloat />

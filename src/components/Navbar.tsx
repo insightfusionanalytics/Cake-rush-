@@ -63,13 +63,13 @@ const Navbar = () => {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden bg-card/98 backdrop-blur-md border-t border-border animate-fade-in">
-          <div className="flex flex-col items-center gap-4 py-6">
+        <div className="md:hidden fixed inset-0 top-[72px] bg-background backdrop-blur-md border-t border-border animate-fade-in z-40">
+          <div className="flex flex-col items-center gap-6 py-10">
             {navLinks.map((l) => (
               <button
                 key={l.href}
                 onClick={() => handleClick(l.href)}
-                className="text-base font-medium text-foreground/80 hover:text-primary transition-colors"
+                className="text-lg font-medium text-foreground/80 hover:text-primary transition-colors"
               >
                 {l.label}
               </button>

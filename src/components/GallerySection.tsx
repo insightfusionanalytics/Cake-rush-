@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 const images = [
   { src: "/gallery/cake_strawberry_v2_enhanced.png", alt: "Strawberry cake" },
@@ -78,9 +78,7 @@ const GallerySection = () => {
 
       <Dialog open={selected !== null} onOpenChange={() => setSelected(null)}>
         <DialogContent className="max-w-3xl p-2 bg-card border-none rounded-3xl">
-          <VisuallyHidden>
-            <DialogTitle>Cake image preview</DialogTitle>
-          </VisuallyHidden>
+          <DialogTitle className="sr-only">Cake image preview</DialogTitle>
           {selected !== null && (
             <img
               src={images[selected].src}

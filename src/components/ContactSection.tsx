@@ -1,0 +1,63 @@
+import { Button } from "@/components/ui/button";
+import { MessageCircle, Instagram, Truck } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+
+const ContactSection = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.2 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section
+      id="contact"
+      className="py-24"
+      style={{
+        background: "linear-gradient(135deg, hsl(var(--lavender)) 0%, hsl(var(--soft-pink)) 50%, hsl(var(--peach)) 100%)",
+      }}
+      ref={ref}
+    >
+      <div className={`container mx-auto px-4 md:px-8 text-center transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+        <p className="text-primary font-medium tracking-widest uppercase text-sm mb-3">Ready to Order?</p>
+        <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">
+          Let's Make Your Celebration Special
+        </h2>
+        <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-10">
+          Simply reach out on WhatsApp with your design idea and we'll bring it to life!
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+          <a href="https://wa.me/919920272566?text=Hi!%20I'd%20like%20to%20order%20a%20custom%20cake" target="_blank" rel="noopener noreferrer">
+            <Button size="lg" className="bg-whatsapp hover:bg-whatsapp/90 text-white rounded-full px-10 py-6 text-base shadow-xl hover:shadow-2xl transition-all hover:scale-105">
+              <MessageCircle className="mr-2 h-5 w-5" />
+              Order on WhatsApp
+            </Button>
+          </a>
+          <a href="https://www.instagram.com/cake___rush/" target="_blank" rel="noopener noreferrer">
+            <Button
+              size="lg"
+              className="bg-instagram-pink hover:bg-instagram-pink/90 text-white rounded-full px-10 py-6 text-base shadow-xl hover:shadow-2xl transition-all hover:scale-105"
+            >
+              <Instagram className="mr-2 h-5 w-5" />
+              Follow on Instagram
+            </Button>
+          </a>
+        </div>
+
+        <div className="inline-flex items-center gap-2 bg-card/80 backdrop-blur rounded-full px-6 py-3 shadow-md border border-border">
+          <Truck className="h-5 w-5 text-primary" />
+          <span className="text-sm font-medium text-foreground">🚚 Delivery Available</span>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ContactSection;

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useGalleryImages } from "@/hooks/use-site-data";
 
@@ -9,7 +9,7 @@ const GallerySection = () => {
   if (!images || images.length === 0) return null;
 
   return (
-    <section id="gallery" className="py-24 bg-card" ref={ref}>
+    <section id="gallery" className="py-24 bg-card">
       <div className="container mx-auto px-4 md:px-8">
         <div className="text-center mb-12">
           <p className="text-primary font-medium tracking-widest uppercase text-sm mb-3">Our Creations</p>
@@ -24,10 +24,8 @@ const GallerySection = () => {
             <button
               key={img.id}
               onClick={() => setSelected(i)}
-              className={`group relative aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:scale-[1.02] ${
-                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-              style={{ transitionDelay: `${i * 40}ms` }}
+              className="group relative aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:scale-[1.02] animate-fade-in"
+              style={{ animationDelay: `${i * 40}ms` }}
             >
               <img
                 src={img.image_url}

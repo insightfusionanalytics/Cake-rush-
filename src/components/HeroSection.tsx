@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { MessageCircle } from "lucide-react";
+import logo from "@/assets/logo.jpeg";
 
 const HeroSection = () => {
   return (

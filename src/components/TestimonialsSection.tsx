@@ -10,11 +10,11 @@ const TestimonialsSection = () => {
     if (!ref.current) return;
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.1 }
+      { threshold: 0.05 }
     );
     observer.observe(ref.current);
     return () => observer.disconnect();
-  }, [testimonials]);
+  }, []);
 
   if (!testimonials || testimonials.length === 0) return null;
 

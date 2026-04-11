@@ -17,9 +17,12 @@ const images = [
   { src: "/gallery/cake_white_fruit_enhanced.png", alt: "White fruit cake" },
   { src: "/gallery/cake_basketweave_enhanced.png", alt: "Basketweave cake" },
   { src: "/gallery/cake_red_velvet_pro.png", alt: "Red velvet berry cake" },
+  { src: "/gallery/cake_nandini_v2_enhanced.png", alt: "Designer cake" },
   { src: "/gallery/cake_pineapple_enhanced.png", alt: "Pineapple cake" },
   { src: "/gallery/cake_hazelnut_enhanced.png", alt: "Hazelnut cake" },
   { src: "/gallery/cake_vanilla_macaron_pro.png", alt: "Vanilla macaron cake" },
+  { src: "/gallery/cake_aditya_v2_enhanced.png", alt: "Birthday celebration cake" },
+  { src: "/gallery/cake_sreyas_v2_enhanced.png", alt: "Designer birthday cake" },
 ];
 
 const GallerySection = () => {

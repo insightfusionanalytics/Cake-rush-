@@ -3,19 +3,14 @@ import { useMenuCategories, useMenuItems, useSiteSettings } from "@/hooks/use-si
 import { Button } from "@/components/ui/button";
 import { MessageCircle } from "lucide-react";
 
-const MenuCard = ({ item, index }: { item: any; index: number }) => (
+const MenuCard = ({ item, index, whatsapp }: { item: any; index: number; whatsapp: string }) => (
   <div
     className="group bg-card/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-border/50 shadow-sm hover:shadow-lg transition-all duration-500 hover:-translate-y-1 animate-fade-in"
     style={{ animationDelay: `${index * 60}ms` }}
   >
     {item.image_url ? (
       <div className="aspect-square overflow-hidden">
-        <img
-          src={item.image_url}
-          alt={item.name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          loading="lazy"
-        />
+        <img src={item.image_url} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
       </div>
     ) : (
       <div className="aspect-square bg-secondary/30 flex items-center justify-center">
@@ -23,10 +18,36 @@ const MenuCard = ({ item, index }: { item: any; index: number }) => (
       </div>
     )}
     <div className="p-4">
-      <h3 className="font-heading text-lg font-semibold text-foreground mb-1">{item.name}</h3>
-      <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">{item.description}</p>
-      {item.price && (
-        <p className="text-primary font-semibold mt-2 text-sm">Starting from {item.price}</p>
+      <h3 className="font-heading text-lg font-semibold text-foreground mb-2">{item.name}</h3>
+      <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2 mb-3">{item.description}</p>
+
+      {item.is_custom_only ? (
+        <a
+          href={`https://wa.me/${whatsapp}?text=Hi!%20I'd%20like%20a%20quote%20for%20${encodeURIComponent(item.name)}`}
+          target="_blank" rel="noopener noreferrer"
+        >
+          <Button size="sm" variant="outline" className="w-full rounded-full text-xs border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+            Request a Quote
+          </Button>
+        </a>
+      ) : (
+        <div className="space-y-1.5">
+          {item.price_half_kg && (
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-muted-foreground">½ Kg</span>
+              <span className="font-semibold text-primary">{item.price_half_kg}</span>
+            </div>
+          )}
+          {item.price_one_kg && (
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-muted-foreground">1 Kg</span>
+              <span className="font-semibold text-primary">{item.price_one_kg}</span>
+            </div>
+          )}
+          {!item.price_half_kg && !item.price_one_kg && item.price && (
+            <p className="text-primary font-semibold text-sm">Starting from {item.price}</p>
+          )}
+        </div>
       )}
     </div>
   </div>
@@ -63,7 +84,7 @@ const MenuSection = () => {
               <TabsContent key={cat.id} value={cat.id}>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                   {activeItems.filter((item) => item.category_id === cat.id).map((item, i) => (
-                    <MenuCard key={item.id} item={item} index={i} />
+                    <MenuCard key={item.id} item={item} index={i} whatsapp={whatsapp} />
                   ))}
                 </div>
               </TabsContent>

@@ -7,7 +7,11 @@ const images = [
   { src: "/gallery/cake_pink_pearl_enhanced.png", alt: "Pink pearl cake" },
   { src: "/gallery/cake_holi_enhanced.png", alt: "Colorful Holi cake" },
   { src: "/gallery/cake_mango_enhanced.png", alt: "Mango cake" },
-  { src: "/gallery/cake_womens_day_enhanced.png", alt: "Women's day cake" },
+  { src: "/gallery/cake_red_velvet_new.png", alt: "Red Velvet cake" },
+  { src: "/gallery/cake_oreo_new.png", alt: "Oreo cake" },
+  { src: "/gallery/cake_dutch_truffle_new.png", alt: "Dutch Truffle cake" },
+  { src: "/gallery/cake_cheesecake_new.png", alt: "Cheesecake" },
+  { src: "/gallery/cake_biscoff_new.png", alt: "Biscoff cake" },
   { src: "/gallery/cake_easter_enhanced.png", alt: "Easter themed cake" },
   { src: "/gallery/cake_green_floral_enhanced.png", alt: "Green floral cake" },
   { src: "/gallery/cake_dancing_queen_v2_enhanced.png", alt: "Dancing queen cake" },
@@ -15,6 +19,9 @@ const images = [
   { src: "/gallery/cake_pineapple_enhanced.png", alt: "Pineapple cake" },
   { src: "/gallery/cake_hazelnut_enhanced.png", alt: "Hazelnut cake" },
   { src: "/gallery/cake_sreyas_v2_enhanced.png", alt: "Designer birthday cake" },
+  { src: "/gallery/cake_pops_new.png", alt: "Cake Pops" },
+  { src: "/gallery/cupcakes_new.png", alt: "Cupcakes" },
+  { src: "/gallery/mini_jars_new.png", alt: "Mini Jars" },
 ];
 
 const GallerySection = () => {

@@ -50,6 +50,59 @@ export function useMenuItems() {
   });
 }
 
+// Menu Item Prices (flexible weight/price variants)
+export function useMenuItemPrices(menuItemId?: string) {
+  return useQuery({
+    queryKey: ["menu_item_prices", menuItemId],
+    queryFn: async () => {
+      let q = supabase.from("menu_item_prices").select("*").order("sort_order");
+      if (menuItemId) q = q.eq("menu_item_id", menuItemId);
+      const { data, error } = await q;
+      if (error) throw error;
+      return data;
+    },
+  });
+}
+
+export function useAllMenuItemPrices() {
+  return useQuery({
+    queryKey: ["menu_item_prices_all"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("menu_item_prices").select("*").order("sort_order");
+      if (error) throw error;
+      return data;
+    },
+  });
+}
+
+export function useUpsertMenuItemPrice() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (price: any) => {
+      const { error } = await supabase.from("menu_item_prices").upsert(price);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["menu_item_prices"] });
+      qc.invalidateQueries({ queryKey: ["menu_item_prices_all"] });
+    },
+  });
+}
+
+export function useDeleteMenuItemPrice() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from("menu_item_prices").delete().eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["menu_item_prices"] });
+      qc.invalidateQueries({ queryKey: ["menu_item_prices_all"] });
+    },
+  });
+}
+
 export function useUpsertMenuItem() {
   const qc = useQueryClient();
   return useMutation({

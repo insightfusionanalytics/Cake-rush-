@@ -3,7 +3,16 @@ import { useTestimonials } from "@/hooks/use-site-data";
 const TestimonialsSection = () => {
   const { data: testimonials } = useTestimonials();
 
-  if (!testimonials || testimonials.length === 0) return null;
+  if (!testimonials || testimonials.length === 0) {
+    return (
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4 md:px-8 text-center">
+          <p className="text-primary font-medium tracking-widest uppercase text-sm mb-3">Testimonials</p>
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">What Our Clients Say</h2>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-20 bg-background">

@@ -6,7 +6,17 @@ const GallerySection = () => {
   const [selected, setSelected] = useState<number | null>(null);
   const { data: images } = useGalleryImages();
 
-  if (!images || images.length === 0) return null;
+  if (!images || images.length === 0) {
+    return (
+      <section id="gallery" className="py-24 bg-card">
+        <div className="container mx-auto px-4 md:px-8 text-center">
+          <p className="text-primary font-medium tracking-widest uppercase text-sm mb-3">Our Creations</p>
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">Gallery</h2>
+          <p className="text-muted-foreground text-lg">Loading our creations…</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="gallery" className="py-24 bg-card">

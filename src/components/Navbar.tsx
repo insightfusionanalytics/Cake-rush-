@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useSiteSettings } from "@/hooks/use-site-data";
 import logo from "@/assets/logo.jpeg";
 
 const navLinks = [
@@ -14,6 +15,8 @@ const navLinks = [
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { data: settings } = useSiteSettings();
+  const whatsapp = settings?.whatsapp_number || "919920272566";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -29,9 +32,7 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-card/95 backdrop-blur-md shadow-md"
-          : "bg-transparent"
+        scrolled ? "bg-card/95 backdrop-blur-md shadow-md" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto flex items-center justify-between py-4 px-4 md:px-8">
@@ -39,7 +40,6 @@ const Navbar = () => {
           <img src={logo} alt="Cake Rush" className="h-12 w-auto rounded-full" />
         </button>
 
-        {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((l) => (
             <button
@@ -50,24 +50,18 @@ const Navbar = () => {
               {l.label}
             </button>
           ))}
-          <a href="https://wa.me/919920272566" target="_blank" rel="noopener noreferrer">
+          <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer">
             <Button className="bg-whatsapp hover:bg-whatsapp/90 text-white rounded-full px-6 shadow-lg">
               Order Now
             </Button>
           </a>
         </div>
 
-        {/* Mobile toggle */}
-        <button
-          className="md:hidden text-foreground"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
+        <button className="md:hidden text-foreground" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden bg-card/98 backdrop-blur-md border-t border-border animate-fade-in">
           <div className="flex flex-col items-center gap-4 py-6">
@@ -80,7 +74,7 @@ const Navbar = () => {
                 {l.label}
               </button>
             ))}
-            <a href="https://wa.me/919920272566" target="_blank" rel="noopener noreferrer">
+            <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer">
               <Button className="bg-whatsapp hover:bg-whatsapp/90 text-white rounded-full px-8 shadow-lg">
                 Order Now
               </Button>

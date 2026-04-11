@@ -1,31 +1,10 @@
-import { useState, useEffect, useRef } from "react";
-
-const testimonials = [
-  {
-    name: "Priya S.",
-    text: "Ordered a mango cake for my daughter's birthday — it was absolutely divine! Fresh, moist, and beautifully decorated. Will order again!",
-    rating: 5,
-  },
-  {
-    name: "Rahul M.",
-    text: "The Dutch Truffle cake was the highlight of our anniversary party. Everyone kept asking where we got it from!",
-    rating: 5,
-  },
-  {
-    name: "Sneha K.",
-    text: "Best eggless cakes in town! The Red Velvet was so rich and creamy. Cake Rush never disappoints 🎂",
-    rating: 5,
-  },
-  {
-    name: "Anita D.",
-    text: "Ordered customized cupcakes for a baby shower — they looked gorgeous and tasted even better. Highly recommend!",
-    rating: 5,
-  },
-];
+import { useEffect, useRef, useState } from "react";
+import { useTestimonials } from "@/hooks/use-site-data";
 
 const TestimonialsSection = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const { data: testimonials } = useTestimonials();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -35,6 +14,8 @@ const TestimonialsSection = () => {
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
+
+  if (!testimonials || testimonials.length === 0) return null;
 
   return (
     <section className="py-20 bg-background" ref={ref}>
@@ -52,8 +33,8 @@ const TestimonialsSection = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {testimonials.map((t, i) => (
             <div
-              key={i}
-              className={`bg-card rounded-2xl p-6 shadow-sm border border-border transition-all duration-500 ${
+              key={t.id}
+              className={`bg-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-border/50 hover:shadow-lg transition-all duration-500 hover:-translate-y-1 ${
                 visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
               style={{ transitionDelay: `${i * 100}ms` }}
@@ -63,8 +44,8 @@ const TestimonialsSection = () => {
                   <span key={j} className="text-primary text-lg">★</span>
                 ))}
               </div>
-              <p className="text-muted-foreground text-sm leading-relaxed mb-4">"{t.text}"</p>
-              <p className="font-heading font-semibold text-foreground">— {t.name}</p>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4">"{t.review_text}"</p>
+              <p className="font-heading font-semibold text-foreground">— {t.client_name}</p>
             </div>
           ))}
         </div>

@@ -1,33 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-
-const images = [
-  { src: "/gallery/cake_strawberry_v2_enhanced.png", alt: "Strawberry cake" },
-  { src: "/gallery/cake_gold_black_enhanced.png", alt: "Gold & black themed cake" },
-  { src: "/gallery/cake_pink_pearl_enhanced.png", alt: "Pink pearl cake" },
-  { src: "/gallery/cake_holi_enhanced.png", alt: "Colorful Holi cake" },
-  { src: "/gallery/cake_mango_enhanced.png", alt: "Mango cake" },
-  { src: "/gallery/cake_red_velvet_new.png", alt: "Red Velvet cake" },
-  { src: "/gallery/cake_oreo_new.png", alt: "Oreo cake" },
-  { src: "/gallery/cake_dutch_truffle_new.png", alt: "Dutch Truffle cake" },
-  { src: "/gallery/cake_cheesecake_new.png", alt: "Cheesecake" },
-  { src: "/gallery/cake_biscoff_new.png", alt: "Biscoff cake" },
-  { src: "/gallery/cake_easter_enhanced.png", alt: "Easter themed cake" },
-  { src: "/gallery/cake_green_floral_enhanced.png", alt: "Green floral cake" },
-  { src: "/gallery/cake_dancing_queen_v2_enhanced.png", alt: "Dancing queen cake" },
-  { src: "/gallery/cake_birthday_pallavi_enhanced.png", alt: "Birthday cake" },
-  { src: "/gallery/cake_pineapple_enhanced.png", alt: "Pineapple cake" },
-  { src: "/gallery/cake_hazelnut_enhanced.png", alt: "Hazelnut cake" },
-  { src: "/gallery/cake_sreyas_v2_enhanced.png", alt: "Designer birthday cake" },
-  { src: "/gallery/cake_pops_new.png", alt: "Cake Pops" },
-  { src: "/gallery/cupcakes_new.png", alt: "Cupcakes" },
-  { src: "/gallery/mini_jars_new.png", alt: "Mini Jars" },
-];
+import { useGalleryImages } from "@/hooks/use-site-data";
 
 const GallerySection = () => {
   const [selected, setSelected] = useState<number | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const { data: images } = useGalleryImages();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -37,6 +16,8 @@ const GallerySection = () => {
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
+
+  if (!images || images.length === 0) return null;
 
   return (
     <section id="gallery" className="py-24 bg-card" ref={ref}>
@@ -52,7 +33,7 @@ const GallerySection = () => {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
           {images.map((img, i) => (
             <button
-              key={img.src}
+              key={img.id}
               onClick={() => setSelected(i)}
               className={`group relative aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:scale-[1.02] ${
                 visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -60,14 +41,14 @@ const GallerySection = () => {
               style={{ transitionDelay: `${i * 40}ms` }}
             >
               <img
-                src={img.src}
-                alt={img.alt}
+                src={img.image_url}
+                alt={img.alt_text}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/20 transition-colors duration-300 flex items-end">
                 <span className="text-white text-sm font-medium p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
-                  {img.alt}
+                  {img.alt_text}
                 </span>
               </div>
             </button>
@@ -78,10 +59,10 @@ const GallerySection = () => {
       <Dialog open={selected !== null} onOpenChange={() => setSelected(null)}>
         <DialogContent className="max-w-3xl p-2 bg-card border-none rounded-3xl">
           <DialogTitle className="sr-only">Cake image preview</DialogTitle>
-          {selected !== null && (
+          {selected !== null && images[selected] && (
             <img
-              src={images[selected].src}
-              alt={images[selected].alt}
+              src={images[selected].image_url}
+              alt={images[selected].alt_text}
               className="w-full h-auto rounded-2xl"
             />
           )}

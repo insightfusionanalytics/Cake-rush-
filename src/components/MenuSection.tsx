@@ -5,15 +5,30 @@ import { MessageCircle } from "lucide-react";
 
 const MenuCard = ({ item, index }: { item: any; index: number }) => (
   <div
-    className="group bg-card/80 backdrop-blur-sm rounded-2xl p-5 border border-border/50 shadow-sm hover:shadow-lg transition-all duration-500 hover:-translate-y-1 animate-fade-in"
+    className="group bg-card/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-border/50 shadow-sm hover:shadow-lg transition-all duration-500 hover:-translate-y-1 animate-fade-in"
     style={{ animationDelay: `${index * 60}ms` }}
   >
-    <span className="text-3xl mb-3 block group-hover:scale-110 transition-transform duration-300">{item.icon}</span>
-    <h3 className="font-heading text-lg font-semibold text-foreground mb-1">{item.name}</h3>
-    <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
-    {item.price && (
-      <p className="text-primary font-semibold mt-2 text-sm">Starting from {item.price}</p>
+    {item.image_url ? (
+      <div className="aspect-square overflow-hidden">
+        <img
+          src={item.image_url}
+          alt={item.name}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          loading="lazy"
+        />
+      </div>
+    ) : (
+      <div className="aspect-square bg-secondary/30 flex items-center justify-center">
+        <span className="text-5xl group-hover:scale-110 transition-transform duration-300">{item.icon}</span>
+      </div>
     )}
+    <div className="p-4">
+      <h3 className="font-heading text-lg font-semibold text-foreground mb-1">{item.name}</h3>
+      <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">{item.description}</p>
+      {item.price && (
+        <p className="text-primary font-semibold mt-2 text-sm">Starting from {item.price}</p>
+      )}
+    </div>
   </div>
 );
 

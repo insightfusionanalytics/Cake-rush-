@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
-import { ArrowLeft, Plus, Trash2, Save } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, Save, Upload, Image } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -14,6 +14,15 @@ import {
   useAllGalleryImages, useUpsertGalleryImage, useDeleteGalleryImage,
   useAllTestimonials, useUpsertTestimonial, useDeleteTestimonial,
 } from "@/hooks/use-site-data";
+
+// ─── Helper: Upload image to storage ───
+async function uploadImage(file: File, folder: string): Promise<string> {
+  const path = `${folder}/${Date.now()}_${file.name}`;
+  const { error } = await supabase.storage.from("images").upload(path, file);
+  if (error) throw error;
+  const { data: { publicUrl } } = supabase.storage.from("images").getPublicUrl(path);
+  return publicUrl;
+}
 
 // ─── Site Settings Tab ───
 function SettingsTab() {
@@ -74,16 +83,30 @@ function SettingsTab() {
   );
 }
 
-// ─── Menu Tab ───
+// ─── Menu Tab (with image upload) ───
 function MenuTab() {
   const { data: categories } = useMenuCategories();
   const { data: items, isLoading } = useMenuItems();
   const upsert = useUpsertMenuItem();
   const remove = useDeleteMenuItem();
-
   const [editItem, setEditItem] = useState<any>(null);
+  const [uploading, setUploading] = useState(false);
 
   if (isLoading) return <p className="text-muted-foreground">Loading…</p>;
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !editItem) return;
+    setUploading(true);
+    try {
+      const url = await uploadImage(file, "menu");
+      setEditItem({ ...editItem, image_url: url });
+      toast.success("Image uploaded!");
+    } catch {
+      toast.error("Upload failed");
+    }
+    setUploading(false);
+  };
 
   const saveItem = async () => {
     if (!editItem?.name || !editItem?.category_id) {
@@ -103,20 +126,45 @@ function MenuTab() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h3 className="font-heading text-xl font-semibold">Menu Items</h3>
-        <Button onClick={() => setEditItem({ name: "", description: "", icon: "🎂", price: "", category_id: categories?.[0]?.id, sort_order: (items?.length || 0) + 1, is_active: true })} size="sm">
+        <Button onClick={() => setEditItem({ name: "", description: "", icon: "🎂", price: "", image_url: null, category_id: categories?.[0]?.id, sort_order: (items?.length || 0) + 1, is_active: true })} size="sm">
           <Plus className="mr-1 h-4 w-4" /> Add Item
         </Button>
       </div>
 
       {editItem && (
         <div className="bg-secondary/50 rounded-xl p-4 space-y-3 border border-border">
+          {/* Image upload area */}
+          <div className="flex items-start gap-4">
+            <div className="w-24 h-24 rounded-xl overflow-hidden border-2 border-dashed border-border bg-background flex items-center justify-center flex-shrink-0">
+              {editItem.image_url ? (
+                <img src={editItem.image_url} alt="" className="w-full h-full object-cover" />
+              ) : (
+                <Image className="h-8 w-8 text-muted-foreground" />
+              )}
+            </div>
+            <div className="flex-1 space-y-1">
+              <label className="text-xs font-medium">Product Image</label>
+              <label className="cursor-pointer block">
+                <Button asChild size="sm" variant="outline" disabled={uploading}>
+                  <span><Upload className="mr-1 h-3 w-3" /> {uploading ? "Uploading…" : "Upload Image"}</span>
+                </Button>
+                <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
+              </label>
+              {editItem.image_url && (
+                <button className="text-xs text-destructive hover:underline" onClick={() => setEditItem({ ...editItem, image_url: null })}>
+                  Remove image
+                </button>
+              )}
+            </div>
+          </div>
+
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="text-xs font-medium">Name</label>
               <Input value={editItem.name} onChange={(e) => setEditItem({ ...editItem, name: e.target.value })} />
             </div>
             <div>
-              <label className="text-xs font-medium">Icon (emoji)</label>
+              <label className="text-xs font-medium">Icon (fallback emoji)</label>
               <Input value={editItem.icon} onChange={(e) => setEditItem({ ...editItem, icon: e.target.value })} />
             </div>
           </div>
@@ -158,9 +206,14 @@ function MenuTab() {
             {items?.filter((i) => i.category_id === cat.id).map((item) => (
               <div key={item.id} className="flex items-center justify-between bg-card rounded-lg px-4 py-2.5 mb-1 border border-border/50">
                 <div className="flex items-center gap-3">
-                  <span className="text-xl">{item.icon}</span>
+                  {item.image_url ? (
+                    <img src={item.image_url} alt="" className="w-10 h-10 rounded-lg object-cover" />
+                  ) : (
+                    <span className="text-xl">{item.icon}</span>
+                  )}
                   <div>
                     <span className="text-sm font-medium">{item.name}</span>
+                    {item.price && <span className="ml-2 text-xs text-primary">{item.price}</span>}
                     {!item.is_active && <span className="ml-2 text-xs text-muted-foreground">(hidden)</span>}
                   </div>
                 </div>
@@ -191,10 +244,7 @@ function GalleryTab() {
     if (!file) return;
     setUploading(true);
     try {
-      const path = `gallery/${Date.now()}_${file.name}`;
-      const { error: uploadError } = await supabase.storage.from("images").upload(path, file);
-      if (uploadError) throw uploadError;
-      const { data: { publicUrl } } = supabase.storage.from("images").getPublicUrl(path);
+      const publicUrl = await uploadImage(file, "gallery");
       await upsert.mutateAsync({
         image_url: publicUrl,
         alt_text: file.name.replace(/\.[^/.]+$/, "").replace(/[_-]/g, " "),

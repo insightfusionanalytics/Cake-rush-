@@ -14,7 +14,7 @@ const TestimonialsSection = () => {
     );
     observer.observe(ref.current);
     return () => observer.disconnect();
-  }, []);
+  }, [testimonials]);
 
   if (!testimonials || testimonials.length === 0) return null;
 

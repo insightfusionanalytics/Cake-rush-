@@ -11,11 +11,11 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   useSiteSettings, useUpdateSetting,
   useMenuCategories, useMenuItems, useUpsertMenuItem, useDeleteMenuItem,
+  useAllMenuItemPrices, useUpsertMenuItemPrice, useDeleteMenuItemPrice,
   useAllGalleryImages, useUpsertGalleryImage, useDeleteGalleryImage,
   useAllTestimonials, useUpsertTestimonial, useDeleteTestimonial,
 } from "@/hooks/use-site-data";
 
-// ─── Helper: Upload image to storage ───
 async function uploadImage(file: File, folder: string): Promise<string> {
   const path = `${folder}/${Date.now()}_${file.name}`;
   const { error } = await supabase.storage.from("images").upload(path, file);
@@ -83,10 +83,65 @@ function SettingsTab() {
   );
 }
 
-// ─── Menu Tab (with image upload) ───
+// ─── Price Variants Editor (inline within Menu Tab) ───
+function PriceVariantsEditor({ menuItemId }: { menuItemId: string }) {
+  const { data: allPrices } = useAllMenuItemPrices();
+  const upsertPrice = useUpsertMenuItemPrice();
+  const deletePrice = useDeleteMenuItemPrice();
+  const [newLabel, setNewLabel] = useState("");
+  const [newPrice, setNewPrice] = useState("");
+
+  const prices = allPrices?.filter((p) => p.menu_item_id === menuItemId) || [];
+
+  const addPrice = async () => {
+    if (!newLabel.trim() || !newPrice.trim()) {
+      toast.error("Both weight and price are required");
+      return;
+    }
+    try {
+      await upsertPrice.mutateAsync({
+        menu_item_id: menuItemId,
+        weight_label: newLabel.trim(),
+        price: newPrice.trim(),
+        sort_order: prices.length + 1,
+      });
+      setNewLabel("");
+      setNewPrice("");
+      toast.success("Price added!");
+    } catch {
+      toast.error("Failed to add price");
+    }
+  };
+
+  return (
+    <div className="space-y-2">
+      <label className="text-xs font-medium block">Price Variants</label>
+      {prices.map((p) => (
+        <div key={p.id} className="flex items-center gap-2">
+          <span className="text-sm bg-background border border-border rounded-md px-3 py-1.5 flex-1">{p.weight_label}</span>
+          <span className="text-sm font-semibold text-primary bg-background border border-border rounded-md px-3 py-1.5 flex-1">{p.price}</span>
+          <Button variant="ghost" size="sm" className="text-destructive h-8 w-8 p-0" onClick={async () => { await deletePrice.mutateAsync(p.id); toast.success("Removed"); }}>
+            <Trash2 className="h-3.5 w-3.5" />
+          </Button>
+        </div>
+      ))}
+      <div className="flex items-center gap-2">
+        <Input value={newLabel} onChange={(e) => setNewLabel(e.target.value)} placeholder="e.g. ½ Kg, 1 Kg, 2.5 Kg" className="flex-1 h-8 text-sm" />
+        <Input value={newPrice} onChange={(e) => setNewPrice(e.target.value)} placeholder="e.g. ₹499" className="flex-1 h-8 text-sm" />
+        <Button size="sm" variant="outline" onClick={addPrice} className="h-8">
+          <Plus className="h-3.5 w-3.5" />
+        </Button>
+      </div>
+      <p className="text-xs text-muted-foreground">Add as many weight/price options as you need</p>
+    </div>
+  );
+}
+
+// ─── Menu Tab ───
 function MenuTab() {
   const { data: categories } = useMenuCategories();
   const { data: items, isLoading } = useMenuItems();
+  const { data: allPrices } = useAllMenuItemPrices();
   const upsert = useUpsertMenuItem();
   const remove = useDeleteMenuItem();
   const [editItem, setEditItem] = useState<any>(null);
@@ -122,18 +177,23 @@ function MenuTab() {
     }
   };
 
+  const getPricePreview = (itemId: string) => {
+    const prices = allPrices?.filter((p) => p.menu_item_id === itemId) || [];
+    if (prices.length === 0) return null;
+    return prices.map((p) => `${p.weight_label}: ${p.price}`).join(", ");
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h3 className="font-heading text-xl font-semibold">Menu Items</h3>
-        <Button onClick={() => setEditItem({ name: "", description: "", icon: "🎂", price: "", price_half_kg: "", price_one_kg: "", is_custom_only: false, image_url: null, category_id: categories?.[0]?.id, sort_order: (items?.length || 0) + 1, is_active: true })} size="sm">
+        <Button onClick={() => setEditItem({ name: "", description: "", icon: "🎂", is_custom_only: false, image_url: null, category_id: categories?.[0]?.id, sort_order: (items?.length || 0) + 1, is_active: true })} size="sm">
           <Plus className="mr-1 h-4 w-4" /> Add Item
         </Button>
       </div>
 
       {editItem && (
         <div className="bg-secondary/50 rounded-xl p-4 space-y-3 border border-border">
-          {/* Image upload area */}
           <div className="flex items-start gap-4">
             <div className="w-24 h-24 rounded-xl overflow-hidden border-2 border-dashed border-border bg-background flex items-center justify-center flex-shrink-0">
               {editItem.image_url ? (
@@ -172,16 +232,14 @@ function MenuTab() {
             <label className="text-xs font-medium">Description</label>
             <Input value={editItem.description} onChange={(e) => setEditItem({ ...editItem, description: e.target.value })} />
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="text-xs font-medium">½ Kg Price</label>
-              <Input value={editItem.price_half_kg || ""} onChange={(e) => setEditItem({ ...editItem, price_half_kg: e.target.value })} placeholder="₹499" disabled={editItem.is_custom_only} />
-            </div>
-            <div>
-              <label className="text-xs font-medium">1 Kg Price</label>
-              <Input value={editItem.price_one_kg || ""} onChange={(e) => setEditItem({ ...editItem, price_one_kg: e.target.value })} placeholder="₹899" disabled={editItem.is_custom_only} />
-            </div>
-          </div>
+
+          {/* Price variants - only show for saved items */}
+          {editItem.id ? (
+            <PriceVariantsEditor menuItemId={editItem.id} />
+          ) : (
+            <p className="text-xs text-muted-foreground italic">Save the item first, then add price variants</p>
+          )}
+
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="text-xs font-medium">Category</label>
@@ -225,8 +283,11 @@ function MenuTab() {
                   )}
                   <div>
                     <span className="text-sm font-medium">{item.name}</span>
-                    {item.price && <span className="ml-2 text-xs text-primary">{item.price}</span>}
                     {!item.is_active && <span className="ml-2 text-xs text-muted-foreground">(hidden)</span>}
+                    {item.is_custom_only && <span className="ml-2 text-xs text-amber-600">(quote only)</span>}
+                    {getPricePreview(item.id) && (
+                      <p className="text-xs text-muted-foreground">{getPricePreview(item.id)}</p>
+                    )}
                   </div>
                 </div>
                 <div className="flex gap-1">

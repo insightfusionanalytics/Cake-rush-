@@ -1,13 +1,17 @@
 import { Instagram } from "lucide-react";
+import logo from "@/assets/logo.jpeg";
 
 const Footer = () => {
   return (
     <footer className="bg-foreground text-card py-12">
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="text-center md:text-left">
-            <h3 className="font-heading text-2xl font-bold mb-1">🎂 Cake Rush</h3>
-            <p className="text-card/60 text-sm">Baked with love for every celebration</p>
+          <div className="text-center md:text-left flex items-center gap-3">
+            <img src={logo} alt="Cake Rush" className="h-12 w-12 rounded-full" />
+            <div>
+              <h3 className="font-heading text-2xl font-bold">Cake Rush</h3>
+              <p className="text-card/60 text-sm">Baked with love for every celebration</p>
+            </div>
           </div>
 
           <div className="flex items-center gap-6">

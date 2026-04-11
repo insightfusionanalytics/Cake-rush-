@@ -35,8 +35,8 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between py-4 px-4 md:px-8">
-        <button onClick={() => handleClick("#home")} className="font-heading text-2xl font-bold text-foreground tracking-wide">
-          🎂 Cake Rush
+        <button onClick={() => handleClick("#home")} className="flex items-center">
+          <img src={logo} alt="Cake Rush" className="h-12 w-auto rounded-full" />
         </button>
 
         {/* Desktop */}

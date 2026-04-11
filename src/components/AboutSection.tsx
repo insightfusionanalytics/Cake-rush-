@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import aboutCake from "@/assets/about-cake.png";
 
 const AboutSection = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -21,8 +22,8 @@ const AboutSection = () => {
           <div className="flex-1 flex justify-center">
             <div className="w-72 h-72 md:w-96 md:h-96 rounded-3xl overflow-hidden shadow-xl border-2 border-soft-pink">
               <img
-                src="/gallery/cake_womens_day_enhanced.png"
-                alt="Beautifully decorated cake"
+                src={aboutCake}
+                alt="Playful half birthday cake with teddy bear"
                 className="w-full h-full object-cover"
               />
             </div>

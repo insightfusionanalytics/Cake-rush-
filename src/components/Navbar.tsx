@@ -63,7 +63,7 @@ const Navbar = () => {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden fixed inset-0 top-[72px] bg-card/98 backdrop-blur-md border-t border-border animate-fade-in z-40">
+        <div className="md:hidden fixed inset-0 top-[72px] bg-background backdrop-blur-md border-t border-border animate-fade-in z-40">
           <div className="flex flex-col items-center gap-6 py-10">
             {navLinks.map((l) => (
               <button

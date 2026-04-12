@@ -31,7 +31,8 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-card/10 mt-8 pt-6 text-center">
+        <div className="border-t border-card/10 mt-8 pt-6 text-center space-y-2">
+          <p className="text-card/60 text-sm">📍 Carter Road, Bandra West, Mumbai</p>
           <p className="text-card/40 text-sm">© {new Date().getFullYear()} Cake Rush. All rights reserved.</p>
         </div>
       </div>

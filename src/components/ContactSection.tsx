@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Instagram, Truck } from "lucide-react";
+import { MessageCircle, Instagram, Truck, MapPin } from "lucide-react";
 import { useSiteSettings } from "@/hooks/use-site-data";
 
 const ContactSection = () => {
@@ -42,9 +42,15 @@ const ContactSection = () => {
           </a>
         </div>
 
-        <div className="inline-flex items-center gap-2 bg-card/80 backdrop-blur-sm rounded-full px-6 py-3 shadow-md border border-border/50">
-          <Truck className="h-5 w-5 text-primary" />
-          <span className="text-sm font-medium text-foreground">🚚 Delivery Available</span>
+        <div className="flex flex-col sm:flex-row items-center gap-4">
+          <div className="inline-flex items-center gap-2 bg-card/80 backdrop-blur-sm rounded-full px-6 py-3 shadow-md border border-border/50">
+            <Truck className="h-5 w-5 text-primary" />
+            <span className="text-sm font-medium text-foreground">🚚 Delivery Available</span>
+          </div>
+          <div className="inline-flex items-center gap-2 bg-card/80 backdrop-blur-sm rounded-full px-6 py-3 shadow-md border border-border/50">
+            <MapPin className="h-5 w-5 text-primary" />
+            <span className="text-sm font-medium text-foreground">📍 Carter Road, Bandra West, Mumbai</span>
+          </div>
         </div>
       </div>
     </section>

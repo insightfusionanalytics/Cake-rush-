@@ -1,0 +1,17 @@
+UPDATE menu_items SET image_url = 'https://jfoefwmzyjvgztutdbbm.supabase.co/storage/v1/object/public/site-images/menu/belgium-chocolate.jpg' WHERE id = '753f788d-2bdd-4cd1-9060-7a0889aff487';
+UPDATE menu_items SET image_url = 'https://jfoefwmzyjvgztutdbbm.supabase.co/storage/v1/object/public/site-images/menu/chocolate-chip-brownie.jpg' WHERE id = 'b011acf2-cf31-413d-8b3c-90b3f12e2ead';
+UPDATE menu_items SET image_url = 'https://jfoefwmzyjvgztutdbbm.supabase.co/storage/v1/object/public/site-images/menu/cake-pops.jpg' WHERE id = '257f42a6-9f0a-4b12-b963-c74f584f530b';
+UPDATE menu_items SET image_url = 'https://jfoefwmzyjvgztutdbbm.supabase.co/storage/v1/object/public/site-images/menu/choco-walnut.jpg' WHERE id = 'ebddef12-5681-47e1-9bb5-fda5bb4c1030';
+UPDATE menu_items SET image_url = 'https://jfoefwmzyjvgztutdbbm.supabase.co/storage/v1/object/public/site-images/menu/cupcakes.jpg' WHERE id = '583112a8-a17f-47e4-abc0-07653447ddde';
+UPDATE menu_items SET image_url = 'https://jfoefwmzyjvgztutdbbm.supabase.co/storage/v1/object/public/site-images/menu/dutch-truffle.jpg' WHERE id = '43d4a904-1aa8-4b29-b087-54f8f6f174da';
+UPDATE menu_items SET image_url = 'https://jfoefwmzyjvgztutdbbm.supabase.co/storage/v1/object/public/site-images/menu/mini-jars.jpg' WHERE id = '685284a3-790c-4e5c-8322-6e06e496ae1c';
+UPDATE menu_items SET image_url = 'https://jfoefwmzyjvgztutdbbm.supabase.co/storage/v1/object/public/site-images/menu/biscoff-cheesecake.jpg' WHERE id = '7f7849e4-9937-4c47-9213-3200bb7e2b39';
+UPDATE menu_items SET image_url = 'https://jfoefwmzyjvgztutdbbm.supabase.co/storage/v1/object/public/site-images/menu/marble-cake.jpg' WHERE id = '648c354d-e8d3-4dc9-a841-e9f1f8995351';
+UPDATE menu_items SET image_url = 'https://jfoefwmzyjvgztutdbbm.supabase.co/storage/v1/object/public/site-images/menu/red-velvet.jpg' WHERE id = 'caf20e21-01af-4605-a28b-588d1128d6fc';
+UPDATE menu_items SET image_url = 'https://jfoefwmzyjvgztutdbbm.supabase.co/storage/v1/object/public/site-images/menu/oreo.jpg' WHERE id = '530d62b2-08b9-490c-9d82-0ae8f8f5368a';
+UPDATE menu_items SET image_url = 'https://jfoefwmzyjvgztutdbbm.supabase.co/storage/v1/object/public/site-images/menu/strawberry.jpg' WHERE id = '4f8a5c63-b122-4b7f-8b71-64f8ede87537';
+UPDATE menu_items SET image_url = 'https://jfoefwmzyjvgztutdbbm.supabase.co/storage/v1/object/public/site-images/menu/pineapple.jpg' WHERE id = '39bee335-406c-435d-9975-8b42a77db6a1';
+UPDATE menu_items SET image_url = 'https://jfoefwmzyjvgztutdbbm.supabase.co/storage/v1/object/public/site-images/menu/blueberry.jpg' WHERE id = '7b6602cc-e8ab-4127-8634-edd4cd6f2802';
+UPDATE menu_items SET image_url = 'https://jfoefwmzyjvgztutdbbm.supabase.co/storage/v1/object/public/site-images/menu/mango.jpg' WHERE id = '135f07b4-b228-4670-9cba-f004aa219e28';
+UPDATE menu_items SET image_url = 'https://jfoefwmzyjvgztutdbbm.supabase.co/storage/v1/object/public/site-images/menu/mix-fruit.jpg' WHERE id = 'b0074565-53f3-4f91-af87-07e7688e45e1';
+UPDATE menu_items SET image_url = 'https://jfoefwmzyjvgztutdbbm.supabase.co/storage/v1/object/public/site-images/menu/vanilla.jpg' WHERE id = '48407e30-5442-4cff-a475-9506d4084481';

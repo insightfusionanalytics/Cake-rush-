@@ -11,7 +11,7 @@ const GallerySection = () => {
       <section id="gallery" className="py-24 bg-card">
         <div className="container mx-auto px-4 md:px-8 text-center">
           <p className="text-primary font-medium tracking-widest uppercase text-sm mb-3">Our Creations</p>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">Gallery</h2>
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">Our Delicious Creations</h2>
           <p className="text-muted-foreground text-lg">Loading our creations…</p>
         </div>
       </section>
@@ -23,7 +23,7 @@ const GallerySection = () => {
       <div className="container mx-auto px-4 md:px-8">
         <div className="text-center mb-12">
           <p className="text-primary font-medium tracking-widest uppercase text-sm mb-3">Our Creations</p>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">Gallery</h2>
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">Our Delicious Creations</h2>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
             Every cake tells a story. Browse our collection of handcrafted creations.
           </p>

@@ -5,7 +5,7 @@ import { useSiteSettings } from "@/hooks/use-site-data";
 const HeroSection = () => {
   const { data: settings } = useSiteSettings();
   const title = settings?.hero_title || "Baked with Love";
-  const subtitle = settings?.hero_subtitle || "Each masterpiece is crafted with love, attention to detail, and the finest ingredients";
+  const subtitle = settings?.hero_subtitle || "";
   const badge = settings?.hero_badge || "100% Fresh & Eggless Options";
   const whatsapp = settings?.whatsapp_number || "919920272566";
   const instagram = settings?.instagram_url || "#";

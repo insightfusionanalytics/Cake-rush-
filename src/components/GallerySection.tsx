@@ -25,7 +25,7 @@ const GallerySection = () => {
           <p className="text-primary font-medium tracking-widest uppercase text-sm mb-3">Our Creations</p>
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">Our Delicious Creations</h2>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            Each masterpiece is crafted with love, attention to detail, and the finest ingredients.
+            Every cake tells a story. Browse our collection of handcrafted creations.
           </p>
         </div>
 

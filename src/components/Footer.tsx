@@ -6,7 +6,7 @@ const Footer = () => {
   const { data: settings } = useSiteSettings();
   const whatsapp = settings?.whatsapp_number || "919920272566";
   const instagram = settings?.instagram_url || "#";
-  const tagline = settings?.footer_tagline || "Freshly baked with love for every celebration";
+  const tagline = settings?.footer_tagline || "Each masterpiece is crafted with love, attention to detail, and the finest ingredients";
 
   return (
     <footer className="bg-foreground text-card py-12">

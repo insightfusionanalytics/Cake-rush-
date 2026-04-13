@@ -73,9 +73,6 @@ const HeroSection = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-card/90 backdrop-blur-sm rounded-full px-6 py-2.5 shadow-lg border border-border">
-              <span className="text-sm font-medium text-foreground">✨ {badge}</span>
-            </div>
           </div>
         </div>
       </div>

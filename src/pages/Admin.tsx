@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
-import { ArrowLeft, Plus, Trash2, Save, Upload, Image } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, Save, Upload, Image, Pencil, Check, X as XIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -90,6 +90,10 @@ function PriceVariantsEditor({ menuItemId }: { menuItemId: string }) {
   const deletePrice = useDeleteMenuItemPrice();
   const [newLabel, setNewLabel] = useState("");
   const [newPrice, setNewPrice] = useState("");
+  // Track which price is being edited (by id), and its draft values
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editLabel, setEditLabel] = useState("");
+  const [editPrice, setEditPrice] = useState("");
 
   const prices = allPrices?.filter((p) => p.menu_item_id === menuItemId) || [];
 
@@ -113,16 +117,64 @@ function PriceVariantsEditor({ menuItemId }: { menuItemId: string }) {
     }
   };
 
+  const startEdit = (p: any) => {
+    setEditingId(p.id);
+    setEditLabel(p.weight_label);
+    setEditPrice(p.price);
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setEditLabel("");
+    setEditPrice("");
+  };
+
+  const saveEdit = async (p: any) => {
+    if (!editLabel.trim() || !editPrice.trim()) {
+      toast.error("Both weight and price are required");
+      return;
+    }
+    try {
+      await upsertPrice.mutateAsync({
+        ...p,
+        weight_label: editLabel.trim(),
+        price: editPrice.trim(),
+      });
+      setEditingId(null);
+      toast.success("Price updated!");
+    } catch {
+      toast.error("Failed to update price");
+    }
+  };
+
   return (
     <div className="space-y-2">
       <label className="text-xs font-medium block">Price Variants</label>
       {prices.map((p) => (
         <div key={p.id} className="flex items-center gap-2">
-          <span className="text-sm bg-background border border-border rounded-md px-3 py-1.5 flex-1">{p.weight_label}</span>
-          <span className="text-sm font-semibold text-primary bg-background border border-border rounded-md px-3 py-1.5 flex-1">{p.price}</span>
-          <Button variant="ghost" size="sm" className="text-destructive h-8 w-8 p-0" onClick={async () => { await deletePrice.mutateAsync(p.id); toast.success("Removed"); }}>
-            <Trash2 className="h-3.5 w-3.5" />
-          </Button>
+          {editingId === p.id ? (
+            <>
+              <Input value={editLabel} onChange={(e) => setEditLabel(e.target.value)} className="flex-1 h-8 text-sm" />
+              <Input value={editPrice} onChange={(e) => setEditPrice(e.target.value)} className="flex-1 h-8 text-sm" />
+              <Button variant="ghost" size="sm" className="text-green-600 h-8 w-8 p-0" onClick={() => saveEdit(p)}>
+                <Check className="h-3.5 w-3.5" />
+              </Button>
+              <Button variant="ghost" size="sm" className="text-muted-foreground h-8 w-8 p-0" onClick={cancelEdit}>
+                <XIcon className="h-3.5 w-3.5" />
+              </Button>
+            </>
+          ) : (
+            <>
+              <span className="text-sm bg-background border border-border rounded-md px-3 py-1.5 flex-1">{p.weight_label}</span>
+              <span className="text-sm font-semibold text-primary bg-background border border-border rounded-md px-3 py-1.5 flex-1">{p.price}</span>
+              <Button variant="ghost" size="sm" className="text-muted-foreground h-8 w-8 p-0" onClick={() => startEdit(p)}>
+                <Pencil className="h-3.5 w-3.5" />
+              </Button>
+              <Button variant="ghost" size="sm" className="text-destructive h-8 w-8 p-0" onClick={async () => { await deletePrice.mutateAsync(p.id); toast.success("Removed"); }}>
+                <Trash2 className="h-3.5 w-3.5" />
+              </Button>
+            </>
+          )}
         </div>
       ))}
       <div className="flex items-center gap-2">
@@ -132,7 +184,7 @@ function PriceVariantsEditor({ menuItemId }: { menuItemId: string }) {
           <Plus className="h-3.5 w-3.5" />
         </Button>
       </div>
-      <p className="text-xs text-muted-foreground">Add as many weight/price options as you need</p>
+      <p className="text-xs text-muted-foreground">Click ✏️ to edit a price, or add new ones below</p>
     </div>
   );
 }

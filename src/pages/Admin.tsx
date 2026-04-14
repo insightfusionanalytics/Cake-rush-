@@ -169,11 +169,14 @@ function MenuTab() {
       return;
     }
     try {
-      await upsert.mutateAsync(editItem);
+      // Ensure price field is included (required by database)
+      const itemToSave = { ...editItem, price: editItem.price ?? "" };
+      await upsert.mutateAsync(itemToSave);
       setEditItem(null);
       toast.success("Menu item saved!");
-    } catch {
-      toast.error("Failed to save");
+    } catch (err: any) {
+      console.error("Save failed:", err);
+      toast.error(err?.message || "Failed to save");
     }
   };
 
@@ -187,7 +190,7 @@ function MenuTab() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h3 className="font-heading text-xl font-semibold">Menu Items</h3>
-        <Button onClick={() => setEditItem({ name: "", description: "", icon: "🎂", is_custom_only: false, image_url: null, category_id: categories?.[0]?.id, sort_order: (items?.length || 0) + 1, is_active: true })} size="sm">
+        <Button onClick={() => setEditItem({ name: "", description: "", price: "", icon: "🎂", is_custom_only: false, image_url: null, category_id: categories?.[0]?.id, sort_order: (items?.length || 0) + 1, is_active: true })} size="sm">
           <Plus className="mr-1 h-4 w-4" /> Add Item
         </Button>
       </div>

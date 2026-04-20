@@ -27,10 +27,13 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 md:px-8 flex flex-col lg:flex-row items-center gap-12 relative z-10">
         {/* Text */}
         <div className="flex-1 text-center lg:text-left">
+          <h1 className="font-heading text-6xl md:text-7xl lg:text-8xl font-extrabold text-primary leading-none mb-4 animate-slide-up tracking-tight">
+            Cake Rush
+          </h1>
           <p className="text-primary font-medium tracking-widest uppercase text-sm mb-4 animate-fade-in">
             Freshly Baked • Made with Love
           </p>
-          <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight mb-6 animate-slide-up">
+          <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6 animate-slide-up">
             {title.includes("Love") ? (
               <>
                 {title.split("Love")[0]}
@@ -40,7 +43,7 @@ const HeroSection = () => {
             ) : (
               title
             )}
-          </h1>
+          </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-lg mx-auto lg:mx-0 mb-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
             {subtitle}
           </p>

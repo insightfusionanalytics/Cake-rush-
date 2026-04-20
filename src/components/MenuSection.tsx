@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useMenuCategories, useMenuItems, useAllMenuItemPrices, useSiteSettings } from "@/hooks/use-site-data";
 import { Button } from "@/components/ui/button";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Instagram } from "lucide-react";
 
 const MenuCard = ({ item, prices, whatsapp }: { item: any; prices: any[]; whatsapp: string }) => (
   <div className="group bg-card/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-border/50 shadow-sm hover:shadow-lg transition-all duration-500 hover:-translate-y-1 animate-fade-in">
@@ -49,6 +49,7 @@ const MenuSection = () => {
   const { data: allPrices } = useAllMenuItemPrices();
   const { data: settings } = useSiteSettings();
   const whatsapp = settings?.whatsapp_number || "919920272566";
+  const instagram = settings?.instagram_url || "#";
   const activeItems = items?.filter((i) => i.is_active) || [];
 
   const getPrices = (itemId: string) =>
@@ -86,11 +87,17 @@ const MenuSection = () => {
           </Tabs>
         )}
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-12 flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a href={`https://wa.me/${whatsapp}?text=Hi!%20I'd%20like%20to%20order`} target="_blank" rel="noopener noreferrer">
             <Button size="lg" className="bg-whatsapp hover:bg-whatsapp/90 text-white rounded-full px-10 py-6 text-base shadow-xl hover:shadow-2xl transition-all hover:scale-105">
               <MessageCircle className="mr-2 h-5 w-5" />
               Order Your Favourite Now
+            </Button>
+          </a>
+          <a href={instagram} target="_blank" rel="noopener noreferrer">
+            <Button size="lg" className="bg-instagram-pink hover:bg-instagram-pink/90 text-white rounded-full px-10 py-6 text-base shadow-xl hover:shadow-2xl transition-all hover:scale-105">
+              <Instagram className="mr-2 h-5 w-5" />
+              Follow on Instagram
             </Button>
           </a>
         </div>

@@ -21,7 +21,7 @@ const ContactSection = () => {
           {settings?.contact_heading || "Ready to Order Your Dream Cake?"}
         </h2>
         <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-10">
-          {settings?.contact_text || "Get in touch with us on WhatsApp for custom orders, pricing, and delivery details."}
+          {settings?.contact_text || "Get in touch with us on WhatsApp for custom orders and delivery details. We would love to make your celebration special!"}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">

@@ -10,10 +10,11 @@ const WhatsAppFloat = () => {
       href={`https://wa.me/${whatsapp}?text=Hi!%20I'd%20like%20to%20order%20a%20cake`}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 bg-whatsapp text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 animate-float"
+      className="fixed bottom-6 right-6 z-50 bg-whatsapp text-white px-5 py-3 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 animate-float flex items-center gap-2 font-semibold"
       aria-label="Order on WhatsApp"
     >
-      <MessageCircle className="h-7 w-7" />
+      <MessageCircle className="h-6 w-6" />
+      <span className="text-sm">Order Now</span>
     </a>
   );
 };

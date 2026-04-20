@@ -1,8 +1,11 @@
 import { useSiteSettings } from "@/hooks/use-site-data";
 import aboutCake from "@/assets/about-cake.png";
+import { Button } from "@/components/ui/button";
+import { Instagram } from "lucide-react";
 
 const AboutSection = () => {
   const { data: settings } = useSiteSettings();
+  const instagram = settings?.instagram_url || "#";
 
   const features = (settings?.about_features || "Custom Designs,Fresh Ingredients,Made with Love").split(",");
   const featureIcons = ["🎂", "🌿", "💜"];
@@ -31,7 +34,7 @@ const AboutSection = () => {
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
               {settings?.about_text || ""}
             </p>
-            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+            <div className="flex flex-wrap gap-4 justify-center lg:justify-start mb-6">
               {features.map((f, i) => (
                 <div key={f} className="flex items-center gap-2 bg-secondary/80 backdrop-blur-sm rounded-full px-5 py-2.5 border border-border/50">
                   <span className="text-xl">{featureIcons[i] || "✨"}</span>
@@ -39,6 +42,15 @@ const AboutSection = () => {
                 </div>
               ))}
             </div>
+            <a href={instagram} target="_blank" rel="noopener noreferrer">
+              <Button
+                size="lg"
+                className="bg-instagram-pink hover:bg-instagram-pink/90 text-white rounded-full px-8 py-5 shadow-lg hover:shadow-xl transition-all hover:scale-105"
+              >
+                <Instagram className="mr-2 h-5 w-5" />
+                Follow us on Instagram
+              </Button>
+            </a>
           </div>
         </div>
       </div>

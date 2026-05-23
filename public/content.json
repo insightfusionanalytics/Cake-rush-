@@ -355,18 +355,6 @@
       "is_custom_only": false,
       "price": "",
       "sort_order": 14
-    },
-    {
-      "id": "mi-test2-1779524496",
-      "category_id": "cat-cakes",
-      "name": "E2EMenuItem_1779524493",
-      "description": "second time",
-      "image_url": null,
-      "icon": "🍰",
-      "is_active": true,
-      "is_custom_only": false,
-      "price": "",
-      "sort_order": 999
     }
   ],
   "menu_item_prices": [

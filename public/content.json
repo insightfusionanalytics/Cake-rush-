@@ -362,6 +362,18 @@
       "is_custom_only": false,
       "price": "",
       "sort_order": 14
+    },
+    {
+      "id": "mi-test-1779527728",
+      "category_id": "cat-cakes",
+      "name": "E2EMenuItem_1779527728",
+      "description": "selenium e2e",
+      "image_url": null,
+      "icon": "🎂",
+      "is_active": true,
+      "is_custom_only": false,
+      "price": "",
+      "sort_order": 999
     }
   ],
   "menu_item_prices": [
@@ -552,6 +564,13 @@
       "menu_item_id": "mi-oreo-mini",
       "weight_label": "300 g personal",
       "price": "₹380",
+      "sort_order": 1
+    },
+    {
+      "id": "p-test-1779527728",
+      "menu_item_id": "mi-test-1779527728",
+      "weight_label": "½ Kg",
+      "price": "₹399",
       "sort_order": 1
     }
   ],

@@ -73,6 +73,13 @@
           "image_url": "/gallery/cake_hazelnut_enhanced.png",
           "blurb": "",
           "quote": ""
+        },
+        {
+          "id": "hi-test-1779527725",
+          "name": "E2EHouseItem_1779527725",
+          "image_url": "/gallery/cake_strawberry_v2_enhanced.png",
+          "blurb": "",
+          "quote": ""
         }
       ]
     },

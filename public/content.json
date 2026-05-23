@@ -197,6 +197,18 @@
       "is_custom_only": false,
       "price": "",
       "sort_order": 14
+    },
+    {
+      "id": "mi-test-1779523466",
+      "category_id": "cat-cakes",
+      "name": "E2EMenuItem_1779523466",
+      "description": "selenium e2e",
+      "image_url": null,
+      "icon": "🎂",
+      "is_active": true,
+      "is_custom_only": false,
+      "price": "",
+      "sort_order": 999
     }
   ],
   "menu_item_prices": [
@@ -388,6 +400,13 @@
       "weight_label": "300 g personal",
       "price": "₹380",
       "sort_order": 1
+    },
+    {
+      "id": "p-test-1779523466",
+      "menu_item_id": "mi-test-1779523466",
+      "weight_label": "½ Kg",
+      "price": "₹399",
+      "sort_order": 1
     }
   ],
   "gallery_images": [
@@ -512,15 +531,6 @@
       "location": "Khar",
       "is_active": true,
       "sort_order": 4
-    },
-    {
-      "id": "t-mpi2bmpvl42a",
-      "client_name": "E2EReviewer_1779523458",
-      "review_text": "Sentinel review 1779523458.",
-      "rating": 5,
-      "location": "",
-      "is_active": true,
-      "sort_order": 5
     }
   ]
 }

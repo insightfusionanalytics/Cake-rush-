@@ -1,6 +1,6 @@
 {
   "settings": {
-    "hero_title": "Cake Rush",
+    "hero_title": "E2ETest_1779564830",
     "hero_subtitle": "A cake atelier where every slice tells a story.",
     "hero_badge": "Est. MMXXIV · Bandra · Mumbai",
     "hero_cta_whatsapp": "Reserve on WhatsApp →",
@@ -57,148 +57,6 @@
     "contact_col_whatsapp_title": "WhatsApp",
     "contact_col_instagram_title": "Instagram"
   },
-  "house_favourites": [
-    {
-      "id": "hc-signature",
-      "label": "Signature cakes",
-      "sort_order": 1,
-      "items": [
-        {
-          "id": "hi-sig-1",
-          "name": "Dutch Truffle",
-          "image_url": "/gallery/cake_dutch_truffle_new.png",
-          "blurb": "",
-          "quote": ""
-        },
-        {
-          "id": "hi-sig-2",
-          "name": "Red Velvet",
-          "image_url": "/gallery/cake_red_velvet_new.png",
-          "blurb": "",
-          "quote": ""
-        },
-        {
-          "id": "hi-sig-3",
-          "name": "Biscoff Cheesecake",
-          "image_url": "/gallery/cake_biscoff_new.png",
-          "blurb": "",
-          "quote": ""
-        },
-        {
-          "id": "hi-sig-4",
-          "name": "Hazelnut Praline",
-          "image_url": "/gallery/cake_hazelnut_enhanced.png",
-          "blurb": "",
-          "quote": ""
-        }
-      ]
-    },
-    {
-      "id": "hc-seasonal",
-      "label": "Seasonal",
-      "sort_order": 2,
-      "items": [
-        {
-          "id": "hi-sea-1",
-          "name": "Alphonso",
-          "image_url": "/gallery/cake_mango_enhanced.png",
-          "blurb": "",
-          "quote": ""
-        },
-        {
-          "id": "hi-sea-2",
-          "name": "Strawberries & Cream",
-          "image_url": "/gallery/cake_strawberry_v2_enhanced.png",
-          "blurb": "",
-          "quote": ""
-        },
-        {
-          "id": "hi-sea-3",
-          "name": "Pineapple",
-          "image_url": "/gallery/cake_pineapple_enhanced.png",
-          "blurb": "",
-          "quote": ""
-        },
-        {
-          "id": "hi-sea-4",
-          "name": "White Fruit",
-          "image_url": "/gallery/cake_white_fruit_enhanced.png",
-          "blurb": "",
-          "quote": ""
-        }
-      ]
-    },
-    {
-      "id": "hc-smalls",
-      "label": "Smalls & gifting",
-      "sort_order": 3,
-      "items": [
-        {
-          "id": "hi-sml-1",
-          "name": "Cupcakes",
-          "image_url": "/gallery/cake_chocolate_truffle_pro.png",
-          "blurb": "",
-          "quote": ""
-        },
-        {
-          "id": "hi-sml-2",
-          "name": "Jar cakes",
-          "image_url": "/gallery/cake_red_velvet_pro.png",
-          "blurb": "",
-          "quote": ""
-        },
-        {
-          "id": "hi-sml-3",
-          "name": "Oreo mini",
-          "image_url": "/gallery/cake_oreo_new.png",
-          "blurb": "",
-          "quote": ""
-        },
-        {
-          "id": "hi-sml-4",
-          "name": "Corporate hampers",
-          "image_url": "/gallery/cake_hazelnut_enhanced.png",
-          "blurb": "",
-          "quote": ""
-        }
-      ]
-    },
-    {
-      "id": "hc-bespoke",
-      "label": "Bespoke",
-      "sort_order": 4,
-      "items": [
-        {
-          "id": "hi-bsp-1",
-          "name": "Three-tier wedding",
-          "image_url": "/gallery/cake_bride_enhanced.png",
-          "blurb": "Two weeks' notice. Tasting session included. Up to 60 guests.",
-          "quote": "₹15,000 upwards"
-        },
-        {
-          "id": "hi-bsp-2",
-          "name": "Sugar-flower cake",
-          "image_url": "/gallery/cake_green_floral_enhanced.png",
-          "blurb": "Hand-piped peonies, garden roses, sweet peas. Each takes an hour.",
-          "quote": "₹4,500 upwards"
-        },
-        {
-          "id": "hi-bsp-3",
-          "name": "Corporate gifting",
-          "image_url": "/gallery/cake_gold_black_enhanced.png",
-          "blurb": "Logos in gold leaf, brand-matched palette. Minimum 10 cakes.",
-          "quote": "on request"
-        },
-        {
-          "id": "hi-bsp-4",
-          "name": "Character cakes",
-          "image_url": "/gallery/cake_basketweave_enhanced.png",
-          "blurb": "For the six-year-old who has specific opinions.",
-          "quote": "₹2,800 upwards"
-        }
-      ]
-    }
-  ],
   "menu_categories": [
     {
       "id": "cat-cakes",
@@ -694,6 +552,148 @@
       "location": "Khar",
       "is_active": true,
       "sort_order": 4
+    }
+  ],
+  "house_favourites": [
+    {
+      "id": "hc-signature",
+      "label": "Signature cakes",
+      "sort_order": 1,
+      "items": [
+        {
+          "id": "hi-sig-1",
+          "name": "Dutch Truffle",
+          "image_url": "/gallery/cake_dutch_truffle_new.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-sig-2",
+          "name": "Red Velvet",
+          "image_url": "/gallery/cake_red_velvet_new.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-sig-3",
+          "name": "Biscoff Cheesecake",
+          "image_url": "/gallery/cake_biscoff_new.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-sig-4",
+          "name": "Hazelnut Praline",
+          "image_url": "/gallery/cake_hazelnut_enhanced.png",
+          "blurb": "",
+          "quote": ""
+        }
+      ]
+    },
+    {
+      "id": "hc-seasonal",
+      "label": "Seasonal",
+      "sort_order": 2,
+      "items": [
+        {
+          "id": "hi-sea-1",
+          "name": "Alphonso",
+          "image_url": "/gallery/cake_mango_enhanced.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-sea-2",
+          "name": "Strawberries & Cream",
+          "image_url": "/gallery/cake_strawberry_v2_enhanced.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-sea-3",
+          "name": "Pineapple",
+          "image_url": "/gallery/cake_pineapple_enhanced.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-sea-4",
+          "name": "White Fruit",
+          "image_url": "/gallery/cake_white_fruit_enhanced.png",
+          "blurb": "",
+          "quote": ""
+        }
+      ]
+    },
+    {
+      "id": "hc-smalls",
+      "label": "Smalls & gifting",
+      "sort_order": 3,
+      "items": [
+        {
+          "id": "hi-sml-1",
+          "name": "Cupcakes",
+          "image_url": "/gallery/cake_chocolate_truffle_pro.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-sml-2",
+          "name": "Jar cakes",
+          "image_url": "/gallery/cake_red_velvet_pro.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-sml-3",
+          "name": "Oreo mini",
+          "image_url": "/gallery/cake_oreo_new.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-sml-4",
+          "name": "Corporate hampers",
+          "image_url": "/gallery/cake_hazelnut_enhanced.png",
+          "blurb": "",
+          "quote": ""
+        }
+      ]
+    },
+    {
+      "id": "hc-bespoke",
+      "label": "Bespoke",
+      "sort_order": 4,
+      "items": [
+        {
+          "id": "hi-bsp-1",
+          "name": "Three-tier wedding",
+          "image_url": "/gallery/cake_bride_enhanced.png",
+          "blurb": "Two weeks' notice. Tasting session included. Up to 60 guests.",
+          "quote": "₹15,000 upwards"
+        },
+        {
+          "id": "hi-bsp-2",
+          "name": "Sugar-flower cake",
+          "image_url": "/gallery/cake_green_floral_enhanced.png",
+          "blurb": "Hand-piped peonies, garden roses, sweet peas. Each takes an hour.",
+          "quote": "₹4,500 upwards"
+        },
+        {
+          "id": "hi-bsp-3",
+          "name": "Corporate gifting",
+          "image_url": "/gallery/cake_gold_black_enhanced.png",
+          "blurb": "Logos in gold leaf, brand-matched palette. Minimum 10 cakes.",
+          "quote": "on request"
+        },
+        {
+          "id": "hi-bsp-4",
+          "name": "Character cakes",
+          "image_url": "/gallery/cake_basketweave_enhanced.png",
+          "blurb": "For the six-year-old who has specific opinions.",
+          "quote": "₹2,800 upwards"
+        }
+      ]
     }
   ]
 }

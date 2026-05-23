@@ -1,57 +1,179 @@
-import { Button } from "@/components/ui/button";
-import { MessageCircle, Instagram, Truck, MapPin } from "lucide-react";
 import { useSiteSettings } from "@/hooks/use-site-data";
+import { Canela, Eyebrow, L, Reveal, SANS } from "@/components/luxe/tokens";
+
+const humanize = (url: string) => {
+  try {
+    return url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+  } catch {
+    return url;
+  }
+};
 
 const ContactSection = () => {
   const { data: settings } = useSiteSettings();
-  const whatsapp = settings?.whatsapp_number || "919920272566";
-  const instagram = settings?.instagram_url || "#";
+  const whatsapp = settings?.whatsapp_number ?? "919920272566";
+  const instagram = settings?.instagram_url ?? "https://instagram.com/cakerush.in";
+  const waLink = `https://wa.me/${whatsapp}`;
+  const waHuman = `wa.me/${whatsapp}`;
+  const igHuman = humanize(instagram).replace(/^instagram\.com\//, "@");
+  const contactEyebrow = settings?.contact_eyebrow ?? "Chapter Five — Reserve";
+  const contactHeading = settings?.contact_heading ?? "Let us bake, your moment.";
+  const contactText = settings?.contact_text ?? "Replies, usually within the hour.";
+  const contactAddress =
+    settings?.contact_address ?? "Carter Road, Bandra West · Mumbai 400050.";
+  const instagramCaption =
+    settings?.instagram_caption ?? "Every bake, photographed in natural light.";
+  const deliveryNote =
+    settings?.delivery_note ?? "Delivery — All of Mumbai · 24 hr minimum";
+
+  // Split contact heading on first comma
+  const ci = contactHeading.indexOf(",");
+  const headingTop = ci === -1 ? contactHeading : contactHeading.slice(0, ci).trim();
+  const headingBottom = ci === -1 ? "" : contactHeading.slice(ci + 1).trim();
 
   return (
     <section
       id="contact"
-      className="py-24"
-      style={{
-        background: "linear-gradient(135deg, hsl(var(--lavender)) 0%, hsl(var(--soft-pink)) 50%, hsl(var(--peach)) 100%)",
-      }}
+      className="lx-contact"
+      style={{ background: L.ivory }}
     >
-      <div className="container mx-auto px-4 md:px-8 text-center animate-fade-in">
-        <p className="text-primary font-medium tracking-widest uppercase text-sm mb-3">Ready to Order?</p>
-        <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">
-          {settings?.contact_heading || "Ready to Order Your Dream Cake?"}
-        </h2>
-        <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-10">
-          {settings?.contact_text || "Get in touch with us on WhatsApp for custom orders and delivery details. We would love to make your celebration special!"}
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
-          <a href={`https://wa.me/${whatsapp}?text=Hi!%20I'd%20like%20to%20order%20a%20custom%20cake`} target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="bg-whatsapp hover:bg-whatsapp/90 text-white rounded-full px-10 py-6 text-base shadow-xl hover:shadow-2xl transition-all hover:scale-105">
-              <MessageCircle className="mr-2 h-5 w-5" />
-              Order on WhatsApp
-            </Button>
-          </a>
-          <a href={instagram} target="_blank" rel="noopener noreferrer">
-            <Button
-              size="lg"
-              className="bg-instagram-pink hover:bg-instagram-pink/90 text-white rounded-full px-10 py-6 text-base shadow-xl hover:shadow-2xl transition-all hover:scale-105"
+      <div style={{ maxWidth: 1360, margin: "0 auto" }}>
+        <Reveal>
+          <Eyebrow>{contactEyebrow}</Eyebrow>
+          <div style={{ marginTop: "clamp(20px, 2.5vw, 32px)" }}>
+            <Canela
+              size="var(--lx-fs-mega)"
+              className="lx-contact-h"
+              style={{ display: "block", letterSpacing: "-0.02em" }}
             >
-              <Instagram className="mr-2 h-5 w-5" />
-              Follow on Instagram
-            </Button>
-          </a>
-        </div>
+              {headingTop}
+            </Canela>
+            {headingBottom && (
+              <Canela
+                size="var(--lx-fs-mega)"
+                italic
+                className="lx-contact-h"
+                style={{
+                  display: "block",
+                  letterSpacing: "-0.02em",
+                  color: L.copperDeep,
+                }}
+              >
+                {headingBottom}
+              </Canela>
+            )}
+          </div>
+        </Reveal>
 
-        <div className="flex flex-col sm:flex-row items-center gap-4">
-          <div className="inline-flex items-center gap-2 bg-card/80 backdrop-blur-sm rounded-full px-6 py-3 shadow-md border border-border/50">
-            <Truck className="h-5 w-5 text-primary" />
-            <span className="text-sm font-medium text-foreground">🚚 Delivery Available</span>
+        <Reveal delay={180}>
+          <div
+            className="lx-contact-grid"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr",
+              marginTop: "clamp(56px, 8vw, 100px)",
+              paddingTop: "clamp(32px, 4.5vw, 56px)",
+              borderTop: `1px solid ${L.rule}`,
+            }}
+          >
+            <div>
+              <Eyebrow style={{ fontSize: 10 }}>Reserve</Eyebrow>
+              <div style={{ marginTop: 22 }}>
+                <Canela size="clamp(24px, 2.7vw, 32px)" italic style={{ color: L.ink, display: "block" }}>
+                  WhatsApp
+                </Canela>
+                <a
+                  href={waLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "inline-block",
+                    marginTop: 16,
+                    fontFamily: '"Cormorant Garamond", serif',
+                    fontSize: "clamp(17px, 1.7vw, 22px)",
+                    color: L.ink,
+                    textDecoration: "none",
+                    borderBottom: `1px solid ${L.copperDeep}`,
+                    paddingBottom: 3,
+                  }}
+                >
+                  {waHuman} →
+                </a>
+              </div>
+              <div
+                style={{
+                  marginTop: 28,
+                  fontFamily: SANS,
+                  fontSize: 12,
+                  color: L.ink2,
+                  lineHeight: 1.6,
+                  letterSpacing: "0.02em",
+                }}
+              >
+                {contactText}
+              </div>
+            </div>
+
+            <div>
+              <Eyebrow style={{ fontSize: 10 }}>Follow</Eyebrow>
+              <div style={{ marginTop: 22 }}>
+                <Canela size="clamp(24px, 2.7vw, 32px)" italic style={{ color: L.ink, display: "block" }}>
+                  Instagram
+                </Canela>
+                <a
+                  href={instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "inline-block",
+                    marginTop: 16,
+                    fontFamily: '"Cormorant Garamond", serif',
+                    fontSize: "clamp(17px, 1.7vw, 22px)",
+                    color: L.ink,
+                    textDecoration: "none",
+                    borderBottom: `1px solid ${L.copperDeep}`,
+                    paddingBottom: 3,
+                  }}
+                >
+                  {igHuman} →
+                </a>
+              </div>
+              <div
+                style={{
+                  marginTop: 28,
+                  fontFamily: SANS,
+                  fontSize: 12,
+                  color: L.ink2,
+                  lineHeight: 1.6,
+                  letterSpacing: "0.02em",
+                }}
+              >
+                {instagramCaption}
+              </div>
+            </div>
+
+            <div>
+              <Eyebrow style={{ fontSize: 10 }}>Visit</Eyebrow>
+              <div style={{ marginTop: 22 }}>
+                <Canela
+                  size="clamp(17px, 1.7vw, 22px)"
+                  italic
+                  style={{ color: L.ink, display: "block", lineHeight: 1.4 }}
+                >
+                  {contactAddress.split(",").map((part, i, arr) => (
+                    <span key={i}>
+                      {part.trim()}{i < arr.length - 1 ? "," : ""}
+                      {i < arr.length - 1 && <br />}
+                    </span>
+                  ))}
+                </Canela>
+              </div>
+              <div style={{ marginTop: 28 }}>
+                <Eyebrow style={{ fontSize: 9 }}>{deliveryNote}</Eyebrow>
+              </div>
+            </div>
           </div>
-          <div className="inline-flex items-center gap-2 bg-card/80 backdrop-blur-sm rounded-full px-6 py-3 shadow-md border border-border/50">
-            <MapPin className="h-5 w-5 text-primary" />
-            <span className="text-sm font-medium text-foreground">📍 Carter Road, Bandra West, Mumbai</span>
-          </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

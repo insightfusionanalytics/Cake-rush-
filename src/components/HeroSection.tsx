@@ -1,83 +1,179 @@
-import { Button } from "@/components/ui/button";
-import { MessageCircle } from "lucide-react";
 import { useSiteSettings } from "@/hooks/use-site-data";
+import { Canela, Eyebrow, L, Reveal, TextLink } from "@/components/luxe/tokens";
 
 const HeroSection = () => {
   const { data: settings } = useSiteSettings();
-  const title = settings?.hero_title || "Baked with Love";
-  const subtitle = settings?.hero_subtitle || "";
-  const badge = settings?.hero_badge || "100% Fresh & Eggless Options";
-  const whatsapp = settings?.whatsapp_number || "919920272566";
-  const instagram = settings?.instagram_url || "#";
+  // Use ?? not || — so the admin can save an explicitly empty value and the
+  // public site renders empty, not the default fallback.
+  const whatsapp = settings?.whatsapp_number ?? "919920272566";
+  const instagram = settings?.instagram_url ?? "https://instagram.com/cakerush.in";
+  const heroImg = settings?.hero_image_url ?? "/gallery/cake_strawberry_v2_enhanced.png";
+  const heroBadge = settings?.hero_badge ?? "Est. MMXXIV · Bandra · Mumbai";
+  const heroTitle = (settings?.hero_title ?? "Cake Rush").trim();
+  const heroSubtitle =
+    settings?.hero_subtitle ?? "A cake atelier where every slice tells a story.";
+  const ctaWa = settings?.hero_cta_whatsapp ?? "Reserve on WhatsApp →";
+  const ctaIg = settings?.hero_cta_instagram ?? "View Instagram →";
+  const captionLeft = settings?.hero_caption_left ?? "Plate I · Strawberries & Cream";
+  const captionRight = settings?.hero_caption_right ?? "№ 001";
+  const sticker = settings?.hero_sticker ?? "— for Tara's fourth";
+
+  // Split title on first space → italic line 1 + regular line 2 with copper period.
+  const firstSpace = heroTitle.indexOf(" ");
+  const titleLine1 = firstSpace === -1 ? heroTitle : heroTitle.slice(0, firstSpace);
+  const titleLine2 =
+    firstSpace === -1 ? "" : heroTitle.slice(firstSpace + 1).replace(/[.!?]+$/, "");
 
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+      className="lx-hero"
       style={{
-        background:
-          "linear-gradient(135deg, hsl(var(--cream)) 0%, hsl(var(--soft-pink)) 40%, hsl(var(--lavender)) 100%)",
+        background: L.ivory,
+        position: "relative",
       }}
     >
-      {/* Animated decorative blobs */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-peach/30 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-lavender/30 rounded-full blur-3xl animate-float" style={{ animationDelay: "1.5s" }} />
-      <div className="absolute top-1/2 left-1/3 w-48 h-48 bg-soft-pink/20 rounded-full blur-3xl animate-float" style={{ animationDelay: "0.8s" }} />
-
-      <div className="container mx-auto px-4 md:px-8 flex flex-col lg:flex-row items-center gap-12 relative z-10">
-        {/* Text */}
-        <div className="flex-1 text-center lg:text-left">
-          <h1 className="font-heading text-6xl md:text-7xl lg:text-8xl font-extrabold text-primary leading-none mb-4 animate-slide-up tracking-tight">
-            Cake Rush
-          </h1>
-          <p className="text-primary font-medium tracking-widest uppercase text-sm mb-4 animate-fade-in">
-            Freshly Baked • Made with Love
-          </p>
-          <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6 animate-slide-up">
-            {title.includes("Love") ? (
-              <>
-                {title.split("Love")[0]}
-                <span className="text-primary italic">Love</span>
-                {title.split("Love")[1]}
-              </>
-            ) : (
-              title
-            )}
-          </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-lg mx-auto lg:mx-0 mb-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            {subtitle}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in" style={{ animationDelay: "0.4s" }}>
-            <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-whatsapp hover:bg-whatsapp/90 text-white rounded-full px-8 py-6 text-base shadow-xl hover:shadow-2xl transition-all hover:scale-105">
-                <MessageCircle className="mr-2 h-5 w-5" />
-                {settings?.hero_cta_whatsapp || "Order on WhatsApp"}
-              </Button>
-            </a>
-            <a href={instagram} target="_blank" rel="noopener noreferrer">
-              <Button
-                size="lg"
-                variant="outline"
-                className="rounded-full px-8 py-6 text-base border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all hover:scale-105"
+      <div
+        className="lx-hero-grid"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1.15fr 1fr",
+          gap: 64,
+          alignItems: "center",
+          maxWidth: 1440,
+          margin: "0 auto",
+          position: "relative",
+        }}
+      >
+        <Reveal>
+          <Eyebrow>{heroBadge}</Eyebrow>
+          <div style={{ marginTop: "clamp(20px, 2.5vw, 32px)" }}>
+            <Canela
+              size="var(--lx-fs-hero)"
+              italic
+              className="lx-hero-title-line"
+              style={{
+                display: "block",
+                color: L.ink,
+                letterSpacing: "-0.02em",
+              }}
+            >
+              {titleLine1}
+            </Canela>
+            {titleLine2 && (
+              <Canela
+                size="var(--lx-fs-hero)"
+                className="lx-hero-title-line"
+                style={{
+                  display: "block",
+                  color: L.ink,
+                  letterSpacing: "-0.02em",
+                  marginTop: "-0.08em",
+                }}
               >
-                {settings?.hero_cta_instagram || "View on Instagram"}
-              </Button>
-            </a>
+                {titleLine2}
+                <span style={{ color: L.copper, fontStyle: "italic" }}>.</span>
+              </Canela>
+            )}
           </div>
-        </div>
+          <div style={{ marginTop: "clamp(28px, 3.5vw, 48px)", maxWidth: 440 }}>
+            <Canela
+              size="var(--lx-fs-lede)"
+              italic
+              style={{ color: L.ink2, lineHeight: 1.4, fontWeight: 300 }}
+            >
+              {heroSubtitle}
+            </Canela>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              gap: "clamp(20px, 3vw, 40px)",
+              marginTop: "clamp(32px, 4.5vw, 52px)",
+              flexWrap: "wrap",
+            }}
+          >
+            <TextLink href={`https://wa.me/${whatsapp}`}>{ctaWa}</TextLink>
+            <TextLink href={instagram} color={L.copperDeep}>
+              {ctaIg}
+            </TextLink>
+          </div>
+        </Reveal>
 
-        {/* Hero image */}
-        <div className="flex-1 flex justify-center animate-fade-in" style={{ animationDelay: "0.3s" }}>
-          <div className="relative">
-            <div className="w-80 h-80 md:w-[26rem] md:h-[26rem] rounded-full bg-card shadow-2xl overflow-hidden border-4 border-white/60 animate-float">
-              <img
-                src="/gallery/cake_strawberry_v2_enhanced.png"
-                alt="Beautiful custom cake by Cake Rush"
-                className="w-full h-full object-cover"
-              />
+        <Reveal delay={240} y={32}>
+          <div
+            className="lx-hero-img-wrap"
+            style={{
+              position: "relative",
+              transform: "rotate(-2.2deg)",
+              transition: "transform 800ms cubic-bezier(.2,.8,.2,1)",
+            }}
+          >
+            <div
+              style={{
+                position: "relative",
+                background: L.white,
+                padding: 12,
+                boxShadow:
+                  "0 40px 80px -30px rgba(42,31,23,0.28), 0 8px 24px -8px rgba(42,31,23,0.12)",
+              }}
+            >
+              <div style={{ position: "relative", overflow: "hidden" }}>
+                <img
+                  src={heroImg}
+                  alt="Strawberries & cream — the house cake"
+                  className="lx-hero-img"
+                  style={{
+                    width: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                    filter: "saturate(0.95) contrast(1.02)",
+                  }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    pointerEvents: "none",
+                    backgroundImage:
+                      "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='7'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='220' height='220' filter='url(%23n)' opacity='0.5'/></svg>\")",
+                    backgroundSize: "220px 220px",
+                    mixBlendMode: "overlay",
+                    opacity: 0.28,
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  padding: "14px 8px 4px",
+                  fontFamily: "Inter, sans-serif",
+                  fontSize: 10,
+                  letterSpacing: "0.22em",
+                  color: L.ink2,
+                  textTransform: "uppercase",
+                }}
+              >
+                <span>{captionLeft}</span>
+                <span>{captionRight}</span>
+              </div>
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                top: -28,
+                left: -28,
+                padding: "10px 14px",
+                background: L.ivory,
+              }}
+            >
+              <Canela size={14} italic style={{ color: L.ink2 }}>
+                {sticker}
+              </Canela>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,39 +1,57 @@
-import { Instagram } from "lucide-react";
+import { Canela, L, SANS } from "@/components/luxe/tokens";
 import { useSiteSettings } from "@/hooks/use-site-data";
-import logo from "@/assets/logo.jpeg";
 
 const Footer = () => {
   const { data: settings } = useSiteSettings();
-  const whatsapp = settings?.whatsapp_number || "919920272566";
-  const instagram = settings?.instagram_url || "#";
-  const tagline = settings?.footer_tagline || "Each masterpiece is crafted with love, attention to detail, and the finest ingredients.";
+  const tagline = settings?.footer_tagline ?? "";
+  const year = new Date().getFullYear();
+  const copyrightTemplate =
+    settings?.footer_copyright ?? "© {year} Cake Rush. All rights reserved.";
+  const copyrightText = copyrightTemplate.replace(/\{year\}/g, String(year));
 
   return (
-    <footer className="bg-foreground text-card py-12">
-      <div className="container mx-auto px-4 md:px-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="text-center md:text-left flex items-center gap-3">
-            <img src={logo} alt="Cake Rush" className="h-12 w-12 rounded-full" />
-            <div>
-              <h3 className="font-heading text-2xl font-bold">Cake Rush</h3>
-              <p className="text-card/60 text-sm">{tagline}</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-6">
-            <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" className="text-card/70 hover:text-whatsapp transition-colors text-sm">
-              WhatsApp
-            </a>
-            <a href={instagram} target="_blank" rel="noopener noreferrer" className="text-card/70 hover:text-instagram-pink transition-colors flex items-center gap-1">
-              <Instagram className="h-4 w-4" />
-              Instagram
-            </a>
-          </div>
+    <footer
+      className="lx-foot"
+      style={{
+        background: L.ivory,
+        borderTop: `1px solid ${L.rule}`,
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 1440,
+          margin: "0 auto",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 24,
+          flexWrap: "wrap",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+          <Canela size="clamp(18px, 1.8vw, 22px)" italic style={{ color: L.ink }}>
+            Cake Rush
+          </Canela>
+          {tagline && (
+            <Canela
+              size="clamp(12px, 1.1vw, 14px)"
+              italic
+              style={{ color: L.ink2, fontWeight: 300 }}
+            >
+              {tagline}
+            </Canela>
+          )}
         </div>
-
-        <div className="border-t border-card/10 mt-8 pt-6 text-center space-y-2">
-          <p className="text-card/60 text-sm">📍 Carter Road, Bandra West, Mumbai</p>
-          <p className="text-card/40 text-sm">© {new Date().getFullYear()} Cake Rush. All rights reserved.</p>
+        <div
+          style={{
+            fontFamily: SANS,
+            fontSize: 10,
+            letterSpacing: "0.28em",
+            textTransform: "uppercase",
+            color: L.ink2,
+          }}
+        >
+          {copyrightText}
         </div>
       </div>
     </footer>

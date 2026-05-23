@@ -1,47 +1,178 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useMenuCategories, useMenuItems, useAllMenuItemPrices, useSiteSettings } from "@/hooks/use-site-data";
-import { Button } from "@/components/ui/button";
-import { MessageCircle, Instagram } from "lucide-react";
+import { useMemo, useState } from "react";
+import {
+  useMenuCategories,
+  useMenuItems,
+  useAllMenuItemPrices,
+  useSiteSettings,
+} from "@/hooks/use-site-data";
+import { Canela, Eyebrow, L, Numeral, Reveal, TextLink } from "@/components/luxe/tokens";
 
-const MenuCard = ({ item, prices, whatsapp }: { item: any; prices: any[]; whatsapp: string }) => (
-  <div className="group bg-card/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-border/50 shadow-sm hover:shadow-lg transition-all duration-500 hover:-translate-y-1 animate-fade-in">
-    {item.image_url ? (
-      <div className="aspect-square overflow-hidden">
-        <img src={item.image_url} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
-      </div>
-    ) : (
-      <div className="aspect-square bg-secondary/30 flex items-center justify-center">
-        <span className="text-5xl group-hover:scale-110 transition-transform duration-300">{item.icon}</span>
-      </div>
-    )}
-    <div className="p-4">
-      <h3 className="font-heading text-lg font-semibold text-foreground mb-1">{item.name}</h3>
-      <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2 mb-3">{item.description}</p>
+type MenuItem = {
+  id: string;
+  name: string;
+  description?: string | null;
+  image_url?: string | null;
+  category_id?: string | null;
+  is_active?: boolean | null;
+  is_custom_only?: boolean | null;
+  price?: string | null;
+};
+type Price = { id: string; menu_item_id: string; weight_label: string; price: string; sort_order: number };
 
-      {item.is_custom_only ? (
-        <a
-          href={`https://wa.me/${whatsapp}?text=Hi!%20I'd%20like%20a%20quote%20for%20${encodeURIComponent(item.name)}`}
-          target="_blank" rel="noopener noreferrer"
-        >
-          <Button size="sm" variant="outline" className="w-full rounded-full text-xs border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-            Request a Quote
-          </Button>
-        </a>
-      ) : prices.length > 0 ? (
-        <div className="space-y-1">
-          {prices.map((p) => (
-            <div key={p.id} className="flex justify-between items-center text-sm">
-              <span className="text-muted-foreground">{p.weight_label}</span>
-              <span className="font-semibold text-primary">{p.price}</span>
-            </div>
-          ))}
+const CollectionRow = ({
+  item,
+  index,
+  flip,
+  prices,
+  whatsapp,
+}: {
+  item: MenuItem;
+  index: number;
+  flip: boolean;
+  prices: Price[];
+  whatsapp: string;
+}) => {
+  const half = prices[0]?.price;
+  const full = prices[1]?.price;
+  return (
+    <Reveal y={40}>
+      <article
+        className="lx-coll-row"
+        style={{
+          display: "grid",
+          gridTemplateColumns: flip ? "1fr 1.4fr" : "1.4fr 1fr",
+          alignItems: "center",
+          borderBottom: `1px solid ${L.rule}`,
+        }}
+      >
+        <div style={{ order: flip ? 2 : 1 }}>
+          <div
+            style={{
+              background: L.white,
+              padding: 14,
+              boxShadow: "0 30px 70px -36px rgba(42,31,23,0.22)",
+            }}
+          >
+            {item.image_url ? (
+              <img
+                src={item.image_url}
+                alt={item.name}
+                style={{
+                  width: "100%",
+                  aspectRatio: "5/4",
+                  objectFit: "cover",
+                  display: "block",
+                  filter: "saturate(0.97)",
+                }}
+              />
+            ) : (
+              <div
+                style={{
+                  width: "100%",
+                  aspectRatio: "5/4",
+                  background: L.paper,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Canela size={48} italic style={{ color: L.ink3 }}>
+                  {item.name.charAt(0)}
+                </Canela>
+              </div>
+            )}
+          </div>
         </div>
-      ) : item.price ? (
-        <p className="text-primary font-semibold text-sm">Starting from {item.price}</p>
-      ) : null}
-    </div>
-  </div>
-);
+        <div style={{ order: flip ? 1 : 2, paddingLeft: flip ? 0 : 20 }}>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 20 }}>
+            <Numeral size={28} color={L.copper}>
+              {String(index + 1).padStart(2, "0")}
+            </Numeral>
+          </div>
+          <Canela
+            size="var(--lx-fs-title)"
+            className="lx-coll-title"
+            style={{ display: "block", marginTop: 16, letterSpacing: "-0.012em" }}
+          >
+            {item.name}
+          </Canela>
+          {item.description && (
+            <Canela
+              size="clamp(16px, 1.6vw, 20px)"
+              italic
+              style={{
+                display: "block",
+                color: L.ink2,
+                marginTop: 16,
+                lineHeight: 1.5,
+                fontWeight: 300,
+              }}
+            >
+              {item.description}
+            </Canela>
+          )}
+          {item.is_custom_only ? (
+            <div style={{ marginTop: 36 }}>
+              <Eyebrow color={L.ink3} style={{ fontSize: 10 }}>
+                Bespoke — by quote
+              </Eyebrow>
+            </div>
+          ) : prices.length > 0 ? (
+            <div
+              style={{
+                marginTop: 36,
+                borderTop: `1px solid ${L.rule}`,
+                paddingTop: 24,
+                maxWidth: 360,
+              }}
+            >
+              {prices.map((p, i) => (
+                <div
+                  key={p.id}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "baseline",
+                    padding: "8px 0",
+                    borderTop: i === 0 ? "none" : `1px solid ${L.ruleSoft}`,
+                  }}
+                >
+                  <Eyebrow color={L.ink3} style={{ fontSize: 10 }}>
+                    {p.weight_label}
+                  </Eyebrow>
+                  <Canela size="clamp(18px, 1.7vw, 22px)" style={{ color: L.ink }}>
+                    {p.price}
+                  </Canela>
+                </div>
+              ))}
+              {prices.length === 0 && half && (
+                <Canela size={22} style={{ color: L.ink }}>
+                  {half}
+                </Canela>
+              )}
+            </div>
+          ) : item.price ? (
+            <div style={{ marginTop: 36 }}>
+              <Canela size="clamp(18px, 1.7vw, 22px)" style={{ color: L.ink }}>
+                {item.price}
+              </Canela>
+            </div>
+          ) : null}
+          <div style={{ marginTop: 32 }}>
+            <TextLink
+              href={`https://wa.me/${whatsapp}?text=${encodeURIComponent(
+                `Hi, I’d like to reserve the ${item.name}.`,
+              )}`}
+              color={L.copperDeep}
+            >
+              Reserve this cake →
+            </TextLink>
+          </div>
+        </div>
+      </article>
+    </Reveal>
+  );
+};
 
 const MenuSection = () => {
   const { data: categories } = useMenuCategories();
@@ -49,57 +180,165 @@ const MenuSection = () => {
   const { data: allPrices } = useAllMenuItemPrices();
   const { data: settings } = useSiteSettings();
   const whatsapp = settings?.whatsapp_number || "919920272566";
-  const instagram = settings?.instagram_url || "#";
-  const activeItems = items?.filter((i) => i.is_active) || [];
+  const [tab, setTab] = useState<string | null>(null);
 
-  const getPrices = (itemId: string) =>
-    (allPrices || []).filter((p) => p.menu_item_id === itemId).sort((a, b) => a.sort_order - b.sort_order);
+  const activeCategory = useMemo(() => {
+    if (!categories || categories.length === 0) return null;
+    return tab ?? categories[0].id;
+  }, [categories, tab]);
+
+  const filteredItems: MenuItem[] = useMemo(() => {
+    if (!items) return [];
+    return (items as MenuItem[]).filter(
+      (i) => i.is_active !== false && (!activeCategory || i.category_id === activeCategory),
+    );
+  }, [items, activeCategory]);
+
+  const getPrices = (itemId: string): Price[] =>
+    ((allPrices as Price[]) || [])
+      .filter((p) => p.menu_item_id === itemId)
+      .sort((a, b) => a.sort_order - b.sort_order);
+
+  const totalCount = items?.filter((i: any) => i.is_active !== false).length || 0;
+
+  const collEyebrow = settings?.collection_eyebrow ?? "Chapter Two — The Collection";
+  const collHeading = settings?.collection_heading ?? "A catalog, of small delights.";
+  const collSubtitle =
+    settings?.collection_subtitle ??
+    "Sixteen bakes across our chapters. Eggless on request, no extra charge. Twenty-four hours' notice, always.";
+  // Split heading on first comma → ink line 1 + italic copper line 2
+  const ci = collHeading.indexOf(",");
+  const collTop = ci === -1 ? collHeading : collHeading.slice(0, ci).trim();
+  const collBottom = ci === -1 ? "" : collHeading.slice(ci + 1).trim();
 
   return (
-    <section id="menu" className="py-24 bg-background">
-      <div className="container mx-auto px-4 md:px-8">
-        <div className="text-center mb-12">
-          <p className="text-primary font-medium tracking-widest uppercase text-sm mb-3">What We Offer</p>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">Our Menu</h2>
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            From classic favourites to custom creations — there's something for every celebration.
-          </p>
-        </div>
+    <section
+      id="menu"
+      className="lx-coll"
+      style={{ background: L.paper }}
+    >
+      <div style={{ maxWidth: 1360, margin: "0 auto" }}>
+        <Reveal>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+              gap: "clamp(24px, 3vw, 40px)",
+              flexWrap: "wrap",
+            }}
+          >
+            <div>
+              <Eyebrow>{collEyebrow}</Eyebrow>
+              <div style={{ marginTop: "clamp(16px, 2vw, 24px)" }}>
+                <Canela
+                  size="var(--lx-fs-display)"
+                  className="lx-coll-h"
+                  style={{ display: "block", letterSpacing: "-0.02em" }}
+                >
+                  {collTop}
+                </Canela>
+                {collBottom && (
+                  <Canela
+                    size="var(--lx-fs-display)"
+                    italic
+                    className="lx-coll-h"
+                    style={{
+                      display: "block",
+                      letterSpacing: "-0.02em",
+                      color: L.copperDeep,
+                    }}
+                  >
+                    {collBottom}
+                  </Canela>
+                )}
+              </div>
+            </div>
+            <Canela
+              size="clamp(15px, 1.5vw, 20px)"
+              italic
+              style={{
+                color: L.ink2,
+                maxWidth: 320,
+                lineHeight: 1.5,
+                fontWeight: 300,
+              }}
+            >
+              {totalCount} bakes. {collSubtitle}
+            </Canela>
+          </div>
+        </Reveal>
 
         {categories && categories.length > 0 && (
-          <Tabs defaultValue={categories[0].id} className="w-full">
-            <TabsList className="w-full max-w-md mx-auto mb-10 bg-secondary/60 backdrop-blur-sm rounded-full p-1">
-              {categories.map((cat) => (
-                <TabsTrigger key={cat.id} value={cat.id} className="flex-1 rounded-full data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all font-medium">
-                  {cat.name}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-            {categories.map((cat) => (
-              <TabsContent key={cat.id} value={cat.id}>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {activeItems.filter((item) => item.category_id === cat.id).map((item) => (
-                    <MenuCard key={item.id} item={item} prices={getPrices(item.id)} whatsapp={whatsapp} />
-                  ))}
-                </div>
-              </TabsContent>
-            ))}
-          </Tabs>
+          <div
+            style={{
+              display: "flex",
+              gap: "clamp(28px, 3.5vw, 48px)",
+              marginTop: "clamp(40px, 5vw, 64px)",
+              borderBottom: `1px solid ${L.rule}`,
+              paddingBottom: 0,
+              flexWrap: "wrap",
+            }}
+          >
+            {categories.map((cat: any) => {
+              const active = activeCategory === cat.id;
+              const count =
+                items?.filter(
+                  (i: any) => i.category_id === cat.id && i.is_active !== false,
+                ).length || 0;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setTab(cat.id)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    padding: "0 0 18px",
+                    cursor: "pointer",
+                    position: "relative",
+                    marginBottom: -1,
+                    borderBottom: `1px solid ${active ? L.ink : "transparent"}`,
+                  }}
+                >
+                  <Canela
+                    size="clamp(20px, 2.2vw, 28px)"
+                    italic={active}
+                    style={{
+                      color: active ? L.ink : L.ink3,
+                      letterSpacing: "-0.005em",
+                    }}
+                  >
+                    {cat.name}
+                  </Canela>
+                  <span
+                    style={{
+                      marginLeft: 10,
+                      fontFamily: "Inter, sans-serif",
+                      fontSize: 10,
+                      letterSpacing: "0.22em",
+                      color: active ? L.copperDeep : L.ink3,
+                      verticalAlign: "super",
+                    }}
+                  >
+                    ({count})
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         )}
 
-        <div className="text-center mt-12 flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a href={`https://wa.me/${whatsapp}?text=Hi!%20I'd%20like%20to%20order`} target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="bg-whatsapp hover:bg-whatsapp/90 text-white rounded-full px-10 py-6 text-base shadow-xl hover:shadow-2xl transition-all hover:scale-105">
-              <MessageCircle className="mr-2 h-5 w-5" />
-              Order Your Favourite Now
-            </Button>
-          </a>
-          <a href={instagram} target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="bg-instagram-pink hover:bg-instagram-pink/90 text-white rounded-full px-10 py-6 text-base shadow-xl hover:shadow-2xl transition-all hover:scale-105">
-              <Instagram className="mr-2 h-5 w-5" />
-              Follow on Instagram
-            </Button>
-          </a>
+        <div>
+          {filteredItems.map((item, i) => (
+            <CollectionRow
+              key={item.id}
+              item={item}
+              index={i}
+              flip={i % 2 === 1}
+              prices={getPrices(item.id)}
+              whatsapp={whatsapp}
+            />
+          ))}
         </div>
       </div>
     </section>

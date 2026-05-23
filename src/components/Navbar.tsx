@@ -1,88 +1,231 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useSiteSettings } from "@/hooks/use-site-data";
-import logo from "@/assets/logo.jpeg";
+import { Canela, Eyebrow, L, Numeral, SANS, TextLink } from "@/components/luxe/tokens";
 
-const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Menu", href: "#menu" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "Contact", href: "#contact" },
-];
+// Default labels in order — mapped to these 4 section anchors.
+const NAV_ANCHORS = ["about", "menu", "gallery", "contact"] as const;
+const DEFAULT_NAV_LABELS = ["Story", "Collection", "Lookbook", "Contact"];
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { data: settings } = useSiteSettings();
-  const whatsapp = settings?.whatsapp_number || "919920272566";
+  const whatsapp = settings?.whatsapp_number ?? "919920272566";
+  const instagram = settings?.instagram_url ?? "https://instagram.com/cakerush.in";
+
+  // Parse "Story,Collection,Lookbook,Contact" → 4 [label, anchor] tuples.
+  const rawLinks = (settings?.nav_links ?? DEFAULT_NAV_LABELS.join(",")).trim();
+  const labels = rawLinks
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .slice(0, 4);
+  const links: Array<[string, string]> = NAV_ANCHORS.map(
+    (anchor, i) => [labels[i] ?? DEFAULT_NAV_LABELS[i], anchor],
+  );
+  const mobileLinks = links;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("keydown", onKey);
+    };
   }, []);
 
-  const handleClick = (href: string) => {
+  const scrollTo = (id: string) => {
     setMobileOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    const el = document.getElementById(id);
+    if (el) window.scrollTo({ top: el.offsetTop - 80, behavior: "smooth" });
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-card/95 backdrop-blur-md shadow-md" : "bg-transparent"
-      }`}
-    >
-      <div className="container mx-auto flex items-center justify-between py-4 px-4 md:px-8">
-        <button onClick={() => handleClick("#home")} className="flex items-center">
-          <img src={logo} alt="Cake Rush" className="h-12 w-auto rounded-full" />
-        </button>
-
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((l) => (
+    <>
+      <nav
+        className="lx-nav"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          background: scrolled ? "rgba(245,240,232,0.92)" : "transparent",
+          backdropFilter: scrolled ? "blur(14px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(14px)" : "none",
+          borderBottom: scrolled ? `1px solid ${L.rule}` : "1px solid transparent",
+          transition: "background 400ms ease, border-color 400ms ease",
+        }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr auto 1fr",
+            alignItems: "center",
+            gap: "clamp(20px, 2.5vw, 32px)",
+            maxWidth: 1440,
+            margin: "0 auto",
+          }}
+          className="lx-nav-inner"
+        >
+          <div className="lx-nav-meta hidden lg:block">
+            <Eyebrow color={L.ink2} style={{ fontSize: 10 }}>
+              Est. MMXXIV · Bandra West
+            </Eyebrow>
+          </div>
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              gridColumn: 2,
+              justifySelf: "center",
+            }}
+          >
+            <Canela size="clamp(20px, 2.2vw, 26px)" italic style={{ color: L.ink }}>
+              Cake Rush
+            </Canela>
+          </button>
+          <div
+            className="lx-nav-links"
+            style={{
+              display: "flex",
+              gap: 36,
+              justifyContent: "flex-end",
+              alignItems: "center",
+            }}
+          >
+            <div className="hidden lg:flex" style={{ gap: 36 }}>
+              {links.map(([label, id]) => (
+                <button
+                  key={id}
+                  onClick={() => scrollTo(id)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    color: L.ink,
+                    fontSize: 12,
+                    padding: 0,
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    fontFamily: SANS,
+                    fontWeight: 500,
+                  }}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
             <button
-              key={l.href}
-              onClick={() => handleClick(l.href)}
-              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+              className="lx-nav-burger lg:hidden"
+              onClick={() => setMobileOpen(true)}
+              aria-label="Menu"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                color: L.ink,
+                padding: 6,
+              }}
             >
-              {l.label}
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+                <line x1="4" y1="8" x2="20" y2="8" />
+                <line x1="4" y1="16" x2="20" y2="16" />
+              </svg>
             </button>
-          ))}
-          <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer">
-            <Button className="bg-whatsapp hover:bg-whatsapp/90 text-white rounded-full px-6 shadow-lg">
-              Order Now
-            </Button>
-          </a>
+          </div>
         </div>
-
-        <button className="md:hidden text-foreground" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
+      </nav>
 
       {mobileOpen && (
-        <div className="md:hidden fixed inset-0 top-[72px] bg-background backdrop-blur-md border-t border-border animate-fade-in z-40">
-          <div className="flex flex-col items-center gap-6 py-10">
-            {navLinks.map((l) => (
+        <div
+          className="lx-mobile-menu"
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 90,
+            background: L.ivory,
+            animation: "lxFade 320ms ease",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "20px 24px",
+              borderBottom: `1px solid ${L.rule}`,
+            }}
+          >
+            <Canela size={22} italic>
+              Cake Rush
+            </Canela>
+            <button
+              onClick={() => setMobileOpen(false)}
+              aria-label="Close"
+              style={{ background: "none", border: "none", cursor: "pointer", color: L.ink }}
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+                <line x1="5" y1="5" x2="19" y2="19" />
+                <line x1="19" y1="5" x2="5" y2="19" />
+              </svg>
+            </button>
+          </div>
+          <div style={{ padding: 24, flex: 1 }}>
+            {mobileLinks.map(([label, id], i) => (
               <button
-                key={l.href}
-                onClick={() => handleClick(l.href)}
-                className="text-lg font-medium text-foreground/80 hover:text-primary transition-colors"
+                key={id}
+                onClick={() => scrollTo(id)}
+                style={{
+                  display: "flex",
+                  alignItems: "baseline",
+                  gap: 16,
+                  width: "100%",
+                  padding: "20px 0",
+                  borderBottom: `1px solid ${L.ruleSoft}`,
+                  background: "none",
+                  border: "none",
+                  borderBottomWidth: 1,
+                  borderBottomStyle: "solid",
+                  borderBottomColor: L.ruleSoft,
+                  cursor: "pointer",
+                  textAlign: "left",
+                }}
               >
-                {l.label}
+                <Numeral size={18} color={L.copper}>
+                  0{i + 1}
+                </Numeral>
+                <Canela size="clamp(24px, 7vw, 32px)">{label}</Canela>
               </button>
             ))}
-            <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer">
-              <Button className="bg-whatsapp hover:bg-whatsapp/90 text-white rounded-full px-8 shadow-lg">
-                Order Now
-              </Button>
-            </a>
+          </div>
+          <div
+            style={{
+              padding: 24,
+              display: "flex",
+              flexDirection: "column",
+              gap: 16,
+              borderTop: `1px solid ${L.rule}`,
+            }}
+          >
+            <TextLink href={`https://wa.me/${whatsapp}`}>Reserve on WhatsApp →</TextLink>
+            <TextLink href={instagram}>View Instagram →</TextLink>
           </div>
         </div>
       )}
-    </nav>
+    </>
   );
 };
 

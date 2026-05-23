@@ -1,47 +1,122 @@
-import { useTestimonials } from "@/hooks/use-site-data";
+import { useEffect, useMemo, useState } from "react";
+import { useSiteSettings, useTestimonials } from "@/hooks/use-site-data";
+import { Canela, Eyebrow, L } from "@/components/luxe/tokens";
+
+type Testimonial = {
+  id: string;
+  client_name: string;
+  review_text: string;
+  rating: number;
+  location?: string | null;
+};
 
 const TestimonialsSection = () => {
   const { data: testimonials } = useTestimonials();
+  const { data: settings } = useSiteSettings();
+  const list = useMemo<Testimonial[]>(
+    () => ((testimonials as Testimonial[]) || []).filter(Boolean),
+    [testimonials],
+  );
+  const [i, setI] = useState(0);
 
-  if (!testimonials || testimonials.length === 0) {
+  useEffect(() => {
+    if (list.length < 2) return;
+    const id = setInterval(() => {
+      setI((n) => (n + 1) % list.length);
+    }, 6500);
+    return () => clearInterval(id);
+  }, [list.length]);
+
+  if (list.length === 0) {
     return (
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 md:px-8 text-center">
-          <p className="text-primary font-medium tracking-widest uppercase text-sm mb-3">Testimonials</p>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">What Our Clients Say</h2>
+      <section
+        id="reviews"
+        className="lx-quote"
+        style={{ background: L.ink, color: L.ivory }}
+      >
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <Eyebrow color={L.copper}>{settings?.correspondence_eyebrow ?? "Chapter Four — Correspondence"}</Eyebrow>
         </div>
       </section>
     );
   }
 
-  return (
-    <section className="py-20 bg-background">
-      <div className="container mx-auto px-4 md:px-8">
-        <div className="text-center mb-12">
-          <p className="text-primary font-medium tracking-widest uppercase text-sm mb-3">Testimonials</p>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">
-            What Our Clients Say
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            Don't just take our word for it — hear from our happy customers!
-          </p>
-        </div>
+  const q = list[Math.min(i, list.length - 1)];
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {testimonials.map((t, i) => (
-            <div
-              key={t.id}
-              className="bg-card/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-border/50 hover:shadow-lg transition-all duration-500 hover:-translate-y-1 animate-fade-in"
-              style={{ animationDelay: `${i * 100}ms` }}
-            >
-              <div className="flex gap-0.5 mb-3">
-                {Array.from({ length: t.rating }).map((_, j) => (
-                  <span key={j} className="text-primary text-lg">★</span>
-                ))}
-              </div>
-              <p className="text-muted-foreground text-sm leading-relaxed mb-4">"{t.review_text}"</p>
-              <p className="font-heading font-semibold text-foreground">— {t.client_name}</p>
+  return (
+    <section
+      id="reviews"
+      className="lx-quote"
+      style={{
+        background: L.ink,
+        color: L.ivory,
+        overflow: "hidden",
+      }}
+    >
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <Eyebrow color={L.copper}>{settings?.correspondence_eyebrow ?? "Chapter Four — Correspondence"}</Eyebrow>
+        <div style={{ marginTop: "clamp(36px, 5vw, 64px)", minHeight: "clamp(220px, 28vw, 340px)", position: "relative" }}>
+          <div key={q.id} style={{ animation: "lxFade 700ms ease" }}>
+            <div style={{ display: "flex", gap: 4, marginBottom: 28 }}>
+              {Array.from({ length: q.rating || 5 }).map((_, s) => (
+                <span
+                  key={s}
+                  style={{ color: L.copper, fontSize: 20, letterSpacing: 4 }}
+                >
+                  ★
+                </span>
+              ))}
             </div>
+            <Canela
+              size="var(--lx-fs-quote)"
+              italic
+              className="lx-quote-text"
+              style={{
+                color: L.ivory,
+                lineHeight: 1.3,
+                display: "block",
+                maxWidth: 1060,
+                fontWeight: 300,
+              }}
+            >
+              “{q.review_text}”
+            </Canela>
+            <div
+              style={{
+                marginTop: 48,
+                display: "flex",
+                gap: 32,
+                alignItems: "baseline",
+                flexWrap: "wrap",
+              }}
+            >
+              <Eyebrow color={L.rose} style={{ fontSize: 11 }}>
+                — {q.client_name}
+              </Eyebrow>
+              {q.location && (
+                <Eyebrow color={"rgba(245,240,232,0.45)"} style={{ fontSize: 10 }}>
+                  {q.location}
+                </Eyebrow>
+              )}
+            </div>
+          </div>
+        </div>
+        <div style={{ display: "flex", gap: 10, marginTop: "clamp(28px, 4vw, 48px)" }}>
+          {list.map((_, n) => (
+            <button
+              key={n}
+              onClick={() => setI(n)}
+              aria-label={`Quote ${n + 1}`}
+              style={{
+                width: 32,
+                height: 1,
+                background: n === i ? L.copper : "rgba(245,240,232,0.25)",
+                border: "none",
+                padding: 0,
+                cursor: "pointer",
+                transition: "background 400ms",
+              }}
+            />
           ))}
         </div>
       </div>

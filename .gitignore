@@ -12,6 +12,16 @@ dist
 dist-ssr
 *.local
 
+# Environment variables (never commit secrets)
+.env
+.env.local
+.env.*.local
+
+# Python venv used by the Selenium suite
+tests/.venv
+tests/__pycache__
+**/__pycache__
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -22,3 +32,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.vercel

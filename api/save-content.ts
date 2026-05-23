@@ -2,8 +2,8 @@
 // `public/content.json` on the GitHub repo. The next push triggers a Vercel
 // auto-deploy and the change goes live in ~30–60s.
 
-const OWNER = process.env.GITHUB_OWNER ?? "Ajinkyaa2004";
-const REPO = process.env.GITHUB_REPO ?? "cake-studio-refine";
+const OWNER = process.env.GITHUB_OWNER ?? "insightfusionanalytics";
+const REPO = process.env.GITHUB_REPO ?? "Cake-rush-";
 const BRANCH = process.env.GITHUB_BRANCH ?? "main";
 const CONTENT_PATH = "public/content.json";
 

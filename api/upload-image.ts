@@ -1,8 +1,8 @@
 // Vercel serverless function — commits an uploaded image into the GitHub repo
 // under `public/uploads/`. Returns the public URL of the new image.
 
-const OWNER = process.env.GITHUB_OWNER ?? "Ajinkyaa2004";
-const REPO = process.env.GITHUB_REPO ?? "cake-studio-refine";
+const OWNER = process.env.GITHUB_OWNER ?? "insightfusionanalytics";
+const REPO = process.env.GITHUB_REPO ?? "Cake-rush-";
 const BRANCH = process.env.GITHUB_BRANCH ?? "main";
 const UPLOAD_DIR = "public/uploads";
 

@@ -957,6 +957,102 @@ def test_tier2_footer_copyright_year_substitution(driver):
     record("Footer copyright does NOT show raw '{year}' placeholder", "{year}" not in footer_text)
 
 
+def test_tier3_every_string_editable(driver):
+    print("\n🔹 T_T3 · Every-visible-string-editable sweep — 17 new keys live + in admin")
+
+    content = _content_get_from_deployed() or {}
+    s = content.get("settings", {})
+    new_keys = [
+        "brand_wordmark",
+        "nav_eyebrow",
+        "hero_image_alt",
+        "about_image_alt",
+        "lightbox_hint",
+        "menu_reserve_label",
+        "menu_quote_only_label",
+        "menu_whatsapp_template",
+        "house_request_quote_label",
+        "house_quote_template",
+        "floating_pill_label",
+        "floating_pill_message",
+        "contact_col_reserve_label",
+        "contact_col_follow_label",
+        "contact_col_visit_label",
+        "contact_col_whatsapp_title",
+        "contact_col_instagram_title",
+    ]
+    for k in new_keys:
+        record(f"content.json settings has '{k}'", k in s, repr(s.get(k))[:80])
+
+    # Verify the new fields render in the admin Settings tab.
+    driver.get(_admin_url())
+    wait_for(driver, ".lx-admin-tab", timeout=20)
+    time.sleep(2.5)
+    body = driver.execute_script("return document.body.innerText;") or ""
+    expected_labels = [
+        "Brand wordmark",
+        "Navbar eyebrow",
+        "Hero image alt text",
+        "About image alt text",
+        "Lookbook lightbox close-hint",
+        "Per-cake \"Reserve\" button label",
+        "Label shown on quote-only items",
+        "WhatsApp message template for Reserve",
+        "\"Request a quote\" button label",
+        "WhatsApp message template for House quotes",
+        "Pill button label",
+        "WhatsApp prefilled message",
+        "Reserve column eyebrow",
+        "Reserve column title (italic)",
+        "Follow column eyebrow",
+        "Follow column title (italic)",
+        "Visit column eyebrow",
+        "Floating Order Now pill",  # section header
+        "Branding",                  # section header
+    ]
+    body_lower = body.lower()
+    for label in expected_labels:
+        # Case-insensitive — section headers render uppercase via CSS.
+        target = label.replace("Lookbook lightbox close-hint", "Lightbox close-hint")
+        record(
+            f"Admin shows '{label}'",
+            target.lower() in body_lower or label.lower() in body_lower,
+        )
+
+    # Verify the wordmark setting actually flows through to navbar + footer on public.
+    driver.get(f"{BASE_URL.rstrip('/')}/?t={int(time.time())}")
+    wait_for(driver, "nav.lx-nav")
+    time.sleep(1.5)
+    expected_wordmark = s.get("brand_wordmark", "Cake Rush")
+    nav_text = driver.execute_script(
+        "return document.querySelector('nav.lx-nav').innerText;"
+    ) or ""
+    footer_text = driver.execute_script(
+        "return document.querySelector('footer.lx-foot').innerText;"
+    ) or ""
+    record(
+        f"Navbar shows wordmark '{expected_wordmark}'",
+        expected_wordmark in nav_text,
+        nav_text[:100],
+    )
+    record(
+        f"Footer shows wordmark '{expected_wordmark}'",
+        expected_wordmark in footer_text,
+        footer_text[:100],
+    )
+
+    # Floating pill label
+    pill_text = driver.execute_script(
+        "return (document.querySelector('.lx-floatpill') || {}).innerText || '';"
+    ) or ""
+    expected_pill = s.get("floating_pill_label", "Order Now")
+    record(
+        f"Floating pill shows '{expected_pill}'",
+        expected_pill.upper() in pill_text.upper(),
+        pill_text[:80],
+    )
+
+
 def test_admin_house_tab(driver):
     print("\n🔹 T25 · House admin tab — categories + items + add-item button")
     driver.get(_admin_url())
@@ -1138,6 +1234,7 @@ TESTS = [
     test_admin_menu_item_lifecycle,
     test_tier2_settings_present_in_content_json,
     test_tier2_footer_copyright_year_substitution,
+    test_tier3_every_string_editable,
 ]
 
 

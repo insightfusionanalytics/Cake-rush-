@@ -17,6 +17,11 @@ const ContactSection = () => {
   const waHuman = `wa.me/${whatsapp}`;
   const igHuman = humanize(instagram).replace(/^instagram\.com\//, "@");
   const contactEyebrow = settings?.contact_eyebrow ?? "Chapter Five — Reserve";
+  const colReserveLabel = settings?.contact_col_reserve_label ?? "Reserve";
+  const colFollowLabel = settings?.contact_col_follow_label ?? "Follow";
+  const colVisitLabel = settings?.contact_col_visit_label ?? "Visit";
+  const colWhatsappTitle = settings?.contact_col_whatsapp_title ?? "WhatsApp";
+  const colInstagramTitle = settings?.contact_col_instagram_title ?? "Instagram";
   const contactHeading = settings?.contact_heading ?? "Let us bake, your moment.";
   const contactText = settings?.contact_text ?? "Replies, usually within the hour.";
   const contactAddress =
@@ -77,10 +82,10 @@ const ContactSection = () => {
             }}
           >
             <div>
-              <Eyebrow style={{ fontSize: 10 }}>Reserve</Eyebrow>
+              <Eyebrow style={{ fontSize: 10 }}>{colReserveLabel}</Eyebrow>
               <div style={{ marginTop: 22 }}>
                 <Canela size="clamp(24px, 2.7vw, 32px)" italic style={{ color: L.ink, display: "block" }}>
-                  WhatsApp
+                  {colWhatsappTitle}
                 </Canela>
                 <a
                   href={waLink}
@@ -115,10 +120,10 @@ const ContactSection = () => {
             </div>
 
             <div>
-              <Eyebrow style={{ fontSize: 10 }}>Follow</Eyebrow>
+              <Eyebrow style={{ fontSize: 10 }}>{colFollowLabel}</Eyebrow>
               <div style={{ marginTop: 22 }}>
                 <Canela size="clamp(24px, 2.7vw, 32px)" italic style={{ color: L.ink, display: "block" }}>
-                  Instagram
+                  {colInstagramTitle}
                 </Canela>
                 <a
                   href={instagram}
@@ -153,7 +158,7 @@ const ContactSection = () => {
             </div>
 
             <div>
-              <Eyebrow style={{ fontSize: 10 }}>Visit</Eyebrow>
+              <Eyebrow style={{ fontSize: 10 }}>{colVisitLabel}</Eyebrow>
               <div style={{ marginTop: 22 }}>
                 <Canela
                   size="clamp(17px, 1.7vw, 22px)"

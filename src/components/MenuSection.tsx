@@ -25,12 +25,18 @@ const CollectionRow = ({
   flip,
   prices,
   whatsapp,
+  reserveLabel,
+  quoteOnlyLabel,
+  messageTemplate,
 }: {
   item: MenuItem;
   index: number;
   flip: boolean;
   prices: Price[];
   whatsapp: string;
+  reserveLabel: string;
+  quoteOnlyLabel: string;
+  messageTemplate: string;
 }) => {
   const half = prices[0]?.price;
   const full = prices[1]?.price;
@@ -114,7 +120,7 @@ const CollectionRow = ({
           {item.is_custom_only ? (
             <div style={{ marginTop: 36 }}>
               <Eyebrow color={L.ink3} style={{ fontSize: 10 }}>
-                Bespoke — by quote
+                {quoteOnlyLabel}
               </Eyebrow>
             </div>
           ) : prices.length > 0 ? (
@@ -161,11 +167,11 @@ const CollectionRow = ({
           <div style={{ marginTop: 32 }}>
             <TextLink
               href={`https://wa.me/${whatsapp}?text=${encodeURIComponent(
-                `Hi, I’d like to reserve the ${item.name}.`,
+                messageTemplate.replace(/\{item\}/g, item.name),
               )}`}
               color={L.copperDeep}
             >
-              Reserve this cake →
+              {reserveLabel}
             </TextLink>
           </div>
         </div>
@@ -201,6 +207,10 @@ const MenuSection = () => {
 
   const totalCount = items?.filter((i: any) => i.is_active !== false).length || 0;
 
+  const reserveLabel = settings?.menu_reserve_label ?? "Reserve this cake →";
+  const quoteOnlyLabel = settings?.menu_quote_only_label ?? "Bespoke — by quote";
+  const messageTemplate =
+    settings?.menu_whatsapp_template ?? "Hi, I'd like to reserve the {item}.";
   const collEyebrow = settings?.collection_eyebrow ?? "Chapter Two — The Collection";
   const collHeading = settings?.collection_heading ?? "A catalog, of small delights.";
   const collSubtitle =
@@ -337,6 +347,9 @@ const MenuSection = () => {
               flip={i % 2 === 1}
               prices={getPrices(item.id)}
               whatsapp={whatsapp}
+              reserveLabel={reserveLabel}
+              quoteOnlyLabel={quoteOnlyLabel}
+              messageTemplate={messageTemplate}
             />
           ))}
         </div>

@@ -14,6 +14,8 @@ const GallerySection = () => {
   const subtitle =
     settings?.lookbook_subtitle ??
     "A selection from four years. Hover to name, press to open.";
+  const lightboxHint = settings?.lightbox_hint ?? "Esc to close";
+  const numberPrefix = settings?.lookbook_number_prefix ?? "№";
   const ci = heading.indexOf(",");
   const headingTop = ci === -1 ? heading : heading.slice(0, ci).trim() + (heading[ci] === "," ? "," : "");
   const headingBottom = ci === -1 ? "" : heading.slice(ci + 1).trim();
@@ -133,7 +135,7 @@ const GallerySection = () => {
                 >
                   <div>
                     <Eyebrow color={L.rose} style={{ fontSize: 9 }}>
-                      № {String(i + 1).padStart(3, "0")}
+                      {numberPrefix} {String(i + 1).padStart(3, "0")}
                     </Eyebrow>
                     <Canela
                       size={22}
@@ -199,7 +201,7 @@ const GallerySection = () => {
               textTransform: "uppercase",
             }}
           >
-            Esc to close
+            {lightboxHint}
           </div>
         </div>
       )}

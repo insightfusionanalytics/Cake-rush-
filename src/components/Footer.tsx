@@ -4,6 +4,7 @@ import { useSiteSettings } from "@/hooks/use-site-data";
 const Footer = () => {
   const { data: settings } = useSiteSettings();
   const tagline = settings?.footer_tagline ?? "";
+  const wordmark = settings?.brand_wordmark ?? "Cake Rush";
   const year = new Date().getFullYear();
   const copyrightTemplate =
     settings?.footer_copyright ?? "© {year} Cake Rush. All rights reserved.";
@@ -30,7 +31,7 @@ const Footer = () => {
       >
         <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
           <Canela size="clamp(18px, 1.8vw, 22px)" italic style={{ color: L.ink }}>
-            Cake Rush
+            {wordmark}
           </Canela>
           {tagline && (
             <Canela

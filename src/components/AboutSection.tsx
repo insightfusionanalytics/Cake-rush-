@@ -35,6 +35,7 @@ const AboutSection = () => {
   const aboutCaption =
     settings?.about_caption ??
     "Plate ii — a teddy for Sneha's second, requested by name, eaten without protocol.";
+  const aboutAlt = settings?.about_image_alt ?? "A cake by Cake Rush";
 
   // Split heading on first comma → italic ink line 1 + italic copper line 2
   const commaIdx = aboutHeading.indexOf(",");
@@ -70,7 +71,7 @@ const AboutSection = () => {
               >
                 <img
                   src={aboutImg}
-                  alt="A cake by Cake Rush"
+                  alt={aboutAlt}
                   style={{
                     width: "100%",
                     aspectRatio: "4/5",

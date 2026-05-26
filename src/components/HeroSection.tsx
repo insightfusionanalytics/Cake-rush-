@@ -17,6 +17,7 @@ const HeroSection = () => {
   const captionLeft = settings?.hero_caption_left ?? "Plate I · Strawberries & Cream";
   const captionRight = settings?.hero_caption_right ?? "№ 001";
   const sticker = settings?.hero_sticker ?? "— for Tara's fourth";
+  const heroAlt = settings?.hero_image_alt ?? "Strawberries & cream — the house cake";
 
   // Split title on first space → italic line 1 + regular line 2 with copper period.
   const firstSpace = heroTitle.indexOf(" ");
@@ -121,7 +122,7 @@ const HeroSection = () => {
               <div style={{ position: "relative", overflow: "hidden" }}>
                 <img
                   src={heroImg}
-                  alt="Strawberries & cream — the house cake"
+                  alt={heroAlt}
                   className="lx-hero-img"
                   style={{
                     width: "100%",

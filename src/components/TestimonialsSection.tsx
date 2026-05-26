@@ -13,6 +13,7 @@ type Testimonial = {
 const TestimonialsSection = () => {
   const { data: testimonials } = useTestimonials();
   const { data: settings } = useSiteSettings();
+  const starChar = settings?.testimonial_star_char ?? "★";
   const list = useMemo<Testimonial[]>(
     () => ((testimonials as Testimonial[]) || []).filter(Boolean),
     [testimonials],
@@ -63,7 +64,7 @@ const TestimonialsSection = () => {
                   key={s}
                   style={{ color: L.copper, fontSize: 20, letterSpacing: 4 }}
                 >
-                  ★
+                  {starChar}
                 </span>
               ))}
             </div>

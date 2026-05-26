@@ -12,6 +12,12 @@ const Navbar = () => {
   const { data: settings } = useSiteSettings();
   const whatsapp = settings?.whatsapp_number ?? "919920272566";
   const instagram = settings?.instagram_url ?? "https://instagram.com/cakerush.in";
+  const wordmark = settings?.brand_wordmark ?? "Cake Rush";
+  const navEyebrow = settings?.nav_eyebrow ?? "Est. MMXXIV · Bandra West";
+  const ctaWa = settings?.hero_cta_whatsapp ?? "Reserve on WhatsApp →";
+  const ctaIg = settings?.hero_cta_instagram ?? "View Instagram →";
+  const menuAria = settings?.nav_menu_aria ?? "Menu";
+  const closeAria = settings?.nav_close_aria ?? "Close";
 
   // Parse "Story,Collection,Lookbook,Contact" → 4 [label, anchor] tuples.
   const rawLinks = (settings?.nav_links ?? DEFAULT_NAV_LABELS.join(",")).trim();
@@ -74,7 +80,7 @@ const Navbar = () => {
         >
           <div className="lx-nav-meta hidden lg:block">
             <Eyebrow color={L.ink2} style={{ fontSize: 10 }}>
-              Est. MMXXIV · Bandra West
+              {navEyebrow}
             </Eyebrow>
           </div>
           <button
@@ -89,7 +95,7 @@ const Navbar = () => {
             }}
           >
             <Canela size="clamp(20px, 2.2vw, 26px)" italic style={{ color: L.ink }}>
-              Cake Rush
+              {wordmark}
             </Canela>
           </button>
           <div
@@ -126,7 +132,7 @@ const Navbar = () => {
             <button
               className="lx-nav-burger lg:hidden"
               onClick={() => setMobileOpen(true)}
-              aria-label="Menu"
+              aria-label={menuAria}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -170,11 +176,11 @@ const Navbar = () => {
             }}
           >
             <Canela size={22} italic>
-              Cake Rush
+              {wordmark}
             </Canela>
             <button
               onClick={() => setMobileOpen(false)}
-              aria-label="Close"
+              aria-label={closeAria}
               style={{ background: "none", border: "none", cursor: "pointer", color: L.ink }}
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
@@ -220,8 +226,8 @@ const Navbar = () => {
               borderTop: `1px solid ${L.rule}`,
             }}
           >
-            <TextLink href={`https://wa.me/${whatsapp}`}>Reserve on WhatsApp →</TextLink>
-            <TextLink href={instagram}>View Instagram →</TextLink>
+            <TextLink href={`https://wa.me/${whatsapp}`}>{ctaWa}</TextLink>
+            <TextLink href={instagram}>{ctaIg}</TextLink>
           </div>
         </div>
       )}

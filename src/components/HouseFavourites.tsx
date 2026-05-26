@@ -6,6 +6,10 @@ const HouseFavourites = () => {
   const { data: settings } = useSiteSettings();
   const { data: categories } = useHouseFavourites();
   const whatsapp = settings?.whatsapp_number ?? "919920272566";
+  const requestQuoteLabel = settings?.house_request_quote_label ?? "Request a quote →";
+  const quoteTemplate =
+    settings?.house_quote_template ?? "Hi, I'd like a quote for {item}.";
+  const tabNumberPrefix = settings?.house_tab_number_prefix ?? "№";
 
   const [activeId, setActiveId] = useState<string | null>(null);
 
@@ -157,7 +161,7 @@ const HouseFavourites = () => {
                       opacity: isActive ? 0.85 : 1,
                     }}
                   >
-                    № {String(idx + 1).padStart(2, "0")}
+                    {tabNumberPrefix} {String(idx + 1).padStart(2, "0")}
                   </div>
                   <Canela
                     size="clamp(18px, 1.9vw, 24px)"
@@ -273,7 +277,7 @@ const HouseFavourites = () => {
                     {hasQuote && (
                       <a
                         href={`https://wa.me/${whatsapp}?text=${encodeURIComponent(
-                          `Hi, I'd like a quote for ${item.name}.`,
+                          quoteTemplate.replace(/\{item\}/g, item.name),
                         )}`}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -291,7 +295,7 @@ const HouseFavourites = () => {
                           paddingBottom: 4,
                         }}
                       >
-                        Request a quote →
+                        {requestQuoteLabel}
                       </a>
                     )}
                   </article>

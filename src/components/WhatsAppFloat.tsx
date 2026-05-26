@@ -3,15 +3,18 @@ import { L, SANS } from "@/components/luxe/tokens";
 
 const WhatsAppFloat = () => {
   const { data: settings } = useSiteSettings();
-  const whatsapp = settings?.whatsapp_number || "919920272566";
+  const whatsapp = settings?.whatsapp_number ?? "919920272566";
+  const pillLabel = settings?.floating_pill_label ?? "Order Now";
+  const pillMessage =
+    settings?.floating_pill_message ?? "Hi, I'd like to reserve a cake.";
 
   return (
     <a
-      href={`https://wa.me/${whatsapp}?text=${encodeURIComponent("Hi, I’d like to reserve a cake.")}`}
+      href={`https://wa.me/${whatsapp}?text=${encodeURIComponent(pillMessage)}`}
       target="_blank"
       rel="noopener noreferrer"
       className="lx-floatpill"
-      aria-label="Order on WhatsApp"
+      aria-label={pillLabel}
       style={{
         position: "fixed",
         bottom: 28,
@@ -48,7 +51,7 @@ const WhatsAppFloat = () => {
           background: L.copper,
         }}
       />
-      Order Now
+      {pillLabel}
     </a>
   );
 };

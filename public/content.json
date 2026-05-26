@@ -1,6 +1,6 @@
 {
   "settings": {
-    "hero_title": "Cake Rush",
+    "hero_title": "Cake Rush ",
     "hero_subtitle": "A cake atelier where every slice tells a story.",
     "hero_badge": "Est. MMXXIV · Bandra · Mumbai",
     "hero_cta_whatsapp": "Reserve on WhatsApp →",
@@ -70,55 +70,17 @@
     "nav_menu_aria": "Menu",
     "nav_close_aria": "Close"
   },
-  "house_favourites": [
-    {
-      "id": "hc-signature",
-      "label": "Signature cakes",
-      "sort_order": 1,
-      "items": [
-        { "id": "hi-sig-1", "name": "Dutch Truffle", "image_url": "/gallery/cake_dutch_truffle_new.png", "blurb": "", "quote": "" },
-        { "id": "hi-sig-2", "name": "Red Velvet", "image_url": "/gallery/cake_red_velvet_new.png", "blurb": "", "quote": "" },
-        { "id": "hi-sig-3", "name": "Biscoff Cheesecake", "image_url": "/gallery/cake_biscoff_new.png", "blurb": "", "quote": "" },
-        { "id": "hi-sig-4", "name": "Hazelnut Praline", "image_url": "/gallery/cake_hazelnut_enhanced.png", "blurb": "", "quote": "" }
-      ]
-    },
-    {
-      "id": "hc-seasonal",
-      "label": "Seasonal",
-      "sort_order": 2,
-      "items": [
-        { "id": "hi-sea-1", "name": "Alphonso", "image_url": "/gallery/cake_mango_enhanced.png", "blurb": "", "quote": "" },
-        { "id": "hi-sea-2", "name": "Strawberries & Cream", "image_url": "/gallery/cake_strawberry_v2_enhanced.png", "blurb": "", "quote": "" },
-        { "id": "hi-sea-3", "name": "Pineapple", "image_url": "/gallery/cake_pineapple_enhanced.png", "blurb": "", "quote": "" },
-        { "id": "hi-sea-4", "name": "White Fruit", "image_url": "/gallery/cake_white_fruit_enhanced.png", "blurb": "", "quote": "" }
-      ]
-    },
-    {
-      "id": "hc-smalls",
-      "label": "Smalls & gifting",
-      "sort_order": 3,
-      "items": [
-        { "id": "hi-sml-1", "name": "Cupcakes", "image_url": "/gallery/cake_chocolate_truffle_pro.png", "blurb": "", "quote": "" },
-        { "id": "hi-sml-2", "name": "Jar cakes", "image_url": "/gallery/cake_red_velvet_pro.png", "blurb": "", "quote": "" },
-        { "id": "hi-sml-3", "name": "Oreo mini", "image_url": "/gallery/cake_oreo_new.png", "blurb": "", "quote": "" },
-        { "id": "hi-sml-4", "name": "Corporate hampers", "image_url": "/gallery/cake_hazelnut_enhanced.png", "blurb": "", "quote": "" }
-      ]
-    },
-    {
-      "id": "hc-bespoke",
-      "label": "Bespoke",
-      "sort_order": 4,
-      "items": [
-        { "id": "hi-bsp-1", "name": "Three-tier wedding", "image_url": "/gallery/cake_bride_enhanced.png", "blurb": "Two weeks' notice. Tasting session included. Up to 60 guests.", "quote": "₹15,000 upwards" },
-        { "id": "hi-bsp-2", "name": "Sugar-flower cake", "image_url": "/gallery/cake_green_floral_enhanced.png", "blurb": "Hand-piped peonies, garden roses, sweet peas. Each takes an hour.", "quote": "₹4,500 upwards" },
-        { "id": "hi-bsp-3", "name": "Corporate gifting", "image_url": "/gallery/cake_gold_black_enhanced.png", "blurb": "Logos in gold leaf, brand-matched palette. Minimum 10 cakes.", "quote": "on request" },
-        { "id": "hi-bsp-4", "name": "Character cakes", "image_url": "/gallery/cake_basketweave_enhanced.png", "blurb": "For the six-year-old who has specific opinions.", "quote": "₹2,800 upwards" }
-      ]
-    }
-  ],
   "menu_categories": [
-    { "id": "cat-cakes", "name": "Cakes", "sort_order": 1 },
-    { "id": "cat-desserts", "name": "Desserts", "sort_order": 2 }
+    {
+      "id": "cat-cakes",
+      "name": "Cakes",
+      "sort_order": 1
+    },
+    {
+      "id": "cat-desserts",
+      "name": "Desserts",
+      "sort_order": 2
+    }
   ],
   "menu_items": [
     {
@@ -291,52 +253,460 @@
     }
   ],
   "menu_item_prices": [
-    { "id": "p-strawberry-half", "menu_item_id": "mi-strawberry", "weight_label": "½ Kg", "price": "₹499", "sort_order": 1 },
-    { "id": "p-strawberry-full", "menu_item_id": "mi-strawberry", "weight_label": "1 Kg", "price": "₹899", "sort_order": 2 },
-    { "id": "p-dutch-half", "menu_item_id": "mi-dutch-truffle", "weight_label": "½ Kg", "price": "₹449", "sort_order": 1 },
-    { "id": "p-dutch-full", "menu_item_id": "mi-dutch-truffle", "weight_label": "1 Kg", "price": "₹849", "sort_order": 2 },
-    { "id": "p-biscoff-half", "menu_item_id": "mi-biscoff", "weight_label": "½ Kg", "price": "₹649", "sort_order": 1 },
-    { "id": "p-biscoff-full", "menu_item_id": "mi-biscoff", "weight_label": "1 Kg", "price": "₹1,199", "sort_order": 2 },
-    { "id": "p-rv-half", "menu_item_id": "mi-red-velvet", "weight_label": "½ Kg", "price": "₹599", "sort_order": 1 },
-    { "id": "p-rv-full", "menu_item_id": "mi-red-velvet", "weight_label": "1 Kg", "price": "₹1,099", "sort_order": 2 },
-    { "id": "p-belgium-half", "menu_item_id": "mi-belgium", "weight_label": "½ Kg", "price": "₹549", "sort_order": 1 },
-    { "id": "p-belgium-full", "menu_item_id": "mi-belgium", "weight_label": "1 Kg", "price": "₹999", "sort_order": 2 },
-    { "id": "p-alphonso-half", "menu_item_id": "mi-alphonso", "weight_label": "½ Kg", "price": "₹499", "sort_order": 1 },
-    { "id": "p-alphonso-full", "menu_item_id": "mi-alphonso", "weight_label": "1 Kg", "price": "₹899", "sort_order": 2 },
-    { "id": "p-pineapple-half", "menu_item_id": "mi-pineapple", "weight_label": "½ Kg", "price": "₹399", "sort_order": 1 },
-    { "id": "p-pineapple-full", "menu_item_id": "mi-pineapple", "weight_label": "1 Kg", "price": "₹749", "sort_order": 2 },
-    { "id": "p-vanilla-half", "menu_item_id": "mi-vanilla-macaron", "weight_label": "½ Kg", "price": "₹549", "sort_order": 1 },
-    { "id": "p-vanilla-full", "menu_item_id": "mi-vanilla-macaron", "weight_label": "1 Kg", "price": "₹999", "sort_order": 2 },
-    { "id": "p-cupcakes-6", "menu_item_id": "mi-cupcakes", "weight_label": "Box of 6", "price": "₹480", "sort_order": 1 },
-    { "id": "p-cupcakes-12", "menu_item_id": "mi-cupcakes", "weight_label": "Box of 12", "price": "₹900", "sort_order": 2 },
-    { "id": "p-cakepops-6", "menu_item_id": "mi-cake-pops", "weight_label": "Box of 6", "price": "₹360", "sort_order": 1 },
-    { "id": "p-cakepops-12", "menu_item_id": "mi-cake-pops", "weight_label": "Box of 12", "price": "₹680", "sort_order": 2 },
-    { "id": "p-jars-1", "menu_item_id": "mi-mini-jars", "weight_label": "Per jar", "price": "₹180", "sort_order": 1 },
-    { "id": "p-jars-4", "menu_item_id": "mi-mini-jars", "weight_label": "Set of 4", "price": "₹680", "sort_order": 2 },
-    { "id": "p-blueberry-half", "menu_item_id": "mi-blueberry-cheesecake", "weight_label": "½ Kg", "price": "₹649", "sort_order": 1 },
-    { "id": "p-blueberry-full", "menu_item_id": "mi-blueberry-cheesecake", "weight_label": "1 Kg", "price": "₹1,199", "sort_order": 2 },
-    { "id": "p-hazelnut-half", "menu_item_id": "mi-hazelnut-praline", "weight_label": "½ Kg", "price": "₹749", "sort_order": 1 },
-    { "id": "p-hazelnut-full", "menu_item_id": "mi-hazelnut-praline", "weight_label": "1 Kg", "price": "₹1,349", "sort_order": 2 },
-    { "id": "p-oreomini", "menu_item_id": "mi-oreo-mini", "weight_label": "300 g personal", "price": "₹380", "sort_order": 1 }
+    {
+      "id": "p-strawberry-half",
+      "menu_item_id": "mi-strawberry",
+      "weight_label": "½ Kg",
+      "price": "₹499",
+      "sort_order": 1
+    },
+    {
+      "id": "p-strawberry-full",
+      "menu_item_id": "mi-strawberry",
+      "weight_label": "1 Kg",
+      "price": "₹899",
+      "sort_order": 2
+    },
+    {
+      "id": "p-dutch-half",
+      "menu_item_id": "mi-dutch-truffle",
+      "weight_label": "½ Kg",
+      "price": "₹449",
+      "sort_order": 1
+    },
+    {
+      "id": "p-dutch-full",
+      "menu_item_id": "mi-dutch-truffle",
+      "weight_label": "1 Kg",
+      "price": "₹849",
+      "sort_order": 2
+    },
+    {
+      "id": "p-biscoff-half",
+      "menu_item_id": "mi-biscoff",
+      "weight_label": "½ Kg",
+      "price": "₹649",
+      "sort_order": 1
+    },
+    {
+      "id": "p-biscoff-full",
+      "menu_item_id": "mi-biscoff",
+      "weight_label": "1 Kg",
+      "price": "₹1,199",
+      "sort_order": 2
+    },
+    {
+      "id": "p-rv-half",
+      "menu_item_id": "mi-red-velvet",
+      "weight_label": "½ Kg",
+      "price": "₹599",
+      "sort_order": 1
+    },
+    {
+      "id": "p-rv-full",
+      "menu_item_id": "mi-red-velvet",
+      "weight_label": "1 Kg",
+      "price": "₹1,099",
+      "sort_order": 2
+    },
+    {
+      "id": "p-belgium-half",
+      "menu_item_id": "mi-belgium",
+      "weight_label": "½ Kg",
+      "price": "₹549",
+      "sort_order": 1
+    },
+    {
+      "id": "p-belgium-full",
+      "menu_item_id": "mi-belgium",
+      "weight_label": "1 Kg",
+      "price": "₹999",
+      "sort_order": 2
+    },
+    {
+      "id": "p-alphonso-half",
+      "menu_item_id": "mi-alphonso",
+      "weight_label": "½ Kg",
+      "price": "₹499",
+      "sort_order": 1
+    },
+    {
+      "id": "p-alphonso-full",
+      "menu_item_id": "mi-alphonso",
+      "weight_label": "1 Kg",
+      "price": "₹899",
+      "sort_order": 2
+    },
+    {
+      "id": "p-pineapple-half",
+      "menu_item_id": "mi-pineapple",
+      "weight_label": "½ Kg",
+      "price": "₹399",
+      "sort_order": 1
+    },
+    {
+      "id": "p-pineapple-full",
+      "menu_item_id": "mi-pineapple",
+      "weight_label": "1 Kg",
+      "price": "₹749",
+      "sort_order": 2
+    },
+    {
+      "id": "p-vanilla-half",
+      "menu_item_id": "mi-vanilla-macaron",
+      "weight_label": "½ Kg",
+      "price": "₹549",
+      "sort_order": 1
+    },
+    {
+      "id": "p-vanilla-full",
+      "menu_item_id": "mi-vanilla-macaron",
+      "weight_label": "1 Kg",
+      "price": "₹999",
+      "sort_order": 2
+    },
+    {
+      "id": "p-cupcakes-6",
+      "menu_item_id": "mi-cupcakes",
+      "weight_label": "Box of 6",
+      "price": "₹480",
+      "sort_order": 1
+    },
+    {
+      "id": "p-cupcakes-12",
+      "menu_item_id": "mi-cupcakes",
+      "weight_label": "Box of 12",
+      "price": "₹900",
+      "sort_order": 2
+    },
+    {
+      "id": "p-cakepops-6",
+      "menu_item_id": "mi-cake-pops",
+      "weight_label": "Box of 6",
+      "price": "₹360",
+      "sort_order": 1
+    },
+    {
+      "id": "p-cakepops-12",
+      "menu_item_id": "mi-cake-pops",
+      "weight_label": "Box of 12",
+      "price": "₹680",
+      "sort_order": 2
+    },
+    {
+      "id": "p-jars-1",
+      "menu_item_id": "mi-mini-jars",
+      "weight_label": "Per jar",
+      "price": "₹180",
+      "sort_order": 1
+    },
+    {
+      "id": "p-jars-4",
+      "menu_item_id": "mi-mini-jars",
+      "weight_label": "Set of 4",
+      "price": "₹680",
+      "sort_order": 2
+    },
+    {
+      "id": "p-blueberry-half",
+      "menu_item_id": "mi-blueberry-cheesecake",
+      "weight_label": "½ Kg",
+      "price": "₹649",
+      "sort_order": 1
+    },
+    {
+      "id": "p-blueberry-full",
+      "menu_item_id": "mi-blueberry-cheesecake",
+      "weight_label": "1 Kg",
+      "price": "₹1,199",
+      "sort_order": 2
+    },
+    {
+      "id": "p-hazelnut-half",
+      "menu_item_id": "mi-hazelnut-praline",
+      "weight_label": "½ Kg",
+      "price": "₹749",
+      "sort_order": 1
+    },
+    {
+      "id": "p-hazelnut-full",
+      "menu_item_id": "mi-hazelnut-praline",
+      "weight_label": "1 Kg",
+      "price": "₹1,349",
+      "sort_order": 2
+    },
+    {
+      "id": "p-oreomini",
+      "menu_item_id": "mi-oreo-mini",
+      "weight_label": "300 g personal",
+      "price": "₹380",
+      "sort_order": 1
+    }
   ],
   "gallery_images": [
-    { "id": "g-strawberry", "image_url": "/gallery/cake_strawberry_v2_enhanced.png", "alt_text": "Strawberries & Cream", "is_active": true, "sort_order": 1 },
-    { "id": "g-gold-black", "image_url": "/gallery/cake_gold_black_enhanced.png", "alt_text": "Gold Leaf, Black Buttercream", "is_active": true, "sort_order": 2 },
-    { "id": "g-pink-pearl", "image_url": "/gallery/cake_pink_pearl_enhanced.png", "alt_text": "Pink Pearl", "is_active": true, "sort_order": 3 },
-    { "id": "g-white-fruit", "image_url": "/gallery/cake_white_fruit_enhanced.png", "alt_text": "White Fruit, Three-tier", "is_active": true, "sort_order": 4 },
-    { "id": "g-green-floral", "image_url": "/gallery/cake_green_floral_enhanced.png", "alt_text": "Garden, Hand-piped", "is_active": true, "sort_order": 5 },
-    { "id": "g-daisy", "image_url": "/gallery/cake_daisy_enhanced.png", "alt_text": "Daisy, a Fiftieth", "is_active": true, "sort_order": 6 },
-    { "id": "g-basketweave", "image_url": "/gallery/cake_basketweave_enhanced.png", "alt_text": "Basketweave", "is_active": true, "sort_order": 7 },
-    { "id": "g-bride", "image_url": "/gallery/cake_bride_enhanced.png", "alt_text": "Pali Hill, Three-tier", "is_active": true, "sort_order": 8 },
-    { "id": "g-red-velvet", "image_url": "/gallery/cake_red_velvet_new.png", "alt_text": "Red Velvet, Plated", "is_active": true, "sort_order": 9 },
-    { "id": "g-vanilla-macaron", "image_url": "/gallery/cake_vanilla_macaron_pro.png", "alt_text": "Vanilla Macaron", "is_active": true, "sort_order": 10 },
-    { "id": "g-biscoff", "image_url": "/gallery/cake_biscoff_new.png", "alt_text": "Biscoff, Studio", "is_active": true, "sort_order": 11 },
-    { "id": "g-dutch", "image_url": "/gallery/cake_dutch_truffle_new.png", "alt_text": "Dutch Truffle", "is_active": true, "sort_order": 12 }
+    {
+      "id": "g-strawberry",
+      "image_url": "/gallery/cake_strawberry_v2_enhanced.png",
+      "alt_text": "Strawberries & Cream",
+      "is_active": true,
+      "sort_order": 1
+    },
+    {
+      "id": "g-gold-black",
+      "image_url": "/gallery/cake_gold_black_enhanced.png",
+      "alt_text": "Gold Leaf, Black Buttercream",
+      "is_active": true,
+      "sort_order": 2
+    },
+    {
+      "id": "g-pink-pearl",
+      "image_url": "/gallery/cake_pink_pearl_enhanced.png",
+      "alt_text": "Pink Pearl",
+      "is_active": true,
+      "sort_order": 3
+    },
+    {
+      "id": "g-white-fruit",
+      "image_url": "/gallery/cake_white_fruit_enhanced.png",
+      "alt_text": "White Fruit, Three-tier",
+      "is_active": true,
+      "sort_order": 4
+    },
+    {
+      "id": "g-green-floral",
+      "image_url": "/gallery/cake_green_floral_enhanced.png",
+      "alt_text": "Garden, Hand-piped",
+      "is_active": true,
+      "sort_order": 5
+    },
+    {
+      "id": "g-daisy",
+      "image_url": "/gallery/cake_daisy_enhanced.png",
+      "alt_text": "Daisy, a Fiftieth",
+      "is_active": true,
+      "sort_order": 6
+    },
+    {
+      "id": "g-basketweave",
+      "image_url": "/gallery/cake_basketweave_enhanced.png",
+      "alt_text": "Basketweave",
+      "is_active": true,
+      "sort_order": 7
+    },
+    {
+      "id": "g-bride",
+      "image_url": "/gallery/cake_bride_enhanced.png",
+      "alt_text": "Pali Hill, Three-tier",
+      "is_active": true,
+      "sort_order": 8
+    },
+    {
+      "id": "g-red-velvet",
+      "image_url": "/gallery/cake_red_velvet_new.png",
+      "alt_text": "Red Velvet, Plated",
+      "is_active": true,
+      "sort_order": 9
+    },
+    {
+      "id": "g-vanilla-macaron",
+      "image_url": "/gallery/cake_vanilla_macaron_pro.png",
+      "alt_text": "Vanilla Macaron",
+      "is_active": true,
+      "sort_order": 10
+    },
+    {
+      "id": "g-biscoff",
+      "image_url": "/gallery/cake_biscoff_new.png",
+      "alt_text": "Biscoff, Studio",
+      "is_active": true,
+      "sort_order": 11
+    },
+    {
+      "id": "g-dutch",
+      "image_url": "/gallery/cake_dutch_truffle_new.png",
+      "alt_text": "Dutch Truffle",
+      "is_active": true,
+      "sort_order": 12
+    }
   ],
   "testimonials": [
-    { "id": "t-1", "client_name": "Aanya M.", "review_text": "The red velvet tasted like my Nani used to make — except she didn't. Reordered within the week.", "rating": 5, "location": "Bandra", "is_active": true, "sort_order": 1 },
-    { "id": "t-2", "client_name": "Priya K.", "review_text": "I sent a reference of a cake I'd seen in Paris. She replied with a sketch the same evening. A week later, there it was on my daughter's table.", "rating": 5, "location": "Juhu", "is_active": true, "sort_order": 2 },
-    { "id": "t-3", "client_name": "Kabir S.", "review_text": "Forty boxes of gold-leaf minis for our founders' day. Every single one arrived perfect. I don't know how.", "rating": 5, "location": "Worli", "is_active": true, "sort_order": 3 },
-    { "id": "t-4", "client_name": "R. Menon", "review_text": "My son is seven and extremely opinionated about dinosaurs. She handled it.", "rating": 5, "location": "Khar", "is_active": true, "sort_order": 4 }
+    {
+      "id": "t-1",
+      "client_name": "Aanya M.",
+      "review_text": "The red velvet tasted like my Nani used to make — except she didn't. Reordered within the week.",
+      "rating": 5,
+      "location": "Bandra",
+      "is_active": true,
+      "sort_order": 1
+    },
+    {
+      "id": "t-2",
+      "client_name": "Priya K.",
+      "review_text": "I sent a reference of a cake I'd seen in Paris. She replied with a sketch the same evening. A week later, there it was on my daughter's table.",
+      "rating": 5,
+      "location": "Juhu",
+      "is_active": true,
+      "sort_order": 2
+    },
+    {
+      "id": "t-3",
+      "client_name": "Kabir S.",
+      "review_text": "Forty boxes of gold-leaf minis for our founders' day. Every single one arrived perfect. I don't know how.",
+      "rating": 5,
+      "location": "Worli",
+      "is_active": true,
+      "sort_order": 3
+    },
+    {
+      "id": "t-4",
+      "client_name": "R. Menon",
+      "review_text": "My son is seven and extremely opinionated about dinosaurs. She handled it.",
+      "rating": 5,
+      "location": "Khar",
+      "is_active": true,
+      "sort_order": 4
+    }
+  ],
+  "house_favourites": [
+    {
+      "id": "hc-signature",
+      "label": "Signature cakes",
+      "sort_order": 1,
+      "items": [
+        {
+          "id": "hi-sig-1",
+          "name": "Dutch Truffle",
+          "image_url": "/gallery/cake_dutch_truffle_new.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-sig-2",
+          "name": "Red Velvet",
+          "image_url": "/gallery/cake_red_velvet_new.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-sig-3",
+          "name": "Biscoff Cheesecake",
+          "image_url": "/gallery/cake_biscoff_new.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-sig-4",
+          "name": "Hazelnut Praline",
+          "image_url": "/gallery/cake_hazelnut_enhanced.png",
+          "blurb": "",
+          "quote": ""
+        }
+      ]
+    },
+    {
+      "id": "hc-seasonal",
+      "label": "Seasonal",
+      "sort_order": 2,
+      "items": [
+        {
+          "id": "hi-sea-1",
+          "name": "Alphonso",
+          "image_url": "/gallery/cake_mango_enhanced.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-sea-2",
+          "name": "Strawberries & Cream",
+          "image_url": "/gallery/cake_strawberry_v2_enhanced.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-sea-3",
+          "name": "Pineapple",
+          "image_url": "/gallery/cake_pineapple_enhanced.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-sea-4",
+          "name": "White Fruit",
+          "image_url": "/gallery/cake_white_fruit_enhanced.png",
+          "blurb": "",
+          "quote": ""
+        }
+      ]
+    },
+    {
+      "id": "hc-smalls",
+      "label": "Smalls & gifting",
+      "sort_order": 3,
+      "items": [
+        {
+          "id": "hi-sml-1",
+          "name": "Cupcakes",
+          "image_url": "/gallery/cake_chocolate_truffle_pro.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-sml-2",
+          "name": "Jar cakes",
+          "image_url": "/gallery/cake_red_velvet_pro.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-sml-3",
+          "name": "Oreo mini",
+          "image_url": "/gallery/cake_oreo_new.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-sml-4",
+          "name": "Corporate hampers",
+          "image_url": "/gallery/cake_hazelnut_enhanced.png",
+          "blurb": "",
+          "quote": ""
+        }
+      ]
+    },
+    {
+      "id": "hc-bespoke",
+      "label": "Bespoke",
+      "sort_order": 4,
+      "items": [
+        {
+          "id": "hi-bsp-1",
+          "name": "Three-tier wedding",
+          "image_url": "/gallery/cake_bride_enhanced.png",
+          "blurb": "Two weeks' notice. Tasting session included. Up to 60 guests.",
+          "quote": "₹15,000 upwards"
+        },
+        {
+          "id": "hi-bsp-2",
+          "name": "Sugar-flower cake",
+          "image_url": "/gallery/cake_green_floral_enhanced.png",
+          "blurb": "Hand-piped peonies, garden roses, sweet peas. Each takes an hour.",
+          "quote": "₹4,500 upwards"
+        },
+        {
+          "id": "hi-bsp-3",
+          "name": "Corporate gifting",
+          "image_url": "/gallery/cake_gold_black_enhanced.png",
+          "blurb": "Logos in gold leaf, brand-matched palette. Minimum 10 cakes.",
+          "quote": "on request"
+        },
+        {
+          "id": "hi-bsp-4",
+          "name": "Character cakes",
+          "image_url": "/gallery/cake_basketweave_enhanced.png",
+          "blurb": "For the six-year-old who has specific opinions.",
+          "quote": "₹2,800 upwards"
+        }
+      ]
+    }
   ]
 }

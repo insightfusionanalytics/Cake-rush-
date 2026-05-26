@@ -713,7 +713,11 @@ def test_admin_settings_fields(driver):
 def test_admin_to_public_setting_flow(driver):
     print("\n🔹 T19 · END-TO-END: edit Hero Title in admin → save returns commit_sha")
     sentinel = f"E2ETest_{int(time.time())}"
-    original = "Cake Rush"
+    # Snapshot the FULL current content from the live site BEFORE mutation, so
+    # the cleanup can restore exactly what was there — not whatever the deployed
+    # bundle happens to serve a few seconds later. Prevents sentinel-leaks from
+    # racing Vercel auto-deploys.
+    pretest_snapshot = _content_get_from_deployed()
     try:
         driver.get(_admin_url())
         wait_for(driver, ".lx-admin-tab", timeout=20)
@@ -765,15 +769,29 @@ def test_admin_to_public_setting_flow(driver):
             str(saved.get("body") if saved else None)[:200],
         )
     finally:
-        status, body = _restore_setting("hero_title", original)
-        record(
-            "Cleanup: hero_title restored to 'Cake Rush'",
-            status in (200, 204) and isinstance(body, dict) and body.get("ok") is True,
-        )
+        # Restore the EXACT pre-test snapshot — not just the hero_title field.
+        # This means any sentinel write is fully rolled back even if Vercel's
+        # auto-deploy queue reorders our commits.
+        if pretest_snapshot:
+            status, body = _content_save(pretest_snapshot)
+            record(
+                "Cleanup: restored exact pre-test content snapshot",
+                status in (200, 204) and isinstance(body, dict) and body.get("ok") is True,
+            )
+        else:
+            # Fallback to per-key restore if snapshot wasn't captured
+            status, body = _restore_setting("hero_title", "Cake Rush")
+            record(
+                "Cleanup: hero_title restored to 'Cake Rush' (fallback path)",
+                status in (200, 204) and isinstance(body, dict) and body.get("ok") is True,
+            )
 
 
 def test_admin_empty_save_clears_public(driver):
     print("\n🔹 T20 · END-TO-END: empty save accepted by /api/save-content")
+    # Snapshot before mutating so cleanup restores the exact pre-test state
+    # (defends against Vercel auto-deploy race leaving sentinels live).
+    pretest_snapshot = _content_get_from_deployed()
     try:
         s, body = _restore_setting("hero_title", "")
         record(
@@ -787,11 +805,18 @@ def test_admin_empty_save_clears_public(driver):
             and len(body["commit_sha"]) > 0,
         )
     finally:
-        s, body = _restore_setting("hero_title", "Cake Rush")
-        record(
-            "Cleanup: hero_title restored",
-            s in (200, 204) and isinstance(body, dict) and body.get("ok") is True,
-        )
+        if pretest_snapshot:
+            s, body = _content_save(pretest_snapshot)
+            record(
+                "Cleanup: restored exact pre-test content snapshot",
+                s in (200, 204) and isinstance(body, dict) and body.get("ok") is True,
+            )
+        else:
+            s, body = _restore_setting("hero_title", "Cake Rush")
+            record(
+                "Cleanup: hero_title restored (fallback)",
+                s in (200, 204) and isinstance(body, dict) and body.get("ok") is True,
+            )
 
 
 def test_admin_menu_tab(driver):

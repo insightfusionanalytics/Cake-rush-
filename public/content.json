@@ -1,6 +1,6 @@
 {
   "settings": {
-    "hero_title": "Cake Rush",
+    "hero_title": "Cake Rush ",
     "hero_subtitle": "A cake atelier where every slice tells a story.",
     "hero_badge": "Est. MMXXIV · Bandra · Mumbai",
     "hero_cta_whatsapp": "Reserve on WhatsApp →",
@@ -565,6 +565,15 @@
       "location": "Khar",
       "is_active": true,
       "sort_order": 4
+    },
+    {
+      "id": "t-mpmol8lauh7n",
+      "client_name": "E2EReviewer_1779802723",
+      "review_text": "Sentinel review 1779802723.",
+      "rating": 5,
+      "location": "",
+      "is_active": true,
+      "sort_order": 5
     }
   ],
   "house_favourites": [

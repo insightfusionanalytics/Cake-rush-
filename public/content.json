@@ -1,6 +1,6 @@
 {
   "settings": {
-    "hero_title": "Cake Rush ",
+    "hero_title": "E2ETest_1779802700",
     "hero_subtitle": "A cake atelier where every slice tells a story.",
     "hero_badge": "Est. MMXXIV · Bandra · Mumbai",
     "hero_cta_whatsapp": "Reserve on WhatsApp →",
@@ -598,6 +598,13 @@
           "id": "hi-sig-4",
           "name": "Hazelnut Praline",
           "image_url": "/gallery/cake_hazelnut_enhanced.png",
+          "blurb": "",
+          "quote": ""
+        },
+        {
+          "id": "hi-test-1779802737",
+          "name": "E2EHouseItem_1779802737",
+          "image_url": "/gallery/cake_strawberry_v2_enhanced.png",
           "blurb": "",
           "quote": ""
         }

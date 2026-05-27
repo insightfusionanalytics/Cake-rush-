@@ -160,19 +160,21 @@ const HeroSection = () => {
                 <span>{captionRight}</span>
               </div>
             </div>
-            <div
-              style={{
-                position: "absolute",
-                top: -28,
-                left: -28,
-                padding: "10px 14px",
-                background: L.ivory,
-              }}
-            >
-              <Canela size={14} italic style={{ color: L.ink2 }}>
-                {sticker}
-              </Canela>
-            </div>
+            {sticker && sticker.trim().length > 0 && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: -28,
+                  left: -28,
+                  padding: "10px 14px",
+                  background: L.ivory,
+                }}
+              >
+                <Canela size={14} italic style={{ color: L.ink2 }}>
+                  {sticker}
+                </Canela>
+              </div>
+            )}
           </div>
         </Reveal>
       </div>

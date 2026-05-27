@@ -7,8 +7,10 @@ const PhilosophyTicker = () => {
     settings?.philosophy_ticker ??
     "Hand-crafted  ·  Small-batch  ·  Eggless options  ·  Same-day delivery across Mumbai"
   ).trim();
+  // Empty → hide the section entirely (no border bar, no padding).
+  if (!raw) return null;
   // Append a separator so the line loops cleanly when repeated.
-  const line = raw ? `${raw}  ·  ` : "";
+  const line = `${raw}  ·  `;
   const repeated = line.repeat(6);
   return (
     <section

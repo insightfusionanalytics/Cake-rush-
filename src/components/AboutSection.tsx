@@ -19,7 +19,14 @@ const AboutSection = () => {
     "Cake Rush began as a single red-velvet, iced on a kitchen counter on Carter Road, for a neighbour’s daughter who’d turned seven and wanted something that didn’t come from a box. Four years later, the counter is still there. So is the neighbour.";
   const featuresStr =
     settings?.about_features ?? "Custom Designs,Fresh Ingredients,Made with Love";
-  const featureLabels = featuresStr.split(",").map((s) => s.trim()).slice(0, 3);
+  // Filter out empty values so clearing the setting (or trailing/leading commas)
+  // properly hides the section instead of rendering an empty card.
+  const featureLabels = featuresStr
+    .split(",")
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0)
+    .slice(0, 3);
+  const showFeatures = featureLabels.length > 0;
 
   // Feature descriptions: stored as "desc1||desc2||desc3" (|| not comma so
   // descriptions themselves can contain commas freely).
@@ -81,11 +88,13 @@ const AboutSection = () => {
                   }}
                 />
               </div>
-              <div style={{ marginTop: 18, maxWidth: 280 }}>
-                <Canela size={16} italic style={{ color: L.ink2, lineHeight: 1.5 }}>
-                  {aboutCaption}
-                </Canela>
-              </div>
+              {aboutCaption && aboutCaption.trim().length > 0 && (
+                <div style={{ marginTop: 18, maxWidth: 280 }}>
+                  <Canela size={16} italic style={{ color: L.ink2, lineHeight: 1.5 }}>
+                    {aboutCaption}
+                  </Canela>
+                </div>
+              )}
             </div>
           </Reveal>
 
@@ -131,22 +140,25 @@ const AboutSection = () => {
                 >
                   {aboutText}
                 </p>
-                <p
-                  style={{
-                    fontFamily: '"Cormorant Garamond", serif',
-                    fontStyle: "italic",
-                    fontWeight: 400,
-                    fontSize: "clamp(16px, 1.7vw, 22px)",
-                    lineHeight: 1.7,
-                    color: L.ink2,
-                    marginTop: 28,
-                  }}
-                >
-                  {aboutSecondary}
-                </p>
+                {aboutSecondary && aboutSecondary.trim().length > 0 && (
+                  <p
+                    style={{
+                      fontFamily: '"Cormorant Garamond", serif',
+                      fontStyle: "italic",
+                      fontWeight: 400,
+                      fontSize: "clamp(16px, 1.7vw, 22px)",
+                      lineHeight: 1.7,
+                      color: L.ink2,
+                      marginTop: 28,
+                    }}
+                  >
+                    {aboutSecondary}
+                  </p>
+                )}
               </div>
             </Reveal>
 
+            {showFeatures && (
             <Reveal delay={320}>
               <div
                 className="lx-about-features"
@@ -197,6 +209,7 @@ const AboutSection = () => {
                 ))}
               </div>
             </Reveal>
+            )}
           </div>
         </div>
       </div>

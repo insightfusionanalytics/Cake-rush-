@@ -476,7 +476,7 @@
       "id": "g-green-floral",
       "image_url": "/gallery/cake_green_floral_enhanced.png",
       "alt_text": "Garden, Hand-piped",
-      "is_active": true,
+      "is_active": false,
       "sort_order": 5
     },
     {

@@ -241,9 +241,9 @@
     },
     {
       "id": "mi-oreo-mini",
-      "category_id": "cat-desserts",
-      "name": "Oreo Mini",
-      "description": "300-gram personal cake. Corporate-friendly, always a hit.",
+      "category_id": "cat-cakes",
+      "name": "Oreo Cake",
+      "description": "Cookies, cream, and a little nostalgia in every slice.",
       "image_url": "/gallery/cake_oreo_new.png",
       "icon": "🍪",
       "is_active": true,

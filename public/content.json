@@ -99,7 +99,7 @@
       "id": "mi-dutch-truffle",
       "category_id": "cat-cakes",
       "name": "Dutch Truffle",
-      "description": "Eight layers of dark chocolate; a crumb that could hold a candle upright.",
+      "description": "Layers of dark chocolate; a crumb that could hold a candle upright.",
       "image_url": "/gallery/cake_dutch_truffle_new.png",
       "icon": "🍫",
       "is_active": true,
@@ -250,18 +250,6 @@
       "is_custom_only": false,
       "price": "",
       "sort_order": 14
-    },
-    {
-      "id": "mi-mqdnpnh1o9jv",
-      "category_id": "cat-cakes",
-      "name": "Rasmalia Cake",
-      "description": "Your favourite sweet, reimagined in layers",
-      "image_url": null,
-      "icon": "🎂",
-      "is_active": true,
-      "is_custom_only": false,
-      "price": "",
-      "sort_order": 15
     }
   ],
   "menu_item_prices": [

@@ -250,6 +250,18 @@
       "is_custom_only": false,
       "price": "",
       "sort_order": 14
+    },
+    {
+      "id": "mi-mqdnulbp272j",
+      "category_id": "cat-cakes",
+      "name": "Rasmalai Cake",
+      "description": "Your favourite mithai, reimagined in layers.",
+      "image_url": null,
+      "icon": "🎂",
+      "is_active": true,
+      "is_custom_only": false,
+      "price": "",
+      "sort_order": 15
     }
   ],
   "menu_item_prices": [

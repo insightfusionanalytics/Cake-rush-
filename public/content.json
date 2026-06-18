@@ -262,6 +262,18 @@
       "is_custom_only": false,
       "price": "",
       "sort_order": 15
+    },
+    {
+      "id": "mi-mqjptvo5hk2l",
+      "category_id": "cat-cakes",
+      "name": "Choco Wallnut",
+      "description": "",
+      "image_url": null,
+      "icon": "🎂",
+      "is_active": true,
+      "is_custom_only": false,
+      "price": "",
+      "sort_order": 15
     }
   ],
   "menu_item_prices": [

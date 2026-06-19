@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import SplashScreen from "@/components/SplashScreen";
 import PhilosophyTicker from "@/components/PhilosophyTicker";
 import AboutSection from "@/components/AboutSection";
 import HouseFavourites from "@/components/HouseFavourites";
@@ -12,6 +13,7 @@ import WhatsAppFloat from "@/components/WhatsAppFloat";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SplashScreen />
       <Navbar />
       <HeroSection />
       <PhilosophyTicker />

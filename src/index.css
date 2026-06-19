@@ -141,6 +141,31 @@
   to { transform: translateX(-50%); }
 }
 
+/* Splash screen reveal sequence */
+@keyframes lxSplashFadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes lxSplashWordRise {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes lxSplashPeriodDrop {
+  0%   { opacity: 0; transform: translateY(-26px) scale(0.55); }
+  55%  { opacity: 1; transform: translateY(5px) scale(1.12); }
+  78%  { transform: translateY(-2px) scale(0.97); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes lxSplashLineDraw {
+  from { transform: translateX(-50%) scaleX(0); }
+  to   { transform: translateX(-50%) scaleX(1); }
+}
+@keyframes lxSplashHalo {
+  0%   { opacity: 0; transform: scale(0.92); }
+  60%  { opacity: 0.5; }
+  100% { opacity: 0; transform: scale(1.4); }
+}
+
 .lx-marquee-track {
   display: flex;
   white-space: nowrap;

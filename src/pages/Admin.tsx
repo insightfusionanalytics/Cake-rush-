@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { ArrowLeft, Plus, Trash2, Save, Upload, Image, Pencil, Check, X as XIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Canela, Eyebrow, L } from "@/components/luxe/tokens";
+import { HeroPreview, AboutPreview, HouseItemPreview } from "@/components/admin/AdminPreviews";
 import {
   useSiteSettings, useUpdateSettingsBatch,
   useMenuCategories, useMenuItems, useUpsertMenuItem, useDeleteMenuItem,
@@ -210,6 +211,8 @@ function SettingsTab() {
     <div className="space-y-6">
       {fields.map((f, idx) => {
         if (f.kind === "section") {
+          const isHero = f.label === "Hero";
+          const isAbout = f.label.startsWith("About");
           return (
             <div
               key={`sec-${idx}`}
@@ -217,6 +220,8 @@ function SettingsTab() {
               style={{ borderTop: idx === 0 ? "none" : `1px solid ${L.rule}` }}
             >
               <Eyebrow style={{ fontSize: 11 }}>{f.label}</Eyebrow>
+              {isHero && <HeroPreview get={val} />}
+              {isAbout && <AboutPreview get={val} />}
             </div>
           );
         }
@@ -727,9 +732,12 @@ function TestimonialsTab() {
 // ─── House Favourites Tab ───
 function HouseTab() {
   const { data: categories, isLoading } = useHouseFavourites();
+  const { data: settings } = useSiteSettings();
   const upsertItem = useUpsertHouseItem();
   const deleteItem = useDeleteHouseItem();
   const upsertCat = useUpsertHouseCategory();
+  const reserveLabel = settings?.menu_reserve_label ?? "Reserve this cake →";
+  const requestQuoteLabel = settings?.house_request_quote_label ?? "Request a quote →";
   const [editing, setEditing] = useState<
     | { category_id: string; item: any }
     | { category_id: string; item: null }
@@ -828,7 +836,7 @@ function HouseTab() {
             <Button
               size="sm"
               variant="outline"
-              onClick={() => setEditing({ category_id: cat.id, item: { name: "", image_url: "", blurb: "", quote: "" } })}
+              onClick={() => setEditing({ category_id: cat.id, item: { name: "", image_url: "", description: "", prices: [], blurb: "", quote: "" } })}
             >
               <Plus className="mr-1 h-3 w-3" /> Add Item
             </Button>
@@ -836,6 +844,11 @@ function HouseTab() {
 
           {editing && editing.category_id === cat.id && (
             <div className="p-5 space-y-3" style={{ background: L.paper, border: `1px solid ${L.rule}` }}>
+              <HouseItemPreview
+                item={editing.item ?? {}}
+                reserveLabel={reserveLabel}
+                requestQuoteLabel={requestQuoteLabel}
+              />
               <div className="flex items-start gap-4">
                 <div
                   className="w-24 h-24 overflow-hidden flex items-center justify-center flex-shrink-0"
@@ -872,6 +885,74 @@ function HouseTab() {
                   value={editing.item?.name ?? ""}
                   onChange={(e) => setEditing({ ...editing, item: { ...editing.item, name: e.target.value } } as any)}
                 />
+              </div>
+              <div>
+                <label className="text-xs font-medium">Description (optional — shown above prices)</label>
+                <Textarea
+                  rows={2}
+                  value={editing.item?.description ?? ""}
+                  onChange={(e) => setEditing({ ...editing, item: { ...editing.item, description: e.target.value } } as any)}
+                  placeholder="e.g. Layers of dark chocolate; a crumb that could hold a candle upright."
+                />
+              </div>
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-xs font-medium">Price variants (optional)</label>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="h-7"
+                    onClick={() => {
+                      const next = [...((editing.item?.prices as Array<{ weight_label: string; price: string }> | undefined) ?? []), { weight_label: "", price: "" }];
+                      setEditing({ ...editing, item: { ...editing.item, prices: next } } as any);
+                    }}
+                  >
+                    <Plus className="mr-1 h-3 w-3" /> Add row
+                  </Button>
+                </div>
+                {((editing.item?.prices as Array<{ weight_label: string; price: string }> | undefined) ?? []).length === 0 && (
+                  <p className="text-xs" style={{ color: L.ink3 }}>
+                    Add at least one weight/price row to show the "Reserve this cake" button.
+                  </p>
+                )}
+                <div className="space-y-2">
+                  {((editing.item?.prices as Array<{ weight_label: string; price: string }> | undefined) ?? []).map((row, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <Input
+                        placeholder="½ Kg"
+                        value={row.weight_label}
+                        onChange={(e) => {
+                          const prices = [...(editing.item?.prices ?? [])];
+                          prices[idx] = { ...prices[idx], weight_label: e.target.value };
+                          setEditing({ ...editing, item: { ...editing.item, prices } } as any);
+                        }}
+                        className="flex-1"
+                      />
+                      <Input
+                        placeholder="₹499"
+                        value={row.price}
+                        onChange={(e) => {
+                          const prices = [...(editing.item?.prices ?? [])];
+                          prices[idx] = { ...prices[idx], price: e.target.value };
+                          setEditing({ ...editing, item: { ...editing.item, prices } } as any);
+                        }}
+                        className="flex-1"
+                      />
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="text-destructive h-8 w-8 p-0"
+                        onClick={() => {
+                          const prices = [...(editing.item?.prices ?? [])];
+                          prices.splice(idx, 1);
+                          setEditing({ ...editing, item: { ...editing.item, prices } } as any);
+                        }}
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
               </div>
               <div>
                 <label className="text-xs font-medium">Blurb (optional — shown for Bespoke-style items)</label>
@@ -915,6 +996,14 @@ function HouseTab() {
                 )}
                 <div className="px-3 py-2">
                   <div className="text-sm font-medium truncate" style={{ color: L.ink }}>{item.name}</div>
+                  {item.prices && item.prices.length > 0 && (
+                    <div className="text-xs truncate" style={{ color: L.copperDeep }}>
+                      {item.prices
+                        .filter((p) => (p.weight_label && p.weight_label.trim()) || (p.price && p.price.trim()))
+                        .map((p) => `${p.weight_label} ${p.price}`.trim())
+                        .join(" · ")}
+                    </div>
+                  )}
                   {item.quote && (
                     <div className="text-xs truncate" style={{ color: L.copperDeep }}>{item.quote}</div>
                   )}
@@ -987,13 +1076,12 @@ const AdminPage = () => {
 
         <Tabs defaultValue="settings" className="w-full">
           <TabsList
-            className="w-full mb-10 h-auto p-0 bg-transparent gap-0 grid grid-cols-5 lx-admin-tabs"
+            className="w-full mb-10 h-auto p-0 bg-transparent gap-0 grid grid-cols-4 lx-admin-tabs"
             style={{ borderBottom: `1px solid ${L.rule}` }}
           >
             {[
               ["settings", "Settings"],
-              ["menu", "Menu"],
-              ["house", "House"],
+              ["house", "Menu"],
               ["gallery", "Gallery"],
               ["testimonials", "Reviews"],
             ].map(([v, label]) => (
@@ -1008,7 +1096,6 @@ const AdminPage = () => {
           </TabsList>
 
           <TabsContent value="settings"><SettingsTab /></TabsContent>
-          <TabsContent value="menu"><MenuTab /></TabsContent>
           <TabsContent value="house"><HouseTab /></TabsContent>
           <TabsContent value="gallery"><GalleryTab /></TabsContent>
           <TabsContent value="testimonials"><TestimonialsTab /></TabsContent>

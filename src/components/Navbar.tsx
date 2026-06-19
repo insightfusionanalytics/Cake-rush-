@@ -4,7 +4,7 @@ import { Canela, Eyebrow, L, Numeral, SANS, TextLink } from "@/components/luxe/t
 
 // Default labels in order — mapped to these 4 section anchors.
 const NAV_ANCHORS = ["about", "menu", "gallery", "contact"] as const;
-const DEFAULT_NAV_LABELS = ["Story", "Collection", "Lookbook", "Contact"];
+const DEFAULT_NAV_LABELS = ["Story", "Menu", "Lookbook", "Contact"];
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -19,7 +19,7 @@ const Navbar = () => {
   const menuAria = settings?.nav_menu_aria ?? "Menu";
   const closeAria = settings?.nav_close_aria ?? "Close";
 
-  // Parse "Story,Collection,Lookbook,Contact" → 4 [label, anchor] tuples.
+  // Parse "Story,Menu,Lookbook,Contact" → 4 [label, anchor] tuples.
   const rawLinks = (settings?.nav_links ?? DEFAULT_NAV_LABELS.join(",")).trim();
   const labels = rawLinks
     .split(",")

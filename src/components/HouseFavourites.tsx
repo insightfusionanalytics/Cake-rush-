@@ -10,6 +10,9 @@ const HouseFavourites = () => {
   const quoteTemplate =
     settings?.house_quote_template ?? "Hi, I'd like a quote for {item}.";
   const tabNumberPrefix = settings?.house_tab_number_prefix ?? "№";
+  const reserveLabel = settings?.menu_reserve_label ?? "Reserve this cake →";
+  const reserveTemplate =
+    settings?.menu_whatsapp_template ?? "Hi, I'd like to reserve the {item}.";
 
   const [activeId, setActiveId] = useState<string | null>(null);
 
@@ -61,7 +64,7 @@ const HouseFavourites = () => {
   }
 
   return (
-    <section className="lx-house" style={{ background: L.paper }}>
+    <section id="menu" className="lx-house" style={{ background: L.paper }}>
       <div style={{ maxWidth: 1360, margin: "0 auto" }}>
         <Reveal>
           <div
@@ -195,6 +198,13 @@ const HouseFavourites = () => {
             {cat.items.map((item, i) => {
               const hasBlurb = !!(item.blurb && item.blurb.trim());
               const hasQuote = !!(item.quote && item.quote.trim());
+              const hasDescription = !!(item.description && item.description.trim());
+              const visiblePrices = (item.prices ?? []).filter(
+                (p) =>
+                  (p.weight_label && p.weight_label.trim()) ||
+                  (p.price && p.price.trim()),
+              );
+              const hasPrices = visiblePrices.length > 0;
               return (
                 <Reveal key={item.id} delay={(i % 4) * 60}>
                   <article>
@@ -233,6 +243,81 @@ const HouseFavourites = () => {
                     >
                       {item.name}
                     </Canela>
+                    {hasDescription && (
+                      <Canela
+                        size="clamp(13px, 1.3vw, 16px)"
+                        italic
+                        style={{
+                          display: "block",
+                          marginTop: 10,
+                          color: L.ink2,
+                          lineHeight: 1.5,
+                          fontWeight: 300,
+                        }}
+                      >
+                        {item.description}
+                      </Canela>
+                    )}
+                    {hasPrices && (
+                      <div
+                        style={{
+                          marginTop: 18,
+                          paddingTop: 14,
+                          borderTop: `1px solid ${L.ruleSoft}`,
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 6,
+                        }}
+                      >
+                        {visiblePrices.map((p, idx) => (
+                          <div
+                            key={idx}
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "baseline",
+                            }}
+                          >
+                            <Eyebrow color={L.ink3} style={{ fontSize: 10 }}>
+                              {p.weight_label}
+                            </Eyebrow>
+                            <Canela
+                              size="clamp(14px, 1.4vw, 17px)"
+                              style={{
+                                color: L.copperDeep,
+                                letterSpacing: "-0.005em",
+                              }}
+                            >
+                              {p.price}
+                            </Canela>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {hasPrices && (
+                      <a
+                        href={`https://wa.me/${whatsapp}?text=${encodeURIComponent(
+                          reserveTemplate.replace(/\{item\}/g, item.name),
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: "inline-block",
+                          marginTop: 18,
+                          fontFamily: SANS,
+                          fontSize: 11,
+                          letterSpacing: "0.22em",
+                          textTransform: "uppercase",
+                          fontWeight: 500,
+                          color: L.copperDeep,
+                          textDecoration: "none",
+                          borderBottom: `1px solid ${L.copperDeep}`,
+                          paddingBottom: 4,
+                        }}
+                      >
+                        {reserveLabel}
+                      </a>
+                    )}
                     {hasBlurb && (
                       <Canela
                         size="clamp(13px, 1.3vw, 16px)"

@@ -54,10 +54,17 @@ export interface Testimonial {
   sort_order: number;
 }
 
+export interface HousePrice {
+  weight_label: string;
+  price: string;
+}
+
 export interface HouseItem {
   id: string;
   name: string;
   image_url?: string | null;
+  description?: string;
+  prices?: HousePrice[];
   blurb?: string;
   quote?: string;
 }
@@ -467,6 +474,8 @@ export function useUpsertHouseItem() {
               id: item.id ?? nextId("hi"),
               name: item.name ?? "",
               image_url: item.image_url ?? "",
+              description: item.description ?? "",
+              prices: item.prices ?? [],
               blurb: item.blurb ?? "",
               quote: item.quote ?? "",
             });

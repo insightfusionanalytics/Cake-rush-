@@ -140,9 +140,22 @@ function useMutateContent() {
   return async (updater: (prev: Content) => Content) => {
     const previous = qc.getQueryData<Content>(["content"]) ?? (await fetchContent());
     const next = updater(previous);
-    await saveContent(next);
+    // Optimistic: paint the UI with the new state immediately so the
+    // admin sees their change without waiting for the GitHub round-trip.
     qc.setQueryData(["content"], next);
-    qc.invalidateQueries({ queryKey: ["content"] });
+    try {
+      await saveContent(next);
+      // Intentionally NO invalidateQueries here — Vercel's CDN may still
+      // be serving the OLD public/content.json for ~30s after the commit
+      // lands, so a refetch would briefly overwrite our good cache with
+      // stale data. Trust the optimistic cache; the next natural fetch
+      // (page reload / window-focus refetch in the FRESH config) picks
+      // up the canonical version once the CDN catches up.
+    } catch (err) {
+      // Roll back on failure so the admin doesn't see a phantom edit.
+      qc.setQueryData(["content"], previous);
+      throw err;
+    }
   };
 }
 

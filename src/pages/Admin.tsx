@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -746,6 +746,76 @@ function HouseTab() {
   const [uploading, setUploading] = useState(false);
   const [editingCatId, setEditingCatId] = useState<string | null>(null);
   const [catDraft, setCatDraft] = useState("");
+  // Drag-and-drop: copy item from one category to another.
+  // Refs hold the in-flight drag payload (data isn't readable from
+  // dataTransfer during dragover, only on drop), state drives the
+  // visual highlight of the hovered drop target.
+  const dragFromCatRef = useRef<string | null>(null);
+  const dragItemRef = useRef<any>(null);
+  const [dragOverCatId, setDragOverCatId] = useState<string | null>(null);
+
+  const handleDragStart = (
+    e: React.DragEvent<HTMLDivElement>,
+    fromCatId: string,
+    item: any,
+  ) => {
+    dragFromCatRef.current = fromCatId;
+    dragItemRef.current = item;
+    e.dataTransfer.effectAllowed = "copy";
+    // Some browsers require setData to enable drag.
+    try {
+      e.dataTransfer.setData("text/plain", item?.name ?? "");
+    } catch {
+      // safari edge cases — non-fatal
+    }
+  };
+
+  const handleDragOverCat = (
+    e: React.DragEvent<HTMLDivElement>,
+    targetCatId: string,
+  ) => {
+    if (!dragFromCatRef.current) return;
+    if (dragFromCatRef.current === targetCatId) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "copy";
+    if (dragOverCatId !== targetCatId) setDragOverCatId(targetCatId);
+  };
+
+  const handleDragLeaveCat = (targetCatId: string) => {
+    setDragOverCatId((cur) => (cur === targetCatId ? null : cur));
+  };
+
+  const handleDragEnd = () => {
+    dragFromCatRef.current = null;
+    dragItemRef.current = null;
+    setDragOverCatId(null);
+  };
+
+  const handleDropOnCat = async (
+    e: React.DragEvent<HTMLDivElement>,
+    targetCatId: string,
+  ) => {
+    e.preventDefault();
+    const fromCatId = dragFromCatRef.current;
+    const draggedItem = dragItemRef.current;
+    handleDragEnd();
+    if (!draggedItem) return;
+    if (fromCatId === targetCatId) return;
+    const targetCat = categories.find((c) => c.id === targetCatId);
+    if (!targetCat) return;
+    // Strip the id so a new one is generated — the copy becomes its
+    // own independent entry (editing one won't affect the other).
+    const { id: _omitId, ...itemPayload } = draggedItem;
+    try {
+      await upsertItem.mutateAsync({
+        category_id: targetCatId,
+        item: itemPayload,
+      });
+      toast.success(`Copied "${draggedItem.name}" to ${targetCat.label}`);
+    } catch (err) {
+      toast.error((err as Error).message || "Failed to copy item");
+    }
+  };
 
   if (isLoading) return <p className="text-muted-foreground">Loading…</p>;
 
@@ -805,8 +875,40 @@ function HouseTab() {
         </p>
       </div>
 
+      <div
+        className="text-xs px-3 py-2"
+        style={{
+          background: L.paper,
+          border: `1px solid ${L.ruleSoft}`,
+          color: L.ink2,
+          fontFamily: "Inter, sans-serif",
+        }}
+      >
+        <span style={{ color: L.copperDeep, fontWeight: 600, marginRight: 6 }}>
+          Tip ·
+        </span>
+        Drag any item card onto a different category to copy it there. The
+        original stays put — the copy is fully independent, so editing one
+        won't change the other.
+      </div>
+
       {categories.map((cat) => (
-        <div key={cat.id} className="space-y-3">
+        <div
+          key={cat.id}
+          className="space-y-3 p-3 -m-3 transition-all"
+          onDragOver={(e) => handleDragOverCat(e, cat.id)}
+          onDragLeave={() => handleDragLeaveCat(cat.id)}
+          onDrop={(e) => handleDropOnCat(e, cat.id)}
+          style={{
+            border:
+              dragOverCatId === cat.id
+                ? `2px dashed ${L.copperDeep}`
+                : "2px dashed transparent",
+            background:
+              dragOverCatId === cat.id ? "rgba(176,137,104,0.06)" : "transparent",
+            borderRadius: 4,
+          }}
+        >
           <div className="flex items-center justify-between gap-3">
             {editingCatId === cat.id ? (
               <div className="flex items-center gap-2 flex-1">
@@ -984,8 +1086,16 @@ function HouseTab() {
             {cat.items.map((item) => (
               <div
                 key={item.id}
+                draggable
+                onDragStart={(e) => handleDragStart(e, cat.id, item)}
+                onDragEnd={handleDragEnd}
                 className="relative group overflow-hidden"
-                style={{ border: `1px solid ${L.rule}`, background: L.white }}
+                style={{
+                  border: `1px solid ${L.rule}`,
+                  background: L.white,
+                  cursor: "grab",
+                }}
+                title="Drag to another category to copy this cake there"
               >
                 {item.image_url ? (
                   <img src={item.image_url} alt={item.name} className="w-full aspect-square object-cover" />

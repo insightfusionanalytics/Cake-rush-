@@ -85,6 +85,7 @@ const Navbar = () => {
           </div>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            aria-label={wordmark}
             style={{
               background: "none",
               border: "none",
@@ -92,11 +93,19 @@ const Navbar = () => {
               padding: 0,
               gridColumn: 2,
               justifySelf: "center",
+              display: "flex",
+              alignItems: "center",
             }}
           >
-            <Canela size="clamp(20px, 2.2vw, 26px)" italic style={{ color: L.ink }}>
-              {wordmark}
-            </Canela>
+            <img
+              src="/logo.png"
+              alt={wordmark}
+              style={{
+                height: "clamp(40px, 5vw, 56px)",
+                width: "auto",
+                display: "block",
+              }}
+            />
           </button>
           <div
             className="lx-nav-links"
@@ -175,9 +184,11 @@ const Navbar = () => {
               borderBottom: `1px solid ${L.rule}`,
             }}
           >
-            <Canela size={22} italic>
-              {wordmark}
-            </Canela>
+            <img
+              src="/logo.png"
+              alt={wordmark}
+              style={{ height: 44, width: "auto", display: "block" }}
+            />
             <button
               onClick={() => setMobileOpen(false)}
               aria-label={closeAria}

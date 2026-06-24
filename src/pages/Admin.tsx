@@ -75,15 +75,18 @@ function SettingsTab() {
   const val = (key: string) => edits[key] ?? settings?.[key] ?? "";
   const set = (key: string, value: string) => setEdits((p) => ({ ...p, [key]: value }));
 
-  const save = async () => {
+  const save = () => {
     if (Object.keys(edits).length === 0) return;
-    try {
-      await updateBatch.mutateAsync(edits);
-      setEdits({});
-      toast.success("Saved. Public site updates in ~30–60s.");
-    } catch (err) {
-      toast.error((err as Error).message || "Failed to save");
-    }
+    // Fire-and-forget — clear the form + toast immediately, the
+    // optimistic cache update inside useMutateContent already
+    // reflects the new settings everywhere they're used.
+    const payload = edits;
+    setEdits({});
+    toast.success("Saved.");
+    updateBatch.mutate(payload, {
+      onError: (err) =>
+        toast.error((err as Error).message || "Failed to save"),
+    });
   };
 
   type Field =
@@ -791,7 +794,7 @@ function HouseTab() {
     setDragOverCatId(null);
   };
 
-  const handleDropOnCat = async (
+  const handleDropOnCat = (
     e: React.DragEvent<HTMLDivElement>,
     targetCatId: string,
   ) => {
@@ -806,15 +809,17 @@ function HouseTab() {
     // Strip the id so a new one is generated — the copy becomes its
     // own independent entry (editing one won't affect the other).
     const { id: _omitId, ...itemPayload } = draggedItem;
-    try {
-      await upsertItem.mutateAsync({
-        category_id: targetCatId,
-        item: itemPayload,
-      });
-      toast.success(`Copied "${draggedItem.name}" to ${targetCat.label}`);
-    } catch (err) {
-      toast.error((err as Error).message || "Failed to copy item");
-    }
+    // Fire-and-forget: the optimistic cache update inside useMutateContent
+    // makes the new card appear instantly. The toast fires immediately
+    // too; failures surface via onError + automatic rollback.
+    toast.success(`Copied "${draggedItem.name}" to ${targetCat.label}`);
+    upsertItem.mutate(
+      { category_id: targetCatId, item: itemPayload },
+      {
+        onError: (err) =>
+          toast.error((err as Error).message || "Failed to copy item"),
+      },
+    );
   };
 
   if (isLoading) return <p className="text-muted-foreground">Loading…</p>;
@@ -833,35 +838,45 @@ function HouseTab() {
     setUploading(false);
   };
 
-  const saveItem = async () => {
+  // Fire-and-forget: close the editor + toast immediately, let the
+  // mutation commit to GitHub in the background. The cache is updated
+  // optimistically by useMutateContent, so the public-facing list
+  // re-renders without waiting for the network round-trip. Errors
+  // surface via the mutation's onError callback (rollback is automatic).
+  const saveItem = () => {
     if (!editing) return;
     const item = editing.item ?? {};
     if (!item.name) {
       toast.error("Name is required");
       return;
     }
-    try {
-      await upsertItem.mutateAsync({ category_id: editing.category_id, item });
-      setEditing(null);
-      toast.success("Saved. Public site updates in ~30–60s.");
-    } catch (err) {
-      toast.error((err as Error).message || "Failed to save");
-    }
+    const category_id = editing.category_id;
+    setEditing(null);
+    toast.success("Saved.");
+    upsertItem.mutate(
+      { category_id, item },
+      {
+        onError: (err) =>
+          toast.error((err as Error).message || "Failed to save"),
+      },
+    );
   };
 
-  const saveCat = async (catId: string) => {
+  const saveCat = (catId: string) => {
     const cat = categories.find((c) => c.id === catId);
     if (!cat || !catDraft.trim()) {
       setEditingCatId(null);
       return;
     }
-    try {
-      await upsertCat.mutateAsync({ ...cat, label: catDraft.trim() });
-      setEditingCatId(null);
-      toast.success("Category renamed.");
-    } catch (err) {
-      toast.error((err as Error).message || "Failed to rename");
-    }
+    setEditingCatId(null);
+    toast.success("Category renamed.");
+    upsertCat.mutate(
+      { ...cat, label: catDraft.trim() },
+      {
+        onError: (err) =>
+          toast.error((err as Error).message || "Failed to rename"),
+      },
+    );
   };
 
   return (
@@ -1134,9 +1149,20 @@ function HouseTab() {
                     size="sm"
                     variant="destructive"
                     className="h-8 w-8 p-0"
-                    onClick={async () => {
-                      await deleteItem.mutateAsync({ category_id: cat.id, item_id: item.id });
+                    onClick={() => {
+                      // Fire-and-forget — optimistic cache update removes
+                      // the card instantly; toast confirms; failures roll
+                      // back automatically and surface here.
                       toast.success("Removed.");
+                      deleteItem.mutate(
+                        { category_id: cat.id, item_id: item.id },
+                        {
+                          onError: (err) =>
+                            toast.error(
+                              (err as Error).message || "Failed to remove",
+                            ),
+                        },
+                      );
                     }}
                   >
                     <Trash2 className="h-3.5 w-3.5" />

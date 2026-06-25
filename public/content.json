@@ -826,6 +826,24 @@
           ],
           "blurb": "",
           "quote": ""
+        },
+        {
+          "id": "hi-mqttocu55fdl",
+          "name": "Chocolate Chip Walnut Brownie",
+          "image_url": "/uploads/house/1782411195655_d3e1c9e3-d1f5-422c-8448-945e85f10420.png",
+          "description": "Fudgy chocolate, toasted walnuts, and pockets of melted chips.",
+          "prices": [
+            {
+              "weight_label": "Box of 6",
+              "price": ""
+            },
+            {
+              "weight_label": "Box of 12",
+              "price": ""
+            }
+          ],
+          "blurb": "",
+          "quote": ""
         }
       ]
     },

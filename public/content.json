@@ -523,6 +523,13 @@
       "alt_text": "Pali Hill, Three-tier",
       "is_active": false,
       "sort_order": 8
+    },
+    {
+      "id": "g-mqtu6g9y43u4",
+      "image_url": "/uploads/gallery/1782412156019_b4c06e6f-7d83-4e26-b9a3-42b45a7cc427.png",
+      "alt_text": "b4c06e6f 7d83 4e26 b9a3 42b45a7cc427",
+      "is_active": true,
+      "sort_order": 9
     }
   ],
   "testimonials": [

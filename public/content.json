@@ -636,16 +636,16 @@
         {
           "id": "hi-sig-3",
           "name": "Belgium Chocolate",
-          "image_url": "/gallery/cake_chocolate_truffle_pro.png",
-          "description": "Couverture ganache, feuilletine crunch, cocoa-nib dust.",
+          "image_url": "/uploads/house/1782409971692_cake_hazelnut_enhanced.png",
+          "description": "Dark, smooth, and unapologetically chocolate-forward.",
           "prices": [
             {
               "weight_label": "½ Kg",
-              "price": "₹549"
+              "price": "₹700"
             },
             {
               "weight_label": "1 Kg",
-              "price": "₹999"
+              "price": "₹1350"
             }
           ],
           "blurb": "",

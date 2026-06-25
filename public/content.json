@@ -923,6 +923,20 @@
           ],
           "blurb": "For the six-year-old who has specific opinions.",
           "quote": "₹2,800 upwards"
+        },
+        {
+          "id": "hi-mqttz8qcq4q9",
+          "name": "Figurine Cake",
+          "image_url": "/uploads/house/1782411588568_chatgpt-image-jun-9-2026-10_10_32-am.png",
+          "description": "Personalized Fondant Character Cakes, made uniquely for your occasion.",
+          "prices": [
+            {
+              "weight_label": "",
+              "price": ""
+            }
+          ],
+          "blurb": "",
+          "quote": ""
         }
       ]
     }

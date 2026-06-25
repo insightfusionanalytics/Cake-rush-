@@ -521,7 +521,7 @@
       "id": "g-bride",
       "image_url": "/gallery/cake_bride_enhanced.png",
       "alt_text": "Pali Hill, Three-tier",
-      "is_active": true,
+      "is_active": false,
       "sort_order": 8
     }
   ],

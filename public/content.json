@@ -537,6 +537,13 @@
       "alt_text": "cake aditya v2 enhanced",
       "is_active": true,
       "sort_order": 10
+    },
+    {
+      "id": "g-mqtu7hezqqt4",
+      "image_url": "/uploads/gallery/1782412204722_cake_nandini_v2_enhanced.png",
+      "alt_text": "cake nandini v2 enhanced",
+      "is_active": true,
+      "sort_order": 11
     }
   ],
   "testimonials": [

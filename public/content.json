@@ -507,7 +507,7 @@
       "id": "g-daisy",
       "image_url": "/gallery/cake_daisy_enhanced.png",
       "alt_text": "Daisy, a Fiftieth",
-      "is_active": true,
+      "is_active": false,
       "sort_order": 6
     },
     {

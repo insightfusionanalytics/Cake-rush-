@@ -530,13 +530,6 @@
       "alt_text": "Red Velvet, Plated",
       "is_active": true,
       "sort_order": 9
-    },
-    {
-      "id": "g-dutch",
-      "image_url": "/gallery/cake_dutch_truffle_new.png",
-      "alt_text": "Dutch Truffle",
-      "is_active": true,
-      "sort_order": 12
     }
   ],
   "testimonials": [

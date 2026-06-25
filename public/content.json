@@ -635,9 +635,9 @@
         },
         {
           "id": "hi-sig-3",
-          "name": "Belgium Chocolate",
+          "name": "Black Forest",
           "image_url": "/uploads/house/1782409971692_cake_hazelnut_enhanced.png",
-          "description": "Dark, smooth, and unapologetically chocolate-forward.",
+          "description": "Chocolate sponge, fresh cream, and cherries that never go out of style",
           "prices": [
             {
               "weight_label": "½ Kg",
@@ -645,7 +645,7 @@
             },
             {
               "weight_label": "1 Kg",
-              "price": "₹1350"
+              "price": "₹1300"
             }
           ],
           "blurb": "",
@@ -653,9 +653,9 @@
         },
         {
           "id": "hi-sig-4",
-          "name": "Vanilla Macaron",
+          "name": "Vanilla Bean ",
           "image_url": "/gallery/cake_vanilla_macaron_pro.png",
-          "description": "Madagascar vanilla, French buttercream, macaron shards on the rim.",
+          "description": "Soft layers scented with real vanilla.",
           "prices": [
             {
               "weight_label": "½ Kg",
@@ -673,15 +673,15 @@
           "id": "hi-mqtt16b7n99m",
           "name": "Choco Hazelnut ",
           "image_url": "/uploads/house/1782410166138_d1e95949-16f9-4731-948c-b913f84944cc.png",
-          "description": "Deep chocolate layered with roasted hazelnuts and silky cream.",
+          "description": "",
           "prices": [
             {
-              "weight_label": "½ Kg ",
-              "price": "₹700"
+              "weight_label": "",
+              "price": "700"
             },
             {
               "weight_label": "1 Kg",
-              "price": "₹1350"
+              "price": ""
             }
           ],
           "blurb": "",

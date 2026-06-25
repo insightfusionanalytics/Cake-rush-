@@ -532,13 +532,6 @@
       "sort_order": 9
     },
     {
-      "id": "g-vanilla-macaron",
-      "image_url": "/gallery/cake_vanilla_macaron_pro.png",
-      "alt_text": "Vanilla Macaron",
-      "is_active": true,
-      "sort_order": 10
-    },
-    {
       "id": "g-biscoff",
       "image_url": "/gallery/cake_biscoff_new.png",
       "alt_text": "Biscoff, Studio",

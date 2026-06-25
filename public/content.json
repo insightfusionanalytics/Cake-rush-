@@ -523,13 +523,6 @@
       "alt_text": "Pali Hill, Three-tier",
       "is_active": true,
       "sort_order": 8
-    },
-    {
-      "id": "g-red-velvet",
-      "image_url": "/gallery/cake_red_velvet_new.png",
-      "alt_text": "Red Velvet, Plated",
-      "is_active": true,
-      "sort_order": 9
     }
   ],
   "testimonials": [

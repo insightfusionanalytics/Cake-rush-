@@ -574,9 +574,23 @@
       "sort_order": 15
     },
     {
-      "id": "g-mqtubg9rkaka",
-      "image_url": "/uploads/gallery/1782412381466_chatgpt-image-jun-23-2026-10_12_23-pm.png",
-      "alt_text": "ChatGPT Image Jun 23, 2026, 10 12 23 PM",
+      "id": "g-mqtuab6e152c",
+      "image_url": "/uploads/gallery/1782412336860_screenshot_2026-06-15-21-25-46-64_92460851df6f172a4592fca41cc2d2e6.jpg",
+      "alt_text": "Screenshot 2026 06 15 21 25 46 64 92460851df6f172a4592fca41cc2d2e6",
+      "is_active": true,
+      "sort_order": 16
+    },
+    {
+      "id": "g-mqtuau9rt155",
+      "image_url": "/uploads/gallery/1782412360981_d3e1c9e3-d1f5-422c-8448-945e85f10420.png",
+      "alt_text": "d3e1c9e3 d1f5 422c 8448 945e85f10420",
+      "is_active": true,
+      "sort_order": 17
+    },
+    {
+      "id": "g-mrrs239wbc1e",
+      "image_url": "/uploads/gallery/1784464444948_cake_green_floral_enhanced.png",
+      "alt_text": "cake green floral enhanced",
       "is_active": true,
       "sort_order": 18
     }
@@ -712,24 +726,6 @@
               "price": ""
             }
           ],
-          "blurb": "",
-          "quote": ""
-        },
-        {
-          "id": "hi-mqtucd8jm61c",
-          "name": "Chocolate Overload",
-          "image_url": "/uploads/house/1782412414608_chatgpt-image-jun-23-2026-10_22_26-pm.png",
-          "description": "",
-          "prices": [],
-          "blurb": "",
-          "quote": ""
-        },
-        {
-          "id": "hi-mqtue23i58vu",
-          "name": "Picture Perfect Cake",
-          "image_url": "/uploads/house/1782412451176_chatgpt-image-jun-23-2026-10_21_15-pm.png",
-          "description": "Your cherished memories, recreated in the sweetest way.",
-          "prices": [],
           "blurb": "",
           "quote": ""
         }

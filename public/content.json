@@ -980,11 +980,11 @@
           "prices": [
             {
               "weight_label": "Box of 6",
-              "price": "₹ 700"
+              "price": "₹700"
             },
             {
               "weight_label": "Box of 10",
-              "price": "₹ 1200"
+              "price": "₹1200"
             }
           ],
           "blurb": "",

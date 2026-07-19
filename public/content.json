@@ -831,6 +831,24 @@
           ],
           "blurb": "",
           "quote": ""
+        },
+        {
+          "id": "hi-mrruz3pbs01m",
+          "name": "Royal Rasmalai Cake",
+          "image_url": "/uploads/house/1784469308162_chatgpt-image-jul-19-2026-07_24_38-pm.png",
+          "description": "Soft vanilla sponge layered with rich rasmalai cream, topped with saffron, pistachios, and almonds.",
+          "prices": [
+            {
+              "weight_label": "₹1/2 kg",
+              "price": "₹ 700"
+            },
+            {
+              "weight_label": "1 kg",
+              "price": "₹ 1290"
+            }
+          ],
+          "blurb": "",
+          "quote": ""
         }
       ]
     },

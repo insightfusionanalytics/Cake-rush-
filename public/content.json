@@ -962,11 +962,11 @@
           "prices": [
             {
               "weight_label": "Box of 6",
-              "price": ""
+              "price": "₹ 540"
             },
             {
-              "weight_label": "Box of 12",
-              "price": ""
+              "weight_label": "Box of 10",
+              "price": "₹ 900"
             }
           ],
           "blurb": "Available in a variety of flavours, baked fresh for every celebration.",

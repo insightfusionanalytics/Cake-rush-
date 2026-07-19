@@ -600,6 +600,13 @@
       "alt_text": "cake dancing queen v2 enhanced",
       "is_active": true,
       "sort_order": 19
+    },
+    {
+      "id": "g-mrrs3dbzgwt5",
+      "image_url": "/uploads/gallery/1784464504625_cake_holi_enhanced.png",
+      "alt_text": "cake holi enhanced",
+      "is_active": true,
+      "sort_order": 20
     }
   ],
   "testimonials": [

@@ -607,6 +607,13 @@
       "alt_text": "cake holi enhanced",
       "is_active": true,
       "sort_order": 20
+    },
+    {
+      "id": "g-mrrs3p12vrts",
+      "image_url": "/uploads/gallery/1784464519654_chatgpt-image-jun-23-2026-10_11_21-pm.png",
+      "alt_text": "ChatGPT Image Jun 23, 2026, 10 11 21 PM",
+      "is_active": true,
+      "sort_order": 21
     }
   ],
   "testimonials": [

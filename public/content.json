@@ -877,17 +877,17 @@
       "items": [
         {
           "id": "hi-sea-1",
-          "name": "Alphonso",
+          "name": "Classic Mango Cake",
           "image_url": "/gallery/cake_mango_enhanced.png",
           "description": "Ratnagiri alphonsos, fresh cream, vanilla sponge — a seasonal letter.",
           "prices": [
             {
               "weight_label": "½ Kg",
-              "price": "₹499"
+              "price": "₹750"
             },
             {
               "weight_label": "1 Kg",
-              "price": "₹899"
+              "price": "₹1400"
             }
           ],
           "blurb": "",
@@ -923,7 +923,7 @@
             },
             {
               "weight_label": "1 Kg",
-              "price": "₹1300"
+              "price": "₹1200"
             }
           ],
           "blurb": "",

@@ -822,11 +822,11 @@
           "prices": [
             {
               "weight_label": "½ Kg",
-              "price": "₹700"
+              "price": "₹ 700"
             },
             {
               "weight_label": " 1 Kg",
-              "price": "₹1300"
+              "price": "₹ 1300"
             }
           ],
           "blurb": "",
@@ -951,15 +951,15 @@
           "id": "hi-mrrujxfl25rc",
           "name": "Blueberry Cheesecake",
           "image_url": "/gallery/cake_cheesecake_new.png",
-          "description": "Classic cheesecake finished with juicy blueberries.",
+          "description": "Baked, graham base, frozen-berry compote that runs just right.",
           "prices": [
             {
               "weight_label": "½ Kg",
-              "price": "₹ 850"
+              "price": "₹649"
             },
             {
               "weight_label": "1 Kg",
-              "price": "₹ 1600"
+              "price": "₹1,99"
             }
           ],
           "blurb": "",

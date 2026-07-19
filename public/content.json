@@ -856,6 +856,24 @@
           ],
           "blurb": "",
           "quote": ""
+        },
+        {
+          "id": "hi-mrrssstcbn4l",
+          "name": "Belgium Chocolate ",
+          "image_url": "/gallery/cake_basketweave_enhanced.png",
+          "description": "Dark, smooth, and unapologetically chocolate-forward.",
+          "prices": [
+            {
+              "weight_label": "½ Kg",
+              "price": "₹700"
+            },
+            {
+              "weight_label": "1 Kg",
+              "price": "₹1350"
+            }
+          ],
+          "blurb": "For the six-year-old who has specific opinions.",
+          "quote": "₹2,800 upwards"
         }
       ]
     },

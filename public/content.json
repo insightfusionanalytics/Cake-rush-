@@ -857,12 +857,12 @@
           "description": "Extra chocolate, extra indulgence, in every slice.",
           "prices": [
             {
-              "weight_label": "1/2 kg ",
-              "price": "₹ 750"
+              "weight_label": "1/2 Kg",
+              "price": "₹750"
             },
             {
-              "weight_label": "1 kg",
-              "price": "₹ 1400"
+              "weight_label": "1 Kg",
+              "price": "₹1400"
             }
           ],
           "blurb": "",
@@ -877,17 +877,17 @@
       "items": [
         {
           "id": "hi-sea-1",
-          "name": "Alphonso",
-          "image_url": "/uploads/house/1784471829384_chatgpt-image-jul-19-2026-08_06_55-pm.png",
-          "description": "Ratnagiri alphonsos, fresh cream, vanilla sponge - a seasonal letter.",
+          "name": "Classic Mango Cake",
+          "image_url": "/gallery/cake_mango_enhanced.png",
+          "description": "Ratnagiri alphonsos, fresh cream, vanilla sponge — a seasonal letter.",
           "prices": [
             {
               "weight_label": "½ Kg",
-              "price": "₹499"
+              "price": "₹750"
             },
             {
               "weight_label": "1 Kg",
-              "price": "₹899"
+              "price": "₹1400"
             }
           ],
           "blurb": "",
@@ -923,7 +923,7 @@
             },
             {
               "weight_label": "1 Kg",
-              "price": "₹1300"
+              "price": "₹1200"
             }
           ],
           "blurb": "",

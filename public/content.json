@@ -813,6 +813,24 @@
           ],
           "blurb": "",
           "quote": ""
+        },
+        {
+          "id": "hi-mrruk74h2bb2",
+          "name": "Cookie & Cream",
+          "image_url": "/gallery/cake_oreo_new.png",
+          "description": "Cookies, cream, and a little nostalgia in every slice. ",
+          "prices": [
+            {
+              "weight_label": "½ Kg",
+              "price": "₹700"
+            },
+            {
+              "weight_label": " 1 Kg",
+              "price": "₹1300"
+            }
+          ],
+          "blurb": "",
+          "quote": ""
         }
       ]
     },

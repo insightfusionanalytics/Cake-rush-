@@ -763,16 +763,16 @@
         {
           "id": "hi-mqtt16b7n99m",
           "name": "Choco Hazelnut ",
-          "image_url": "/uploads/house/1782410166138_d1e95949-16f9-4731-948c-b913f84944cc.png",
-          "description": "",
+          "image_url": "/uploads/house/1784471146591_chatgpt-image-jul-19-2026-07_36_23-pm.png",
+          "description": "Rich chocolate, roasted hazelnuts, and a little crunch in every bite.",
           "prices": [
             {
               "weight_label": "½ Kg",
-              "price": "700"
+              "price": "₹700"
             },
             {
               "weight_label": "1 Kg",
-              "price": ""
+              "price": "₹1350"
             }
           ],
           "blurb": "",

@@ -975,9 +975,14 @@
         {
           "id": "hi-mqttt37eoj4h",
           "name": "Cake Pops",
-          "image_url": "",
+          "image_url": "/uploads/house/1784466674234_chatgpt-image-jul-19-2026-06_41_02-pm.png",
           "description": "Bite-sized treats for moments big and small.",
-          "prices": [],
+          "prices": [
+            {
+              "weight_label": "Set of 10",
+              "price": "₹ 900"
+            }
+          ],
           "blurb": "",
           "quote": ""
         }

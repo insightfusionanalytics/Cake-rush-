@@ -795,6 +795,24 @@
           ],
           "blurb": "For the six-year-old who has specific opinions.",
           "quote": ""
+        },
+        {
+          "id": "hi-mrrujs9yiicx",
+          "name": "Biscoff Cheesecake",
+          "image_url": "/uploads/house/1782409257568_generated-image-june-23-2026-9_15pm.png",
+          "description": "No-bake. A shell of crushed Lotus, a middle that trembles.",
+          "prices": [
+            {
+              "weight_label": "½ Kg",
+              "price": "₹649"
+            },
+            {
+              "weight_label": "1 Kg",
+              "price": "₹1,199"
+            }
+          ],
+          "blurb": "",
+          "quote": ""
         }
       ]
     },

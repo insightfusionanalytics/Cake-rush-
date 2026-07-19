@@ -937,11 +937,11 @@
           "prices": [
             {
               "weight_label": "½ Kg",
-              "price": "₹ 700"
+              "price": "₹700"
             },
             {
               "weight_label": "1 Kg",
-              "price": "₹ 750"
+              "price": "₹1400"
             }
           ],
           "blurb": "",

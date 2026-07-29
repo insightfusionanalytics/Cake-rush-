@@ -655,6 +655,15 @@
   ],
   "testimonials": [
     {
+      "id": "tst-ms68wpgkqetl",
+      "client_name": "Ajinkya Dhumal",
+      "review_text": "Gifted me the Biscoff cake, One bite in, I stopped talking. First time that's happened.",
+      "rating": 5,
+      "location": "Kandivali",
+      "sort_order": -1,
+      "is_active": true
+    },
+    {
       "id": "t-1",
       "client_name": "Aanya M.",
       "review_text": "The red velvet tasted like my Nani used to make — except she didn't. Reordered within the week.",

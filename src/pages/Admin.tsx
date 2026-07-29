@@ -114,8 +114,8 @@ function SettingsTab() {
 
     { kind: "section", label: "Navigation" },
     { kind: "input", key: "nav_eyebrow", label: "Navbar eyebrow (small text top-left, desktop only)" },
-    { kind: "input", key: "nav_links", label: "Nav links (comma-separated, 4 labels)",
-      hint: "These map in order to: Story → about, Collection → menu, Lookbook → gallery, Contact → contact." },
+    { kind: "input", key: "nav_links", label: "Nav links (comma-separated, 5 labels)",
+      hint: "In order: → about, → menu, → gallery, → reviews, → contact. e.g. \"Story,Menu,Lookbook,Bouquets,Contact\"." },
     { kind: "input", key: "nav_menu_aria", label: "Hamburger menu accessibility label (screen-reader only)" },
     { kind: "input", key: "nav_close_aria", label: "Mobile drawer close-button accessibility label" },
 
@@ -182,6 +182,8 @@ function SettingsTab() {
     { kind: "input", key: "correspondence_eyebrow", label: "Eyebrow" },
     { kind: "input", key: "testimonial_star_char", label: "Star character used for ratings",
       hint: "Repeated N times for each testimonial's rating (1–5)." },
+    { kind: "input", key: "reviews_leave_note_label", label: "\"Send a bouquet\" button label",
+      hint: "Shown on the reviews section — opens the on-page review form." },
 
     { kind: "section", label: "Contact — Chapter Five" },
     { kind: "input", key: "contact_eyebrow", label: "Eyebrow" },
@@ -591,39 +593,68 @@ function GalleryTab() {
   const upsert = useUpsertGalleryImage();
   const remove = useDeleteGalleryImage();
   const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState<{ done: number; total: number } | null>(null);
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const files = Array.from(e.target.files ?? []);
+    if (files.length === 0) return;
+    // Reset the input so re-picking the same batch works
+    e.target.value = "";
     setUploading(true);
-    try {
-      const publicUrl = await uploadImage(file, "gallery");
-      await upsert.mutateAsync({
-        image_url: publicUrl,
-        alt_text: file.name.replace(/\.[^/.]+$/, "").replace(/[_-]/g, " "),
-        sort_order: (images?.length || 0) + 1,
-        is_active: true,
-      });
-      toast.success("Image uploaded!");
-    } catch {
-      toast.error("Upload failed");
+    setUploadProgress({ done: 0, total: files.length });
+    const startSort = (images?.length || 0) + 1;
+    let failed = 0;
+    for (let idx = 0; idx < files.length; idx++) {
+      const file = files[idx];
+      try {
+        const publicUrl = await uploadImage(file, "gallery");
+        await upsert.mutateAsync({
+          image_url: publicUrl,
+          alt_text: file.name.replace(/\.[^/.]+$/, "").replace(/[_-]/g, " "),
+          sort_order: startSort + idx,
+          is_active: true,
+        });
+      } catch {
+        failed++;
+      }
+      setUploadProgress({ done: idx + 1, total: files.length });
     }
     setUploading(false);
+    setUploadProgress(null);
+    if (failed === 0) {
+      toast.success(
+        files.length === 1
+          ? "Image uploaded!"
+          : `${files.length} images uploaded.`,
+      );
+    } else if (failed < files.length) {
+      toast.error(`${files.length - failed} uploaded, ${failed} failed.`);
+    } else {
+      toast.error("Upload failed");
+    }
   };
 
   if (isLoading) return <p className="text-muted-foreground">Loading…</p>;
 
+  const uploadingLabel = uploadProgress
+    ? `Uploading ${uploadProgress.done}/${uploadProgress.total}…`
+    : "Upload Images";
+
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center gap-4 flex-wrap">
         <Canela size={32} italic style={{ color: L.ink, letterSpacing: "-0.01em" }}>Gallery ({images?.length || 0} images)</Canela>
         <label className="cursor-pointer">
           <Button asChild size="sm" disabled={uploading}>
-            <span><Plus className="mr-1 h-4 w-4" /> {uploading ? "Uploading…" : "Upload Image"}</span>
+            <span><Plus className="mr-1 h-4 w-4" /> {uploading ? uploadingLabel : "Upload Images"}</span>
           </Button>
-          <input type="file" accept="image/*" className="hidden" onChange={handleUpload} />
+          <input type="file" accept="image/*" multiple className="hidden" onChange={handleUpload} />
         </label>
       </div>
+      <p className="text-xs" style={{ color: L.ink3 }}>
+        Tip · You can select multiple images at once. Hold ⌘ (or Ctrl) to
+        pick several files, or drag a group in from Finder.
+      </p>
 
       <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
         {images?.map((img) => (

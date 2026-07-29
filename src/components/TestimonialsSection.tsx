@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSiteSettings, useTestimonials } from "@/hooks/use-site-data";
-import { Canela, Eyebrow, L } from "@/components/luxe/tokens";
+import { Canela, Eyebrow, L, SANS } from "@/components/luxe/tokens";
+import ReviewModal from "@/components/ReviewModal";
 
 type Testimonial = {
   id: string;
@@ -14,6 +15,33 @@ const TestimonialsSection = () => {
   const { data: testimonials } = useTestimonials();
   const { data: settings } = useSiteSettings();
   const starChar = settings?.testimonial_star_char ?? "★";
+  const leaveNoteLabel = settings?.reviews_leave_note_label ?? "Send a bouquet →";
+  const [reviewOpen, setReviewOpen] = useState(false);
+
+  const LeaveNoteButton = ({ compact = false }: { compact?: boolean }) => (
+    <button
+      type="button"
+      onClick={() => setReviewOpen(true)}
+      style={{
+        display: "inline-block",
+        fontFamily: SANS,
+        fontSize: compact ? 11 : 12,
+        letterSpacing: "0.22em",
+        textTransform: "uppercase",
+        fontWeight: 500,
+        color: L.copper,
+        background: "none",
+        cursor: "pointer",
+        border: "none",
+        borderBottom: `1px solid ${L.copper}`,
+        paddingBottom: 4,
+        paddingLeft: 0,
+        paddingRight: 0,
+      }}
+    >
+      {leaveNoteLabel}
+    </button>
+  );
   const list = useMemo<Testimonial[]>(
     () => ((testimonials as Testimonial[]) || []).filter(Boolean),
     [testimonials],
@@ -30,21 +58,44 @@ const TestimonialsSection = () => {
 
   if (list.length === 0) {
     return (
-      <section
-        id="reviews"
-        className="lx-quote"
-        style={{ background: L.ink, color: L.ivory }}
-      >
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <Eyebrow color={L.copper}>{settings?.correspondence_eyebrow ?? "Chapter Four — Correspondence"}</Eyebrow>
-        </div>
-      </section>
+      <>
+        <section
+          id="reviews"
+          className="lx-quote"
+          style={{ background: L.ink, color: L.ivory }}
+        >
+          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+            <Eyebrow color={L.copper}>{settings?.correspondence_eyebrow ?? "Chapter Four — Correspondence"}</Eyebrow>
+            <div
+              style={{
+                marginTop: "clamp(28px, 4vw, 48px)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+                gap: 24,
+              }}
+            >
+              <Canela
+                size="clamp(22px, 2.6vw, 34px)"
+                italic
+                style={{ color: L.ivory, fontWeight: 300, lineHeight: 1.35, maxWidth: 620 }}
+              >
+                The first bouquets will land here soon. Be the first to send one.
+              </Canela>
+              <LeaveNoteButton />
+            </div>
+          </div>
+        </section>
+        <ReviewModal open={reviewOpen} onClose={() => setReviewOpen(false)} />
+      </>
     );
   }
 
   const q = list[Math.min(i, list.length - 1)];
 
   return (
+    <>
     <section
       id="reviews"
       className="lx-quote"
@@ -102,26 +153,40 @@ const TestimonialsSection = () => {
             </div>
           </div>
         </div>
-        <div style={{ display: "flex", gap: 10, marginTop: "clamp(28px, 4vw, 48px)" }}>
-          {list.map((_, n) => (
-            <button
-              key={n}
-              onClick={() => setI(n)}
-              aria-label={`Quote ${n + 1}`}
-              style={{
-                width: 32,
-                height: 1,
-                background: n === i ? L.copper : "rgba(245,240,232,0.25)",
-                border: "none",
-                padding: 0,
-                cursor: "pointer",
-                transition: "background 400ms",
-              }}
-            />
-          ))}
+        <div
+          style={{
+            marginTop: "clamp(28px, 4vw, 48px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 24,
+            flexWrap: "wrap",
+          }}
+        >
+          <div style={{ display: "flex", gap: 10 }}>
+            {list.map((_, n) => (
+              <button
+                key={n}
+                onClick={() => setI(n)}
+                aria-label={`Quote ${n + 1}`}
+                style={{
+                  width: 32,
+                  height: 1,
+                  background: n === i ? L.copper : "rgba(245,240,232,0.25)",
+                  border: "none",
+                  padding: 0,
+                  cursor: "pointer",
+                  transition: "background 400ms",
+                }}
+              />
+            ))}
+          </div>
+          <LeaveNoteButton />
         </div>
       </div>
     </section>
+    <ReviewModal open={reviewOpen} onClose={() => setReviewOpen(false)} />
+    </>
   );
 };
 

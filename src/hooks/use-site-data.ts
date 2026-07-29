@@ -421,6 +421,45 @@ export function useDeleteTestimonial() {
   });
 }
 
+// Public "Send a bouquet" review submission — posts to /api/submit-review
+// which validates + appends to content.json on GitHub. On success we
+// prepend the new testimonial to the local React Query cache so it
+// shows in the reviews section instantly (no wait for Vercel redeploy).
+export function useSubmitReview() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (input: {
+      client_name: string;
+      rating: number;
+      review_text: string;
+      location?: string;
+    }) => {
+      const res = await fetch("/api/submit-review", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(input),
+      });
+      const payload = (await res.json().catch(() => ({}))) as {
+        ok?: boolean;
+        testimonial?: Testimonial;
+        error?: string;
+      };
+      if (!res.ok || !payload.testimonial) {
+        throw new Error(payload.error || `Submit failed (${res.status})`);
+      }
+      const t = payload.testimonial;
+      const cur = qc.getQueryData<Content>(["content"]);
+      if (cur) {
+        qc.setQueryData(["content"], {
+          ...cur,
+          testimonials: [t, ...(cur.testimonials ?? [])],
+        });
+      }
+      return t;
+    },
+  });
+}
+
 // ─── House Favourites ──────────────────────────────────────────────────
 export function useHouseFavourites() {
   const q = useContent();

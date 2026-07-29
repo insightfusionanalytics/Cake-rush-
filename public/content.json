@@ -31,7 +31,7 @@
     "contact_address": "Carter Road, Bandra West · Mumbai 400050.",
     "instagram_caption": "Every bake, photographed in natural light.",
     "delivery_note": "Delivery — All of Mumbai · 24 hr minimum",
-    "nav_links": "Story,Menu,Lookbook,Contact",
+    "nav_links": "Story,Menu,Lookbook,Bouquets,Contact",
     "hero_caption_left": "Plate I · Strawberries & Cream",
     "hero_caption_right": "",
     "hero_sticker": "— for Tara's fourth",
@@ -68,7 +68,9 @@
     "house_tab_number_prefix": "№",
     "testimonial_star_char": "★",
     "nav_menu_aria": "Menu",
-    "nav_close_aria": "Close"
+    "nav_close_aria": "Close",
+    "reviews_leave_note_label": "Send a bouquet →",
+    "reviews_whatsapp_template": "Hi Cake Rush, here's a bouquet from me — my note about the cake: "
   },
   "menu_categories": [
     {

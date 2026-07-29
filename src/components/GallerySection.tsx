@@ -15,7 +15,6 @@ const GallerySection = () => {
     settings?.lookbook_subtitle ??
     "A selection from four years. Hover to name, press to open.";
   const lightboxHint = settings?.lightbox_hint ?? "Esc to close";
-  const numberPrefix = settings?.lookbook_number_prefix ?? "№";
   const ci = heading.indexOf(",");
   const headingTop = ci === -1 ? heading : heading.slice(0, ci).trim() + (heading[ci] === "," ? "," : "");
   const headingBottom = ci === -1 ? "" : heading.slice(ci + 1).trim();
@@ -119,33 +118,6 @@ const GallerySection = () => {
                   }}
                   loading="lazy"
                 />
-                <div
-                  className="lx-look-ov"
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    opacity: 0,
-                    transition: "opacity 400ms",
-                    background:
-                      "linear-gradient(0deg, rgba(42,31,23,0.55), transparent 65%)",
-                    display: "flex",
-                    alignItems: "flex-end",
-                    padding: 22,
-                  }}
-                >
-                  <div>
-                    <Eyebrow color={L.rose} style={{ fontSize: 9 }}>
-                      {numberPrefix} {String(i + 1).padStart(3, "0")}
-                    </Eyebrow>
-                    <Canela
-                      size={22}
-                      italic
-                      style={{ color: L.ivory, display: "block", marginTop: 6 }}
-                    >
-                      {im.alt_text}
-                    </Canela>
-                  </div>
-                </div>
               </button>
             </Reveal>
           ))}
@@ -175,19 +147,12 @@ const GallerySection = () => {
               alt={open.alt_text || ""}
               style={{
                 maxWidth: "100%",
-                maxHeight: "84vh",
+                maxHeight: "90vh",
                 objectFit: "contain",
                 boxShadow: "0 30px 100px rgba(0,0,0,0.5)",
                 display: "block",
               }}
             />
-            {open.alt_text && (
-              <div style={{ marginTop: 16, textAlign: "center" }}>
-                <Canela size="clamp(16px, 1.6vw, 20px)" italic style={{ color: L.ivory }}>
-                  {open.alt_text}
-                </Canela>
-              </div>
-            )}
           </div>
           <div
             style={{

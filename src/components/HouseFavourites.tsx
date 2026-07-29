@@ -26,6 +26,20 @@ const HouseFavourites = () => {
     }
   }, [activeId, categories]);
 
+  // Navbar dropdown → activate a specific category tab.
+  useEffect(() => {
+    const onSelect = (e: Event) => {
+      const detail = (e as CustomEvent<{ id?: string }>).detail;
+      if (detail?.id) setActiveId(detail.id);
+    };
+    window.addEventListener("cakerush:selectHouseCategory", onSelect as EventListener);
+    return () =>
+      window.removeEventListener(
+        "cakerush:selectHouseCategory",
+        onSelect as EventListener,
+      );
+  }, []);
+
   const cat = useMemo(
     () => categories.find((c) => c.id === activeId) ?? categories[0] ?? null,
     [categories, activeId],
@@ -245,14 +259,15 @@ const HouseFavourites = () => {
                     </Canela>
                     {hasDescription && (
                       <Canela
-                        size="clamp(13px, 1.3vw, 16px)"
+                        size="clamp(16px, 1.75vw, 21px)"
                         italic
                         style={{
                           display: "block",
-                          marginTop: 10,
-                          color: L.ink2,
+                          marginTop: 12,
+                          color: L.ink,
                           lineHeight: 1.5,
-                          fontWeight: 300,
+                          fontWeight: 500,
+                          letterSpacing: "-0.005em",
                         }}
                       >
                         {item.description}

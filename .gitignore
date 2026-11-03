@@ -33,3 +33,6 @@ tests/__pycache__
 *.sln
 *.sw?
 .vercel
+# Cloudflare build output
+.wrangler/
+.dev.vars
